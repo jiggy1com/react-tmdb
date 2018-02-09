@@ -1,0 +1,4 @@
+"cheap-module-eval-source-map". This might cause the source maps to not work as shown in the video.
+
+If you are getting this error, try setting the value to either "inline-source-map" or "eval-source-map" instead.
+
