@@ -5,37 +5,32 @@
 
 <p>Clone or download, then...</p>
 
-<ol>
-    <li start='1'>Install the node modules</li>
+<ol start='1'>
+    <li>Install the node modules</li>
 </ol>
 
 <div class="highlight highlight-source-shell">
     <pre>npm install</pre>
 </div>
 
-
-
-<ol>
-    <li start='2'>Bundle everything....</li>
+<ol start='2'>
+    <li>Bundle everything....</li>
 </ol>
 
 <div class="highlight highlight-source-shell">
     <pre>webpack</pre>
 </div>
 
-
-
-<ol>
-    <li start='3'>Start the server...</li>
+<ol start='3'>
+    <li>Start the server...</li>
 </ol>
 
 <div class="highlight highlight-source-shell">
     <pre>nodemon server.js</pre>
 </div>
 
-
-<ol>
-    <li start='3'>Visit the site...</li>
+<ol start='4'>
+    <li>Visit the site...</li>
 </ol>
 
 <div class="highlight highlight-source-shell">
