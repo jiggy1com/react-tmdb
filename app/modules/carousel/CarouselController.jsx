@@ -100,6 +100,10 @@ let CarouselController = React.createClass({
 	
 	doOpenImage: function(obj){
 		console.log('doOpenImage', obj);
+		this.setState({
+			showModal: true,
+			image : obj
+		});
 	},
 	
 	doOpenVideo: function(obj){
@@ -155,8 +159,9 @@ let CarouselController = React.createClass({
 	doHideModal: function(){
 		// console.log('doHideModal');
 		this.setState({
+			showModal : false,
 			video : {},
-			showModal : false
+			image : {}
 		});
 	},
 	
@@ -182,9 +187,15 @@ let CarouselController = React.createClass({
 			doOpenVideo : this.doOpenVideo
 		};
 		
-		// console.log('render', video);
 		
-		// console.log('render state for ', carouselId,  slides);
+		// modal
+		let modalHeader = '';
+		if(typeof video.iFrameSrc !== 'undefined'){
+			modalHeader = video.name;
+		}
+		if(typeof image.src !== 'undefined'){
+			modalHeader = image.id;
+		}
 		
 		return (
 			
@@ -209,10 +220,18 @@ let CarouselController = React.createClass({
 					
 				</div>
 				
-				<ModalController modalId={carouselId + "-" + "modal"} header={video.name} show={showModal} close={"Close"} onClose={self.doHideModal}>
-					<div className="embed-responsive embed-responsive-16by9 mb-2">
-						<iframe src={video.iFrameSrc} width={'100%'} height={'100px'} frameBorder={'0'} allow={"encrypted-media"} />
-					</div>
+				<ModalController modalId={carouselId + "-" + "modal"} header={modalHeader} show={showModal} close={"Close"} onClose={self.doHideModal}>
+					
+					{typeof video.iFrameSrc !== 'undefined' &&
+						<div className="embed-responsive embed-responsive-16by9 mb-2">
+							<iframe src={video.iFrameSrc} width={'100%'} height={'100px'} frameBorder={'0'} allow={"encrypted-media"} />
+						</div>
+					}
+					
+					{typeof image.src !== 'undefined' &&
+						<img src={image.srcLg} />
+					}
+					
 				</ModalController>
 				
 			</div>
