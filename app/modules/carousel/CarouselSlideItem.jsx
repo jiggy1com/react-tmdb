@@ -101,6 +101,20 @@ let CarouselSlideItem = React.createClass({
 					</div>
 				)}
 				
+				{template === 'season' && (
+					<div className={"template-season"}>
+						<a href={slideItem.href}>
+							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
+						</a>
+						<div>
+							Season {slideItem.season}
+						</div>
+						<div>
+							Episodes: {slideItem.episodes}
+						</div>
+					</div>
+				)}
+				
 			</div>
 		)
 		
