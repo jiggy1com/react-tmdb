@@ -42,7 +42,7 @@ exports.getTVDetail = function(req, res){
 		path : 'tv/' + req.params.tvId,
 		method : 'GET',
 		qs : {
-			append_to_response : 'content_ratings,credits,,external_ids,images,keywords,recommendations,similar,videos'
+			append_to_response : 'content_ratings,credits,external_ids,images,keywords,recommendations,similar,videos'
 		}
 	};
 	
