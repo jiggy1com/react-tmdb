@@ -9,11 +9,15 @@ let TVDetailImagesComponents = React.createClass({
 		let arr = data.map(function(obj, idx){
 			
 			let folder = dataType === 'postersSlides' ? 'w185' : 'w300';
+			let folderLg = dataType === 'postersSlides' ? 'w780' : 'w1280';
 			
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.file_path;
+			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.file_path;
+			
 			return {
 				id : obj.file_path,
-				src : src
+				src : src,
+				srcLg : srcLg
 			};
 		});
 		
@@ -97,6 +101,8 @@ let TVDetailImagesComponents = React.createClass({
 		
 		let { postersSlides, backdropsSlides } = this.state;
 		
+		console.log('postersSlides', postersSlides);
+		
 		return (
 			<div id={"tv-created-by"} className={"mb-5"}>
 				
@@ -105,7 +111,7 @@ let TVDetailImagesComponents = React.createClass({
 						<h2 className={"card-header"}>Posters</h2>
 					</div>
 				</div>
-				
+			
 				<div className={"row mb-5"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -116,13 +122,13 @@ let TVDetailImagesComponents = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-				
+			
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Backdrops</h2>
 					</div>
 				</div>
-				
+			
 				<div className={"row"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -133,7 +139,7 @@ let TVDetailImagesComponents = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-					
+				
 			</div>
 		)
 	}
