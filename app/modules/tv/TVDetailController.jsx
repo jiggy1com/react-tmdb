@@ -54,9 +54,7 @@ let TVDetailController = React.createClass({
 					// 	"profile_path": "/rLSUjr725ez1cK7SKVxC9udO03Y.jpg"
 					// }
 				],
-				"episode_run_time": [
-					// 0
-				],
+				"episode_run_time": [],
 				"first_air_date": "2008-01-19",
 				"genres": [
 					// {
@@ -115,6 +113,16 @@ let TVDetailController = React.createClass({
 				// credits
 				
 				// external_ids
+				external_ids: {
+					imdb_id: null,
+					freebase_mid: null,
+					freebase_id: null,
+					tvdb_id: null,
+					tvrage_id: null,
+					facebook_id: null,
+					instagram_id: null,
+					twitter_id: null
+				},
 				
 				// images
 				
@@ -124,12 +132,30 @@ let TVDetailController = React.createClass({
 				},
 				
 				// keywords
+				keywords: {
+					results : []
+				},
 				
 				// recommendations
+				recommendations: {
+					page : 0,
+					results : [],
+					total_pages: 0,
+					total_results : 0
+				},
 				
 				// similar
+				similar: {
+					page : 0,
+					results : [],
+					total_pages: 0,
+					total_results : 0
+				},
 				
 				// videos
+				videos: {
+					results: []
+				}
 				
 			}
 		}
@@ -159,7 +185,7 @@ let TVDetailController = React.createClass({
 					
 					<TVDetailCreditsComponent credits={data.credits} />
 					
-					<TVDetailExternalIdsComponent externalIds={data.externalIds} />
+					<TVDetailExternalIdsComponent externalIds={data.external_ids} />
 					
 					<TVDetailKeywordsComponent keywords={data.keyords} />
 					
@@ -169,7 +195,7 @@ let TVDetailController = React.createClass({
 					
 					<TVDetailVideosComponent videos={data.videos} />
 					
-					<TVDetailSeasonsComponent seasons={data.seasons} />
+					<TVDetailSeasonsComponent seasons={data.seasons} showName={data.name} />
 					
 					<TVDetailProductionCompaniesComponent productionCompanies={data.production_companies} />
 					
@@ -179,7 +205,7 @@ let TVDetailController = React.createClass({
 					
 					<TVDetailGenresComponent genres={data.genres} />
 					
-					<TVDetailLanguagesComponent language={data.languages} />
+					<TVDetailLanguagesComponent languages={data.languages} />
 					
 					<TVDetailNetworksComponent networks={data.networks} />
 					
