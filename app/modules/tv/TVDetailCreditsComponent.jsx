@@ -9,11 +9,14 @@ let TVDetailCreditsComponent = React.createClass({
 		let arr = data.map(function(obj, idx){
 			
 			let folder = dataType === 'castSlides' ? 'w185' : 'w185';
+			let folderLg = dataType === 'castSlides' ? 'h632' : 'h632';
 			
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.profile_path;
+			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.profile_path;
 			return {
 				id : obj.file_path,
 				src : src,
+				srcLg : srcLg,
 				name : obj.name,
 				character : obj.character,
 				job: obj.job
