@@ -1,0 +1,321 @@
+body {
+    font-size: 1em;
+    padding-bottom: 100px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.interior-wrapper{
+    max-width: 1140px;
+}
+
+//
+// HEADER
+//
+header{
+
+}
+
+//
+// FOOTER
+//
+
+footer{
+
+}
+
+
+// Movie Reviews
+.review{
+    pre {
+        font-family: inherit;
+        font-size: inherit;
+        white-space: pre-wrap;
+    }
+}
+
+// Movies Images
+.scroll-up-fixed{
+    position: absolute;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+}
+
+//
+// TV Detail
+//
+
+#tv-detail{
+
+    // hero
+    .tv-hero{
+
+        position: relative;
+        min-height: 600px;
+        background-position: center top;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        .tv-hero-guts{
+
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            right: 50px;
+            background: rgba(0,0,0,0.8);
+
+            h1{
+                color: #fff;
+            }
+
+            p{
+                color: #999;
+            }
+
+            .lead{
+                max-height: 100px;
+                overflow: scroll;
+            }
+
+        }
+
+    }
+
+    // ???
+
+}
+
+//
+// Carousel
+//
+
+.carousel-inner{
+    .carousel-item{
+        margin: 0 auto;
+        &.active{
+            //-webkit-transition: display 2s;
+        }
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    width: auto;
+    cursor: pointer;
+    padding: 0 20px;
+}
+
+.video-thumbnail{
+    cursor: pointer;
+}
+
+//
+// MY CAROUSEL
+//
+
+// ease - specifies a transition effect with a slow start, then fast, then end slowly (this is default)
+// linear - specifies a transition effect with the same speed from start to end
+// ease-in - specifies a transition effect with a slow start
+// ease-out - specifies a transition effect with a slow end
+// ease-in-out - specifies a transition effect with a slow start and end
+// cubic-bezier(n,n,n,n) - lets you define your own values in a cubic-bezier function
+
+.jv-carousel{
+    // TODO: put below stuff here, and fix containers
+}
+
+.carousel-prev-next{
+    span {
+        cursor: pointer;
+        &.disabled{
+            cursor: none;
+        }
+    }
+}
+
+.carousel-slides{
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-slide{
+    width: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 100%;
+
+    -webkit-transition: left .5s ease-out, right 0s;
+    -moz-transition:    left .5s ease-out, right 0s;
+    -o-transition:      left .5s ease-out, right 0s;
+    transition:         left .5s ease-out, right 0s;
+
+    &.active{
+        left: 0;
+        z-index: 10;
+        position: relative;
+    }
+
+    &.prev{
+        left: -100%;
+        z-index: 5;
+    }
+
+    &.next{
+        left: 100%;
+        z-index: 5;
+    }
+
+    &.left{
+        left: -100%;
+        visibility: hidden;
+        z-index: 1;
+        transition: left 0s;
+    }
+
+    &.right{
+        left: 100%;
+        visibility: hidden;
+        z-index: 1;
+    }
+
+    .row{
+        margin: 0;
+    }
+
+}
+
+.carousel-slideItems{
+    .template-gallery,
+    .template-video{
+        img {
+            cursor: pointer;
+        }
+    }
+
+}
+
+//
+// Pagination
+//
+
+.paginationController .btn{
+    cursor: pointer;
+}
+
+//
+// Lightbox
+//
+
+.jv-lightbox{
+
+    &.hide{
+        display: none;
+    }
+
+    &.show{
+        display: block;
+    }
+
+    .jv-lightbox-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #000;
+        opacity: .8;
+        z-index: 50000;
+    }
+
+    .jv-lightbox-modal{
+
+        // center
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); // horizontal, vertical
+
+        // other styles
+        background-color: #fff;
+        height: auto;
+        width: 1110px;
+        max-width: 90%;
+        max-height: 90%;
+        z-index: 50001;
+        overflow: scroll;
+
+        .jv-lightbox-header{
+
+            h1{
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .fa-times{
+                cursor: pointer;
+                position: absolute;
+                top: .2em;
+                right: .2em;
+                z-index: 50002;
+            }
+
+        }
+
+        .jv-lightbox-body{
+
+            .prev, .next{
+                cursor: pointer;
+                transform: translate(0,-50%);
+                position: absolute;
+                top: 50%;
+                height: 100%;
+                padding: 1.5em;
+            }
+
+            .prev{
+                left: 0;
+            }
+
+            .next{
+                right: 0;
+            }
+
+            .prev, .next{
+                span {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    top: 50%;
+                    left: 50%;
+                }
+            }
+
+            .spinner-container{
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+
+            }
+
+            img{
+                display: block;
+                max-width: 100%;
+                &.visible{
+                    visibility: visible;
+                }
+                &.not-visible{
+                    visibility: hidden;
+                }
+            }
+
+        }
+
+    }
+
+}
+
