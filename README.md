@@ -41,7 +41,7 @@ provided by <strong>The Complete React Web App Developer Course</strong> found h
 </ol>
 
 <div class="highlight highlight-source-shell">
-    <pre>nhttp://localhost:8888</pre>
+    <pre>http://localhost:8888</pre>
 </div>
 
 
