@@ -1,6 +1,5 @@
 let React = require('react');
 
-let httpService = require('HttpService');
 let hyphenate = require('Hyphenate');
 
 let MovieDetailGenresComponent = React.createClass({
