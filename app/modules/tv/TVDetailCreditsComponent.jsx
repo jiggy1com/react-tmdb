@@ -1,4 +1,5 @@
 let React = require('react');
+let hyphenate = require('Hyphenate');
 
 import { CarouselController } from 'CarouselModule';
 
@@ -13,10 +14,13 @@ let TVDetailCreditsComponent = React.createClass({
 			
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.profile_path;
 			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.profile_path;
+			let href = '#/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			
 			return {
 				id : obj.file_path,
 				src : src,
 				srcLg : srcLg,
+				href : href,
 				name : obj.name,
 				character : obj.character,
 				job: obj.job
@@ -104,7 +108,7 @@ let TVDetailCreditsComponent = React.createClass({
 		let { castSlides, crewSlides } = this.state;
 		
 		return (
-			<div id={"tv-credits"} className={"mb-5"}>
+			<div id={"tv-credits"}>
 				
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
