@@ -36,7 +36,7 @@ let TVDetailContentRatingsComponents = React.createClass({
 		let html = this.renderHtml();
 		
 		return (
-			<div id={"tv-content-ratings"} className={"mb-5"}>
+			<div id={"tv-content-ratings"}>
 				
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
