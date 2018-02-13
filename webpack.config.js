@@ -39,6 +39,7 @@ module.exports = {
 			LayoutModule : 'app/modules/layout/LayoutModule',
 			MovieModule : 'app/modules/movie/MovieModule',
 			TVModule: 'app/modules/tv/TVModule',
+			PersonModule: 'app/modules/person/PersonModule',
 			ModalModule : 'app/modules/modal/ModalModule',
 			
 			// Helper Modules
