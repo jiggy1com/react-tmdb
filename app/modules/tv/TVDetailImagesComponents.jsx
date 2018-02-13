@@ -104,7 +104,7 @@ let TVDetailImagesComponents = React.createClass({
 		console.log('postersSlides', postersSlides);
 		
 		return (
-			<div id={"tv-created-by"} className={"mb-5"}>
+			<div id={"tv-created-by"}>
 				
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
