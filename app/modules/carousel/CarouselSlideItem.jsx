@@ -65,13 +65,15 @@ let CarouselSlideItem = React.createClass({
 			// console.log('template video', slideItem);
 		}
 		
+		// console.log('CarouselSlideItem slideItem', slideItem);
+		
 		return(
 			<div className={"col"}>
 				
 				{template === 'cast' && (
 					<div className={"template-cast"}>
 						<a href={slideItem.href}>
-							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
+							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete}  />
 						</a>
 						<div className={"pt-1"}>{slideItem.name}</div>
 						<div className={"font-weight-bold"}>{slideItem.character}</div>
@@ -98,6 +100,9 @@ let CarouselSlideItem = React.createClass({
 				{template === 'gallery' && (
 					<div className={"template-gallery"}>
 						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						{/*<div>*/}
+							{/*<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.*/}
+						{/*</div>*/}
 					</div>
 				)}
 				
@@ -111,6 +116,33 @@ let CarouselSlideItem = React.createClass({
 						</div>
 						<div>
 							Episodes: {slideItem.episodes}
+						</div>
+					</div>
+				)}
+				
+				{/* PERSON */}
+				
+				{template === 'images' && (
+					<div className={"template-gallery"}>
+						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						<div>
+							<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.
+						</div>
+					</div>
+				)}
+				
+				{template === 'tagged_images' && (
+					<div className={"template-gallery"}>
+						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						<h4>
+							{typeof slideItem.media !== 'undefined' && typeof slideItem.media.title !== 'undefined' &&
+								<span>
+									{slideItem.media.title}
+								</span>
+							}
+						</h4>
+						<div>
+							<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.
 						</div>
 					</div>
 				)}
