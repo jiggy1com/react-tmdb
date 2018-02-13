@@ -11,6 +11,7 @@ let CarouselController = React.createClass({
 	// my methods
 	
 	localHeight : 0,
+	originalItemsPerSlide: 0,
 	
 	buildCarouselGuts: function(nextProps){
 		
@@ -49,12 +50,19 @@ let CarouselController = React.createClass({
 		
 	},
 	
-	handleOnChange: function(){
-		// console.log('handleOnChange');
-		this.localHeight = 0;
-		this.setState({
+	handleOnChange: function(breakpoint){
+		
+		let { currentBreakpoint } = this.state;
+		let update = {
 			carouselHeight : 0
-		});
+		};
+		if(currentBreakpoint !== breakpoint){
+			update.currentBreakpoint = breakpoint;
+			update.currentSlide = 0;
+		}
+		
+		this.localHeight = 0;
+		this.setState(update);
 	},
 	
 	// controls
@@ -99,7 +107,7 @@ let CarouselController = React.createClass({
 	},
 	
 	doOpenImage: function(obj){
-		console.log('doOpenImage', obj);
+		console.log('CarouselController doOpenImage', obj);
 		this.setState({
 			showModal: true,
 			image : obj
@@ -107,7 +115,7 @@ let CarouselController = React.createClass({
 	},
 	
 	doOpenVideo: function(obj){
-		// console.log('doOpenVideo', obj);
+		// console.log('CarouselController doOpenVideo', obj);
 		this.setState({
 			showModal: true,
 			video : obj
@@ -118,6 +126,8 @@ let CarouselController = React.createClass({
 	
 	getInitialState: function (){
 		return {
+			currentBreakpoint : '',
+			
 			slides : [],
 			currentSlide : 0,
 			template : 'default',
@@ -230,6 +240,12 @@ let CarouselController = React.createClass({
 					
 					{typeof image.src !== 'undefined' &&
 						<img src={image.srcLg} />
+					}
+					
+					{typeof image.media !== 'undefined' &&
+						<div className={"mt-3"}>
+							{image.media.overview}
+						</div>
 					}
 					
 				</ModalController>
