@@ -8,7 +8,7 @@ let TVDetailLanguagesComponent = React.createClass({
 		let { languages } = this.props;
 		
 		return (
-			<div id={"tv-external-ids"} className={"mb-5"}>
+			<div id={"tv-external-ids"}>
 				
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
