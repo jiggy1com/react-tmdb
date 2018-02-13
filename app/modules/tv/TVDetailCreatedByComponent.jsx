@@ -15,7 +15,7 @@ let TVDetailCreatedByComponent = React.createClass({
 				createdBy.map(function(obj){
 					
 					let linkName = hyphenate.hyphenate(obj.name);
-					let href = '#/people/' + linkName + '/' + obj.id;
+					let href = '#/person/' + linkName + '/' + obj.id;
 					let src = '//image.tmdb.org/t/p/' + 'w185' + obj.profile_path;
 					
 					return (
@@ -38,7 +38,7 @@ let TVDetailCreatedByComponent = React.createClass({
 		let html = this.renderHtml();
 		
 		return (
-			<div id={"tv-created-by"} className={"mb-5"}>
+			<div id={"tv-created-by"}>
 				<div className={"container-fluid"}>
 					<div className={"row mb-3"}>
 						<div className={"col-12"}>
