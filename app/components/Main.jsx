@@ -13,15 +13,12 @@ let Main = (props) => {
 			<LayoutHeaderComponent/>
 			
 			{/* interior */}
-			< LayoutInteriorComponent children={props.children}>
-			</LayoutInteriorComponent>
+			<LayoutInteriorComponent children={props.children} />
 			
 			{/* footer */}
 			<LayoutFooterComponent/>
 			
-			<LightboxController>
-			
-			</LightboxController>
+			<LightboxController/>
 			
 		</div>
 	);
