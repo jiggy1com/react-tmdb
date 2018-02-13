@@ -9,7 +9,9 @@ let IndexComponent = require('IndexComponent');
 let AboutComponent = require('AboutComponent');
 
 import { MovieController, MovieIndexComponent, MovieDetailComponent } from './modules/movie/MovieModule';
-import { TVController, TVDetailController } from 'TVModule';
+import { TVController, TVDetailController, TVSeasonController } from 'TVModule';
+import { PersonController } from 'PersonModule';
+// import { TVSeasonController } from 'TVSeasonModule';
 
 // This is the default bootstrap theme in node
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -62,7 +64,7 @@ ReactDOM.render(
 			<Route path="/movie/upcoming" component={MovieController} />
 			<Route path="/movie/detail/:title/:movieId" component={MovieDetailComponent} />
 			
-			{/* TODO: TV */}
+			{/* TV */}
 			<Route path="/tv" component={TVController} />
 			<Route path="/tv/latest" component={TVController} />
 			<Route path="/tv/airing-today" component={TVController} />
@@ -71,13 +73,16 @@ ReactDOM.render(
 			<Route path="/tv/top-rated" component={TVController} />
 			<Route path="/tv/detail/:title/:id" component={TVDetailController} />
 			
-			{/* TODO: PEOPLE */}
-			<Route path="/people" component={IndexComponent} />
-			<Route path="/people/:name/:id" component={IndexComponent} />
+			{/* TODO: TVSeasonController */}
+			<Route path="/tv/season/:title/:id" component={TVSeasonController} />
+			
+			{/* TODO: PERSON */}
+			<Route path="/person" component={PersonController} />
+			<Route path="/person/:name/:id" component={PersonController} />
 			
 			{/* TODO: SEARCH */}
 			<Route path="/search" component={IndexComponent} />
-			<Route path="/search/people" component={IndexComponent} />
+			<Route path="/search/person" component={IndexComponent} />
 			<Route path="/search/movies" component={IndexComponent} />
 			<Route path="/search/tv" component={IndexComponent} />
 			<Route path="/search/collections" component={IndexComponent} />
