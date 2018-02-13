@@ -1,6 +1,7 @@
 let React = require('react');
 let httpService = require('HttpService');
 
+let TVDetailComponent = require('./TVDetailComponent');
 let TVDetailHeroComponent = require('./TVDetailHeroComponent');
 let TVDetailImagesComponents = require('./TVDetailImagesComponents');
 let TVDetailContentRatingsComponent = require('./TVDetailContentRatingsComponent');
@@ -179,37 +180,69 @@ let TVDetailController = React.createClass({
 				
 				<div className={"container-fluid interior-wrapper"}>
 					
-					<TVDetailImagesComponents images={data.images} />
+					<TVDetailComponent>
+						<TVDetailImagesComponents images={data.images} />
+					</TVDetailComponent>
 					
-					<TVDetailContentRatingsComponent contentRatings={data.content_ratings.results} />
+					<TVDetailComponent>
+						<TVDetailVideosComponent videos={data.videos.results} />
+					</TVDetailComponent>
 					
-					<TVDetailCreditsComponent credits={data.credits} />
+					<TVDetailComponent>
+						<TVDetailCreditsComponent credits={data.credits} />
+					</TVDetailComponent>
 					
-					<TVDetailExternalIdsComponent externalIds={data.external_ids} />
+					<TVDetailComponent>
+						<TVDetailSeasonsComponent seasons={data.seasons} showName={data.name} />
+					</TVDetailComponent>
 					
-					<TVDetailKeywordsComponent keywords={data.keyords} />
+					<TVDetailComponent>
+						<TVDetailExternalIdsComponent externalIds={data.external_ids} />
+					</TVDetailComponent>
 					
-					<TVDetailRecommendationsComponent recommendations={data.recommendations} />
+					<TVDetailComponent>
+						<TVDetailKeywordsComponent keywords={data.keywords.results} />
+					</TVDetailComponent>
 					
-					<TVDetailSimilarComponent similar={data.similar} />
+					<TVDetailComponent>
+						<TVDetailRecommendationsComponent recommendations={data.recommendations} />
+					</TVDetailComponent>
 					
-					<TVDetailVideosComponent videos={data.videos} />
+					<TVDetailComponent>
+						<TVDetailSimilarComponent similar={data.similar} />
+					</TVDetailComponent>
 					
-					<TVDetailSeasonsComponent seasons={data.seasons} showName={data.name} />
+					<TVDetailComponent>
+						<TVDetailCreatedByComponent createdBy={data.created_by} />
+					</TVDetailComponent>
 					
-					<TVDetailProductionCompaniesComponent productionCompanies={data.production_companies} />
+					<TVDetailComponent>
+						<TVDetailProductionCompaniesComponent productionCompanies={data.production_companies} />
+					</TVDetailComponent>
 					
-					<TVDetailCreatedByComponent createdBy={data.created_by} />
+					<TVDetailComponent>
+						<TVDetailContentRatingsComponent contentRatings={data.content_ratings.results} />
+					</TVDetailComponent>
 					
-					<TVDetailRunTimeComponent episodeRunTime={data.episode_run_time} />
+					<TVDetailComponent>
+						<TVDetailGenresComponent genres={data.genres} />
+					</TVDetailComponent>
 					
-					<TVDetailGenresComponent genres={data.genres} />
+					<TVDetailComponent>
+						<TVDetailRunTimeComponent episodeRunTime={data.episode_run_time} />
+					</TVDetailComponent>
 					
-					<TVDetailLanguagesComponent languages={data.languages} />
+					<TVDetailComponent>
+						<TVDetailLanguagesComponent languages={data.languages} />
+					</TVDetailComponent>
 					
-					<TVDetailNetworksComponent networks={data.networks} />
+					<TVDetailComponent>
+						<TVDetailNetworksComponent networks={data.networks} />
+					</TVDetailComponent>
 					
-					<TVDetailOriginCountryComponent originCountry={data.origin_country} />
+					<TVDetailComponent>
+						<TVDetailOriginCountryComponent originCountry={data.origin_country} />
+					</TVDetailComponent>
 					
 				</div>
 				
