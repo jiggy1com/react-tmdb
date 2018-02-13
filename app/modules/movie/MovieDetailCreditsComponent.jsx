@@ -1,6 +1,7 @@
 let React = require('react');
 
 let httpService = require('HttpService');
+let hyphenate = require('Hyphenate');
 
 import { CarouselController } from 'CarouselModule';
 
@@ -60,7 +61,7 @@ let MovieDetailCreditsComponent = React.createClass({
 		
 		let arr = data.map(function(obj, idx){
 			let src = 'https://image.tmdb.org/t/p/w185' + obj.profile_path;
-			let href = '#/people/' + obj.name + '/' + obj.id;
+			let href = '#/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 			return {
 				id : obj.id,
 				src : src,
@@ -160,7 +161,7 @@ let MovieDetailCreditsComponent = React.createClass({
 			crewCustomProperties, crewCustomClasses, crewCustomStyles } = this.state;
 		// let html = results.cast.map(function(obj){
 		// 	let imgSrc = 'https://image.tmdb.org/t/p/w185' + obj.profile_path;
-		// 	let castLink = '#/people/' + obj.name + '/' + obj.id;
+		// 	let castLink = '#/person/' + obj.name + '/' + obj.id;
 		// 	return (
 		// 		<div key={obj.id} className={"col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2 mb-5"}>
 		// 			<a href={castLink}>
