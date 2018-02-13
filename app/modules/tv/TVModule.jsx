@@ -8,6 +8,9 @@ let TVList = require('./TVList');
 let TVDetailController = require('./TVDetailController');
 let TVDetailHeroComponent = require('./TVDetailHeroComponent');
 
+// TV Seasons
+let TVSeasonController = require('../tvSeason/TVSeasonController');
+
 module.exports = {
 	
 	// TV Listings
@@ -17,7 +20,10 @@ module.exports = {
 	
 	// TV Details
 	TVDetailController,
-	TVDetailHeroComponent
+	TVDetailHeroComponent,
+	
+	// TV Season
+	TVSeasonController
 	
 	
 	
