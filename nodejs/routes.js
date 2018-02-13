@@ -4,6 +4,7 @@ let r = express.Router();
 // controllers
 let MovieController = require('./MovieController');
 let TVController = require('./TVController');
+let PersonController = require('./PersonController');
 
 // routes
 module.exports = function(app) {
@@ -68,6 +69,7 @@ module.exports = function(app) {
 	//
 	// People
 	//
+	app.get('/api/v1/person/:personId', PersonController.getPerson);
 	
 	//
 	// Search
