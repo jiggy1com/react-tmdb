@@ -2,6 +2,8 @@ let React = require('react');
 
 import { CarouselController } from 'CarouselModule';
 
+let hyphenate = require('Hyphenate');
+
 let TVDetailSeasonsComponent = React.createClass({
 	
 	generateCarousel: function(data, showName){
@@ -10,14 +12,15 @@ let TVDetailSeasonsComponent = React.createClass({
 			
 			let folder = 'w185';
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.poster_path;
-			let href = '#/seasons/' + showName + '/season/' + obj.season_number + '/' + obj.id;
+			let showNameHref = showName + ' season ' + obj.season_number;
+			let href = '#/tv/season/' + hyphenate.hyphenateAndLowercase(showNameHref) + '/' + obj.id;
 			
 			return {
 				id : obj.id,
 				src : src,
 				href : href,
 				episodes : obj.episode_count,
-				airDate : new Date(obj.air_date),
+				airDate : obj.air_date,
 				season : obj.season_number
 			};
 		});
@@ -53,7 +56,7 @@ let TVDetailSeasonsComponent = React.createClass({
 		let { seasonsSlides } = this.state;
 		
 		return (
-			<div id={"tv-credits"} className={"mb-5"}>
+			<div id={"tv-credits"}>
 				
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
@@ -61,7 +64,7 @@ let TVDetailSeasonsComponent = React.createClass({
 					</div>
 				</div>
 				
-				<div className={"row mb-5"}>
+				<div className={"row"}>
 					<div className={"col-12"}>
 						<CarouselController
 							carouselId={"seasonsCarousel"}
