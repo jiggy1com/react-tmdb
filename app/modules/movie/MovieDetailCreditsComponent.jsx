@@ -61,7 +61,7 @@ let MovieDetailCreditsComponent = React.createClass({
 		
 		let arr = data.map(function(obj, idx){
 			let src = 'https://image.tmdb.org/t/p/w185' + obj.profile_path;
-			let href = '#/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			let href = '/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 			return {
 				id : obj.id,
 				src : src,
