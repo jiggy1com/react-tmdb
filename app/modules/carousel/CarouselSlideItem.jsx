@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let CarouselSlideItem = React.createClass({
 	
@@ -72,9 +73,9 @@ let CarouselSlideItem = React.createClass({
 				
 				{template === 'cast' && (
 					<div className={"template-cast"}>
-						<a href={slideItem.href}>
+						<Link to={slideItem.href}>
 							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete}  />
-						</a>
+						</Link>
 						<div className={"pt-1"}>{slideItem.name}</div>
 						<div className={"font-weight-bold"}>{slideItem.character}</div>
 					</div>
@@ -82,9 +83,9 @@ let CarouselSlideItem = React.createClass({
 				
 				{template === 'crew' && (
 					<div className={"template-crew"}>
-						<a href={slideItem.href}>
+						<Link to={slideItem.href}>
 							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
-						</a>
+						</Link>
 						<div className={"pt-1"}>{slideItem.name}</div>
 						<div className={"font-weight-bold"}>{slideItem.job}</div>
 					</div>
@@ -108,9 +109,9 @@ let CarouselSlideItem = React.createClass({
 				
 				{template === 'season' && (
 					<div className={"template-season"}>
-						<a href={slideItem.href}>
+						<Link to={slideItem.href}>
 							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
-						</a>
+						</Link>
 						<div>
 							Season {slideItem.season}
 						</div>
