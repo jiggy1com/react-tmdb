@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 import { LightboxController } from 'LightboxModule';
 
@@ -40,9 +41,9 @@ let MovieDetailImageListComponent = React.createClass({
 			return imageList.map(function(obj, idx){
 				return (
 					<div key={obj.id} className={"col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3"}>
-						<a href={'javascript:void(0)'} onClick={() => { self.showLightbox(obj, idx) } } >
+						<Link to={'javascript:void(0)'} onClick={() => { self.showLightbox(obj, idx) } } >
 							<img src={obj.src} />
-						</a>
+						</Link>
 						<p className={"pt-2"}>
 							Vote Avg: <strong>{obj.vote_average}</strong>
 							based on <strong>{obj.vote_count}</strong> total votes.
