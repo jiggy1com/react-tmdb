@@ -16,6 +16,7 @@ module.exports = {
 			method : 'POST',
 			json : true,
 			qs : {},
+			body : {},
 			headers : {
 				// "Authorization" : "Basic " + new Buffer(credentials.mail.username + ":" + credentials.mail.password).toString("base64"),
 				// "Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8"
