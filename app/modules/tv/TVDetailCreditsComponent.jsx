@@ -14,7 +14,7 @@ let TVDetailCreditsComponent = React.createClass({
 			
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.profile_path;
 			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.profile_path;
-			let href = '#/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			let href = '/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 			
 			return {
 				id : obj.file_path,
