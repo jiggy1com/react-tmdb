@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let httpService = require('HttpService');
 let hyphenate = require('Hyphenate');
@@ -405,9 +406,9 @@ let MovieDetailComponent = React.createClass({
 							<div className={"pt-3 pb-3"}>
 								<h2 className={"card-header mb-3"}>IMDB</h2>
 								<div>
-									<a href={imdbHref} target="_blank">
+									<Link to={imdbHref} target="_blank">
 										View on IMDB
-									</a>
+									</Link>
 								</div>
 							</div>
 							
