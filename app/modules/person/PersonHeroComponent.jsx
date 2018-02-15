@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let BreakpointService = require('BreakpointService');
 
@@ -123,9 +124,9 @@ let PersonHeroComponent = React.createClass({
 									<img src={src} className={"d-block rounded mb-3 " + imgClass} />
 								}
 								
-								<a href={imdbLink} className={"btn btn-primary btn-block mb-3"}>
+								<Link to={imdbLink} target={"_blank"} className={"btn btn-primary btn-block mb-3"}>
 									View on IMDB
-								</a>
+								</Link>
 								
 							</div>
 							<div className={"col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"}>
