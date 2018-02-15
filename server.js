@@ -1,7 +1,14 @@
 let express = require('express');
 let path = require('path');
+let bodyparser = require('body-parser');
+
+
 let app = new express();
 const PORT = process.env.PORT || 8888;
+
+// this enabled req.body
+app.use(bodyparser.json());
+
 
 // routes
 require('./nodejs/routes')(app);
@@ -83,6 +90,12 @@ app.use(express.static('public'));
 // 	});
 //
 // });
+
+app.use('*', function(req, res){
+	console.log('*' + req.hostname + req.path);
+	res.type('text/html');
+	res.sendFile('index.html', { root: path.resolve(__dirname, 'public') });
+});
 
 app.use(function(req, res){
 	console.log('NodeJS Unknown Route for ' + req.hostname + req.path);
