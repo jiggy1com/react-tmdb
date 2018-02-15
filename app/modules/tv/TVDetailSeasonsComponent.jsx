@@ -13,7 +13,7 @@ let TVDetailSeasonsComponent = React.createClass({
 			let folder = 'w185';
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.poster_path;
 			let showNameHref = showName + ' season ' + obj.season_number;
-			let href = '#/tv/season/' + hyphenate.hyphenateAndLowercase(showNameHref) + '/' + obj.id;
+			let href = '/tv/season/' + hyphenate.hyphenateAndLowercase(showNameHref) + '/' + obj.id;
 			
 			return {
 				id : obj.id,
