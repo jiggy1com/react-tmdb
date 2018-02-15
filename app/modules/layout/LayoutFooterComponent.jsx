@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let LayoutFooterComponent = React.createClass({
 	render: function(){
@@ -7,7 +8,7 @@ let LayoutFooterComponent = React.createClass({
 			<footer>
 				<nav className="navbar fixed-bottom navbar-dark bg-dark">
 					<div>
-						Powered by <a href="http://developers.themoviedb.org" target="_blank">TMDB</a> & <a href="http://www.josephadamvelez.com" target="_blank">Joe Velez</a>
+						Powered by <Link to="http://developers.themoviedb.org" target="_blank">TMDB</Link> & <Link to="http://www.josephadamvelez.com" target="_blank">Joe Velez</Link>
 					</div>
 				</nav>
 			</footer>
