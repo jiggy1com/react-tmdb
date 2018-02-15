@@ -1,7 +1,9 @@
 let React = require('react');
 let ReactDOM = require('react-dom');
 
-let { Route, Router, IndexRoute, hashHistory, browserHistory } = require('react-router');
+let { Route, Router, IndexRoute, hashHistory, browserHistory, createBrowserHistory, createHashHistory, useRouterHistory } = require('react-router');
+// import { createHashHistory } from 'history'
+
 // import { Route, Router, IndexRoute, hashHistory } from 'react-router'
 
 let Main = require('Main');
@@ -13,11 +15,16 @@ import { TVController, TVDetailController, TVSeasonController } from 'TVModule';
 import { PersonController } from 'PersonModule';
 // import { TVSeasonController } from 'TVSeasonModule';
 
+/* BOOTSTRAP STYLES */
+
 // This is the default bootstrap theme in node
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // This is a custom bootstrap theme in /themes
-import './styles/themes/materia.css';
+// import './styles/themes/materia.css';
+// import './styles/themes/lux.css';
+
+/* END BOOTSTRAP STYLES */
 
 // Load foundation
 // require('style!css!foundation-sites/dist/foundation.min.css');
@@ -32,7 +39,7 @@ require("font-awesome-webpack");
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-	<Router history={hashHistory}>
+	<Router history={browserHistory}>
 		
 		<Route path="/" component={Main}>
 			<Route exact path="/movie" render={() => (
