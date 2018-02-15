@@ -1,4 +1,6 @@
 let React = require('react');
+let { Link } = require('react-router');
+
 let camelCase = require('CamelCase');
 let hyphenate = require('Hyphenate');
 
@@ -15,15 +17,15 @@ let TVDetailCreatedByComponent = React.createClass({
 				createdBy.map(function(obj){
 					
 					let linkName = hyphenate.hyphenate(obj.name);
-					let href = '#/person/' + linkName + '/' + obj.id;
+					let href = '/person/' + linkName + '/' + obj.id;
 					let src = '//image.tmdb.org/t/p/' + 'w185' + obj.profile_path;
 					
 					return (
 						<div key={obj.id} className={"col"}>
-							<a href={href}>
+							<Link to={href}>
 								<img src={src} />
 								{obj.name}
-							</a>
+							</Link>
 						</div>
 					)
 				})
