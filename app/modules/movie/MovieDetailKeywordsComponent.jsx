@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let httpService = require('HttpService');
 let hyphenate = require('Hyphenate');
@@ -43,11 +44,11 @@ let MovieDetailKeywordsComponent = React.createClass({
 			)
 		}else{
 			html = results.map(function(obj){
-				let link = '#/keywords/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+				let link = '/keywords/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<a key={obj.id} href={link}  className={"badge badge-primary mr-1"}>
+					<Link key={obj.id} to={link}  className={"badge badge-primary mr-1"}>
 						{obj.name}
-					</a>
+					</Link>
 				)
 			});
 		}
