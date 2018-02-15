@@ -1,4 +1,6 @@
 let React = require('react');
+let { Link } = require('react-router');
+
 let TVList = React.createClass({
 	
 	// custom methods
@@ -20,12 +22,12 @@ let TVList = React.createClass({
 		}else{
 			return list.map(function(obj, idx){
 				let src = 'https://image.tmdb.org/t/p/original' + obj.poster_path;
-				let link = '/#/tv/detail/' + obj.name.replace(/\s/g, '-').toLowerCase() + '/' + obj.id;
+				let link = '/tv/detail/' + obj.name.replace(/\s/g, '-').toLowerCase() + '/' + obj.id;
 				return (
 					<div key={obj.id} className={"col-6 col-md-4 col-lg-3 mb-5"}>
-						<a href={link}>
+						<Link to={link}>
 							<img src={src} className={"mb-1"}/>
-						</a>
+						</Link>
 						<h2>
 							{obj.original_name}
 							</h2>
