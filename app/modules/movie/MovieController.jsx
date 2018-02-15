@@ -37,6 +37,8 @@ let MovieController = React.createClass({
 	
 	getMovies: function(obj){
 		
+		window.scrollTo(0,0);
+		
 		let self = this;
 		let { page, route } = obj; //this.state;
 		
