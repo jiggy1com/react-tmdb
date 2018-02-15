@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let MovieListComponent = React.createClass({
 	render: function(){
@@ -11,14 +12,14 @@ let MovieListComponent = React.createClass({
 			let hrefTitle = obj.original_title.replace(regexSpace, '-').replace(regexSpecialChars, '').toLowerCase();
 			
 			let src = "https://image.tmdb.org/t/p/w300/" + obj.backdrop_path ; // w500_and_h281_bestv2
-			let href = "#/movie/detail/" + hrefTitle + '/' + obj.id;
+			let href = "/movie/detail/" + hrefTitle + '/' + obj.id;
 			
 			return (
 				<div key={obj.id} className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-					<a href={href}>
+					<Link to={href}>
 						<img src={src} />
 						<h4>{obj.title}</h4>
-					</a>
+					</Link>
 				</div>);
 		});
 		
