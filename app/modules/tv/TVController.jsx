@@ -12,13 +12,12 @@ let TVController = React.createClass({
 	// custom methods
 	getTVData: function(obj){
 		
+		window.scrollTo(0,0);
+		
 		let self = this;
 		let { page, route } = obj;
 		
 		let arrRoute = route.split('/');
-		
-		console.log('arrRoute', arrRoute);
-		
 		let uri = arrRoute[arrRoute.length-1];
 		let apiPath = uri.replace(/-/g, '_');
 		let pageTitle = uri.replace(/-/g, ' ');
@@ -35,8 +34,6 @@ let TVController = React.createClass({
 		}
 		
 		let path = '/api/v1/tv/' + apiPath + '/' + page;
-		
-		console.log('path', path);
 		
 		// console.log('path', path);
 		httpService.doGet(path).then(function(resp){
