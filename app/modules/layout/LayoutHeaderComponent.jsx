@@ -1,12 +1,48 @@
 let React = require('react');
-
-// import { BreakpointService } from 'BreakpointService';
+let { Link } = require('react-router');
+let httpService = require('HttpService');
+let LayoutHeaderSearchResultsComponent = require('./LayoutHeaderSearchResultsComponent');
 
 let LayoutHeaderComponent = React.createClass({
 	
 	// TODO: bind onresize and set the breakpoint
 	lastBreakpoint: '',
 	bp : '',
+	
+	handleKeyUp: function(e){
+		e.preventDefault();
+		// if(e.keyCode === 13){
+		// 	this.doSearch();
+		// }
+	},
+	
+	doSearch: function(e, a){
+		
+		console.log('e', e);
+		console.log('a', a);
+		
+		e.preventDefault();
+		e.stopPropagation();
+		
+		let self = this;
+		let search = this.refs.search.value;
+		let obj = {
+			search : search
+		};
+		let path = '/api/v1/search/multi';
+		httpService.doPost(obj, path).then(function(resp){
+			self.setState({
+				results : resp.data.data.results
+			});
+		});
+	},
+	
+	clearSearchResults: function(){
+		this.refs.search.value = '';
+		this.setState({
+			results : []
+		});
+	},
 	
 	// Vanilla JS works...
 	closeNavigation: function(){
@@ -35,9 +71,10 @@ let LayoutHeaderComponent = React.createClass({
 		});
 		
 		// changing state will trigger shouldComponentUpdate
-		this.setState({
-			test : true
-		});
+		// why is this here, though?
+		// this.setState({
+		// 	test : true
+		// });
 		
 	},
 	
@@ -46,22 +83,22 @@ let LayoutHeaderComponent = React.createClass({
 		return true;
 	},
 	
+	getInitialState: function(){
+		return {
+			results : []
+		}
+	},
+	
 	render: function(){
+		
+		let { results } = this.state;
+		
 		return (
 			<header>
-			
 				<div className="bg-dark sticky-top" id="layout-header">
 					<div className="container">
 						<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-							<a className="navbar-brand" href="#">TMDB with React</a>
-							
-							{/*
-							<form className="form-inline">
-								<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-								<button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-							</form>
-							*/}
-							
+							<Link className="navbar-brand" to="/">TMDB with React</Link>
 							<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navToggler">
 								<span className="navbar-toggler-icon">
 								</span>
@@ -69,35 +106,52 @@ let LayoutHeaderComponent = React.createClass({
 							<div className="collapse navbar-collapse" id="navbarSupportedContent">
 								<ul className="navbar-nav mr-auto">
 									<li className="nav-item">
-										<a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+										<Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
 									</li>
 									<li className="nav-item dropdown">
-										<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											Movies
-										</a>
+										</Link>
 										<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-											{/*<a className="dropdown-item" href="#/movie/latest">Latest</a>*/}
-											<a className="dropdown-item" href="#/movie/now-playing">Now Playing</a>
-											<a className="dropdown-item" href="#/movie/popular">Popular</a>
-											<a className="dropdown-item" href="#/movie/top-rated">Top Rated</a>
-											<a className="dropdown-item" href="#/movie/upcoming">Upcoming</a>
+											{/*<Link className="dropdown-item" to="/movie/latest">Latest</Link>*/}
+											<Link className="dropdown-item" to="/movie/now-playing">Now Playing</Link>
+											<Link className="dropdown-item" to="/movie/popular">Popular</Link>
+											<Link className="dropdown-item" to="/movie/top-rated">Top Rated</Link>
+											<Link className="dropdown-item" to="/movie/upcoming">Upcoming</Link>
 										</div>
 									</li>
 									<li className="nav-item dropdown">
-										<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											TV
-										</a>
+										</Link>
 										<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-											{/*<a className="dropdown-item" href="#/tv/latest">Latest</a>*/}
-											<a className="dropdown-item" href="#/tv/airing-today">Airing Today</a>
-											<a className="dropdown-item" href="#/tv/on-the-air">On The Air</a>
-											<a className="dropdown-item" href="#/tv/popular">Popular</a>
-											<a className="dropdown-item" href="#/tv/top-rated">Top Rated</a>
+											{/*<Link className="dropdown-item" to="/tv/latest">Latest</Link>*/}
+											<Link className="dropdown-item" to="/tv/airing-today">Airing Today</Link>
+											<Link className="dropdown-item" to="/tv/on-the-air">On The Air</Link>
+											<Link className="dropdown-item" to="/tv/popular">Popular</Link>
+											<Link className="dropdown-item" to="/tv/top-rated">Top Rated</Link>
 										</div>
 									</li>
 								</ul>
+								<form className="form-inline" onSubmit={this.doSearch}>
+									<div className="input-group">
+										<input type="text" className="form-control" placeholder="Movie, Show, Actor" aria-label="Recipient's username" aria-describedby="basic-addon2" ref="search" onKeyUp={this.handleKeyUp} />
+										<div className="input-group-append">
+											<button className={"btn btn-primary"} onClick={this.doSearch}>
+												Go
+											</button>
+											{/*<span className="input-group-text" id="basic-addon2">*/}
+												{/*Go*/}
+											{/*</span>*/}
+										</div>
+									</div>
+								</form>
 							</div>
 						</nav>
+						
+						<LayoutHeaderSearchResultsComponent results={results} onClose={this.clearSearchResults}>
+						</LayoutHeaderSearchResultsComponent>
+						
 					</div>
 				</div>
 			</header>
