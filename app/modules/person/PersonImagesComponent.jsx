@@ -72,7 +72,7 @@ let PersonImagesComponent = React.createClass({
 								: creditType === 'tv' ? obj.name
 								: ''; // something f'd up if u get here
 				
-				returnThis.href = '#/' + creditType + '/detail/' + hyphenate.hyphenateAndLowercase(hrefText) + '/' + obj.id;
+				returnThis.href = '/' + creditType + '/detail/' + hyphenate.hyphenateAndLowercase(hrefText) + '/' + obj.id;
 				returnThis.title = obj.title;
 				returnThis.overview = obj.overview;
 				returnThis.name = obj.name;
