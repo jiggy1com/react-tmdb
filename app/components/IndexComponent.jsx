@@ -1,5 +1,7 @@
 let React = require('react');
 
+let { Link } = require('react-router');
+
 let IndexComponent = React.createClass({
 	
 	render: function(){
@@ -7,11 +9,11 @@ let IndexComponent = React.createClass({
 		return (
 			<div className={"container-fluid interior-wrapper"}>
 				
-				<div className={"jumbotron"}>
+				<div className={"jumbotron mr-0 ml-0"}>
 					
 					<h1>TMDB with React ... just a little project by Joe Velez</h1>
 					
-					<p class="lead">
+					<p className="lead">
 						This project uses React and Bootstrap 4 on the frontend, and NodeJS on the backend.
 						The backend connects to the themoviedb.org open API to pull movie data.
 						Ok, that's enough for now. Start browsing!
@@ -26,24 +28,24 @@ let IndexComponent = React.createClass({
 						
 						<div className={"row"}>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/movie/popular' className={"btn btn-primary btn-block"}>
+								<Link to='/movie/popular' className={"btn btn-primary btn-block"}>
 									Popular Movies
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/movie/top-rated' className={"btn btn-primary btn-block"}>
+								<Link to='/movie/top-rated' className={"btn btn-primary btn-block"}>
 									Top Rated Movies
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/movie/now-playing' className={"btn btn-primary btn-block"}>
+								<Link to='/movie/now-playing' className={"btn btn-primary btn-block"}>
 									Now Playing Movies
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/movie/upcoming' className={"btn btn-primary btn-block"}>
+								<Link to='/movie/upcoming' className={"btn btn-primary btn-block"}>
 									Upcoming Movies
-								</a>
+								</Link>
 							</div>
 						</div>
 						
@@ -51,24 +53,24 @@ let IndexComponent = React.createClass({
 						
 						<div className={"row"}>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/tv/popular' className={"btn btn-primary btn-block"}>
+								<Link to='/tv/popular' className={"btn btn-primary btn-block"}>
 									Popular TV
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/tv/top-rated' className={"btn btn-primary btn-block"}>
+								<Link to='/tv/top-rated' className={"btn btn-primary btn-block"}>
 									Top Rated TV
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/tv/on-the-air' className={"btn btn-primary btn-block"}>
+								<Link to='/tv/on-the-air' className={"btn btn-primary btn-block"}>
 									On The Air
-								</a>
+								</Link>
 							</div>
 							<div className={"col-6 col-md-3"}>
-								<a href='#/tv/airing-today' className={"btn btn-primary btn-block"}>
+								<Link to='/tv/airing-today' className={"btn btn-primary btn-block"}>
 									Airing Today
-								</a>
+								</Link>
 							</div>
 						</div>
 						
