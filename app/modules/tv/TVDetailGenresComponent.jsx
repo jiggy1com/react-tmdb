@@ -1,4 +1,6 @@
 let React = require('react');
+let { Link } = require('react-router');
+
 let hyphenate = require('Hyphenate');
 let TVDetailGenresComponent = React.createClass({
 	
@@ -18,11 +20,11 @@ let TVDetailGenresComponent = React.createClass({
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						{genres.map(function(obj){
-							let link = "#/genre/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+							let link = "/genre/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 							return (
-								<a key={obj.id} href={link}  className={"badge badge-primary mr-1"}>
+								<Link key={obj.id} to={link}  className={"badge badge-primary mr-1"}>
 									{obj.name}
-								</a>
+								</Link>
 							)
 						})}
 					</div>
