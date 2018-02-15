@@ -1,4 +1,5 @@
 let React = require('react');
+let { Link } = require('react-router');
 
 let hyphenate = require('Hyphenate');
 
@@ -30,11 +31,11 @@ let MovieDetailGenresComponent = React.createClass({
 			)
 		}else{
 			html = genres.map(function(obj){
-				let link = "#/genre/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+				let link = "/genre/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<a key={obj.id} href={link}  className={"badge badge-primary mr-1"}>
+					<Link key={obj.id} to={link}  className={"badge badge-primary mr-1"}>
 						{obj.name}
-					</a>
+					</Link>
 				)
 			});
 		}
