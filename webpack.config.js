@@ -85,46 +85,35 @@ module.exports = {
 				loader: "file-loader"
 			},
 			
-			// {
-			// 	test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-			// 	loader: 'url?limit=10000&mimetype=application/font-woff'
-			// },
-			// {
-			// 	test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-			// 	loader: 'url?limit=10000&mimetype=application/octet-stream'
-			// },
-			// {
-			// 	test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-			// 	loader: 'file'
-			// },
 			
 			// the file-loader emits files.
-			{
-				test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: "url-loader?&limit=10000&mimetype=application/font-woff",
-				output: {
-					path : './public/',
-					publicPath : '/'
-				}
-			},
-			{
-				test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: "file-loader",
-				output: {
-					path : './public/',
-					publicPath : '/'
-				}
-			},
-			
 			// {
-			// 	test: /\.(eot|svg|ttf|woff|woff2)$/,
-			// 	loader: 'file-loader?name=[name].[ext]&outputPath=../fonts/&publicPath=/assets/fonts/'
+			// 	test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+			// 	loader: "url-loader?&limit=10000&mimetype=application/font-woff",
+			// 	output: {
+			// 		path : './public/',
+			// 		publicPath : '/'
+			// 	}
+			// },
+			// {
+			// 	test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+			// 	loader: "file-loader",
+			// 	output: {
+			// 		path : './public/',
+			// 		publicPath : '/'
+			// 	}
+			// },
+			// {
+			// 	test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+			// 	loader: 'url?limit=10000&mimetype=image/svg+xml'
 			// },
 			
+			// test loaders
 			{
-				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'url?limit=10000&mimetype=image/svg+xml'
-			},
+				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				loader: 'url-loader?limit=100000',
+			}
+			
 			
 		],
 		// rules: [
