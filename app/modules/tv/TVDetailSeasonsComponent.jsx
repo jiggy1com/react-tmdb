@@ -6,14 +6,16 @@ let hyphenate = require('Hyphenate');
 
 let TVDetailSeasonsComponent = React.createClass({
 	
-	generateCarousel: function(data, showName){
+	
+	
+	generateCarousel: function(objToGenerate){
 		
-		let arr = data.map(function(obj, idx){
+		let arr = objToGenerate.data.map(function(obj, idx){
 			
 			let folder = 'w185';
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.poster_path;
-			let showNameHref = showName + ' season ' + obj.season_number;
-			let href = '/tv/season/' + hyphenate.hyphenateAndLowercase(showNameHref) + '/' + obj.id;
+			let showNameHref = objToGenerate.showName + ' season ' + obj.season_number;
+			let href = '/tv/season/' + hyphenate.hyphenateAndLowercase(showNameHref) + '/' + objToGenerate.showId + '/' + obj.season_number;
 			
 			return {
 				id : obj.id,
@@ -41,8 +43,16 @@ let TVDetailSeasonsComponent = React.createClass({
 	
 	componentWillReceiveProps: function(nextProps){
 		
+		console.log('TVDetailSeasonsComponent', nextProps);
+		
+		let oCarousel = {
+			data : nextProps.seasons,
+			showName : nextProps.showName,
+			showId : nextProps.showId
+		};
+		
 		if(nextProps.seasons.length > 0){
-			this.generateCarousel(nextProps.seasons, nextProps.showName);
+			this.generateCarousel(oCarousel);
 		}
 		
 	},
