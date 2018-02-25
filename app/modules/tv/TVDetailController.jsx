@@ -193,7 +193,7 @@ let TVDetailController = React.createClass({
 					</TVDetailComponent>
 					
 					<TVDetailComponent>
-						<TVDetailSeasonsComponent seasons={data.seasons} showName={data.name} />
+						<TVDetailSeasonsComponent seasons={data.seasons} showId={data.id} showName={data.name} />
 					</TVDetailComponent>
 					
 					<TVDetailComponent>
