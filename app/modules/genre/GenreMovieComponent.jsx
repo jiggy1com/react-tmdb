@@ -31,7 +31,7 @@ let GenreMovieComponent = React.createClass({
 		
 		let { results } = this.props;
 		
-		return (lead
+		return (
 			<div className={"container-fluid interior-wrapper mb-5"}>
 				<div className={"row"}>
 					
