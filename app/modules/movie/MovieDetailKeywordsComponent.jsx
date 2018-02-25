@@ -14,18 +14,19 @@ let MovieDetailKeywordsComponent = React.createClass({
 	
 	componentWillReceiveProps: function(nextProps){
 		this.setState(nextProps);
-		this.getMovieReviews(nextProps)
+		this.getMovieKeywords(nextProps)
 	},
 	
 	componentDidMount: function(){
 	
 	},
 	
-	getMovieReviews: function(nextProps){
+	getMovieKeywords: function(nextProps){
 		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/keywords/' + movieId;
 		httpService.doGet(path).then(function(resp){
+			console.log('getMovieKeywords', resp);
 			self.setState({
 				results : resp.data.keywords
 			});
@@ -44,9 +45,9 @@ let MovieDetailKeywordsComponent = React.createClass({
 			)
 		}else{
 			html = results.map(function(obj){
-				let link = '/keywords/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+				let link = '/keyword/movie/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<Link key={obj.id} to={link}  className={"badge badge-primary mr-1"}>
+					<Link key={obj.id} to={link}  className={"btn btn-primary btn-sm mr-1 mb-1"}>
 						{obj.name}
 					</Link>
 				)
