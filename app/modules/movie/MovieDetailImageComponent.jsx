@@ -7,14 +7,21 @@ import { CarouselController } from 'CarouselModule';
 // import { MovieDetailImageListComponent } from 'MovieModule';
 let MovieDetailImageListComponent = require('./MovieDetailImageListComponent');
 
-let MovieDetailReviewsComponent = React.createClass({
+// let MovieDetailReviewsComponent = React.createClass({
+let MovieDetailImageComponent = React.createClass({
 	
 	generateCarousel: function(data, dataType){
 		let arr = data.map(function(obj, idx){
+			// console.log('MovieDetailImageComponent generateCarousel', obj);
+			
+			let folderLg = dataType === 'posters' ? 'w500' : 'w780';
+			
 			let src = 'https://image.tmdb.org/t/p/w185' + obj.file_path;
+			let srcLg =  'https://image.tmdb.org/t/p/' + folderLg + obj.file_path;
 			return {
-				id : obj.id,
-				src : src
+				id : obj.file_path,
+				src : src,
+				srcLg : srcLg
 			};
 		});
 		
@@ -64,11 +71,22 @@ let MovieDetailReviewsComponent = React.createClass({
 	},
 	
 	componentDidMount: function(){
-	
+		// handle scroll
+		window.addEventListener('scroll', (e) => {
+			this.handleScroll(e);
+		});
 	},
 	
 	componentWillUnmount: function(){
 		// window.removeEventListener('scroll');
+		// console.log('MovieDetailImageComponent componentWillUnmount');
+		
+		// handle scroll
+		window.removeEventListener('scroll', (e) => {
+			this.handleScroll(e);
+		});
+		
+		this.localListener = null;
 	},
 	
 	
@@ -183,11 +201,13 @@ let MovieDetailReviewsComponent = React.createClass({
 	// 	}
 	// },
 	
+	localListener: null,
+	
 	handleScroll:function(e){
 		
 		let self = this;
 		
-		$(window).scroll(function() {
+		this.localListener = $(window).scroll(function() {
 			clearTimeout($.data(this, 'scrollTimer'));
 			$.data(this, 'scrollTimer', setTimeout(function() {
 				
@@ -212,10 +232,7 @@ let MovieDetailReviewsComponent = React.createClass({
 	
 	render: function(){
 		
-		// handle scroll
-		window.addEventListener('scroll', (e) => {
-			this.handleScroll(e);
-		});
+		
 		
 		let self = this;
 		let { results, modalHeader, modalSrc, modalShow, showUpArrow, backdropsList, postersList } = this.state;
@@ -239,6 +256,15 @@ let MovieDetailReviewsComponent = React.createClass({
 					template={"gallery"}>
 				</CarouselController>
 				
+				<CarouselController
+					carouselId={"backdropsCarousel"}
+					slides={backdropsList}
+					items={backdropsList}
+					itemsPerSlide={4}
+					template={"gallery"}>
+				</CarouselController>
+				
+				{/* previous code, broken now - why??? */}
 				
 				<div className={"bg-light sticky-top pt-4 pb-4"} id="image-tabs-container">
 					<ul className="nav nav-tabs bg-light" id="imageTabs" role="tablist">
@@ -287,4 +313,4 @@ let MovieDetailReviewsComponent = React.createClass({
 	}
 });
 
-module.exports = MovieDetailReviewsComponent;
+module.exports = MovieDetailImageComponent;
