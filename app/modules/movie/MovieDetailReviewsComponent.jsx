@@ -42,6 +42,7 @@ let MovieDetailReviewsComponent = React.createClass({
 		if(results.length === 0){
 			html = (
 				<span key={"review-span"}>
+					No reviews.
 				</span>
 				)
 		}else{
