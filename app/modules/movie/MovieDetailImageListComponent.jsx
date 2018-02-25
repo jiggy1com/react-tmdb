@@ -39,6 +39,7 @@ let MovieDetailImageListComponent = React.createClass({
 			)
 		}else{
 			return imageList.map(function(obj, idx){
+				// console.log('MovieDetailImageListComponent', obj);
 				return (
 					<div key={obj.id} className={"col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3"}>
 						<Link to={'javascript:void(0)'} onClick={() => { self.showLightbox(obj, idx) } } >
@@ -96,7 +97,7 @@ let MovieDetailImageListComponent = React.createClass({
 				let thisClass = idx === 0 ? 'active' : '';
 				
 				return (
-					<div className={"carousel-item jiggy " + thisClass}>
+					<div key={obj.src} className={"carousel-item jiggy " + thisClass}>
 						<div className={"container"}>
 							<div className={"row"}>
 								<div className={"col-3"}>
