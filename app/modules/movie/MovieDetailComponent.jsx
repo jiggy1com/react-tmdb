@@ -257,7 +257,7 @@ let MovieDetailComponent = React.createClass({
 			left : '50px',
 			right : '50px',
 			backgroundColor: '#000',
-			color: '#fff',
+			// color: '#fff',
 			// opacity : '.5'
 			background: 'rgba(0,0,0,0.8)'
 		};
@@ -266,36 +266,11 @@ let MovieDetailComponent = React.createClass({
 			color: '#999'
 		};
 		
-		let testCarousel = [
-			{id:1},
-			{id:2},
-			{id:3},
-			{id:4},
-			{id:5},
-			{id:6},
-			{id:7},
-			{id:8},
-			{id:9},
-			{id:10},
-			{id:11},
-			{id:12},
-			{id:13},
-			{id:15},
-			{id:16},
-			{id:17},
-			{id:18},
-			{id:19},
-			{id:20},
-			{id:21},
-		];
-		
 		return (
 			
 			<div>
 				
 				{/* jumbotron-like hero */}
-				
-				
 				
 				<div className={"p-5"} style={jumbotronStyles} id="jumbotron">
 					<div className={"movie-hero p-5"} style={movieHeroStyles}>
@@ -309,6 +284,7 @@ let MovieDetailComponent = React.createClass({
 				</div>
 				
 				{/* Tabs */}
+				
 				<div className={"bg-light sticky-top pt-4 pb-4"}>
 					<div className={"container-fluid interior-wrapper"}>
 						<div className={"row"}>
