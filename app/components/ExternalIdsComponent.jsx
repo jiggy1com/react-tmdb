@@ -85,47 +85,62 @@ let ExternalIdsComponent = React.createClass({
 				
 				<div className={"row mb-3"}>
 					
-					{externalIds.imdb_id !== null &&
+					{typeof externalIds.imdb_id !== 'undefined' && externalIds.imdb_id !== null &&
 					<div className={"col text-center"}>
 						<Link to={imdbLink} target="_blank" title={"IMDB"}>
-								<span className={"mr-3 fa fa-4x fa-imdb"}>
-								</span>
+							<span className={"mr-3 fa fa-4x fa-imdb"}>
+							</span>
+							<span className={"mr-3"}>
+								IMDB
+							</span>
 						</Link>
 					</div>
 					}
 					
-					{externalIds.tvdb_id !== null &&
+					{typeof externalIds.tvdb_id !== 'undefined' && externalIds.tvdb_id !== null &&
 					<div className={"col text-center"}>
 						<Link to={tvdbLink} target="_blank" title={"TVDB"}>
-								<span className={"mr-3 fa fa-4x fa-tv"}>
-								</span>
+							<span className={"mr-3 fa fa-4x fa-tv"}>
+							</span>
+							<span className={"mr-3"}>
+								TVDB
+							</span>
 						</Link>
 					</div>
 					}
 					
-					{externalIds.facebook_id !== null &&
+					{typeof externalIds.facebook_id !== 'undefined' && externalIds.facebook_id !== null &&
 					<div className={"col text-center"}>
 						<Link to={facebookLink} target="_blank" title={"Facebook"}>
-								<span className={"mr-3 fa fa-4x fa-facebook"}>
-								</span>
+							<span className={"mr-3 fa fa-4x fa-facebook"}>
+							</span>
+							<span className={"mr-3"}>
+								Facebook
+							</span>
 						</Link>
 					</div>
 					}
 					
-					{externalIds.twitter_id !== null && externalIds.twitter_id !== '' &&
+					{typeof externalIds.twitter_id !== 'undefined' && externalIds.twitter_id !== null && externalIds.twitter_id !== '' &&
 					<div className={"col text-center"}>
 						<Link to={twitterLink} target="_blank" title={"Twitter"}>
-									<span className={"mr-3 fa fa-4x fa-twitter"}>
-									</span>
+							<span className={"mr-3 fa fa-4x fa-twitter"}>
+							</span>
+							<span className={"mr-3"}>
+								Twitter
+							</span>
 						</Link>
 					</div>
 					}
 					
-					{externalIds.instagram_id !== null &&
+					{typeof externalIds.instagram_id !== 'undefined' && externalIds.instagram_id !== null &&
 					<div className={"col text-center"}>
 						<Link to={instagramLink} target="_blank" title={"Instagram"}>
-								<span className={"mr-3 fa fa-4x fa-instagram"}>
-								</span>
+							<span className={"mr-3 fa fa-4x fa-instagram"}>
+							</span>
+							<span className={"mr-3"}>
+								Instagram
+							</span>
 						</Link>
 					</div>
 					}
