@@ -31,33 +31,35 @@ module.exports = {
 		root: __dirname,
 		alias: {
 			// SomeComponent: 'app/components/SomeComponent.jsx',
-			Main : 'app/components/Main',
-			IndexComponent : 'app/components/IndexComponent',
-			AboutComponent : 'app/components/AboutComponent',
+			Main: 'app/components/Main',
+			IndexComponent: 'app/components/IndexComponent',
+			AboutComponent: 'app/components/AboutComponent',
 			
 			// Modules
-			LayoutModule : 'app/modules/layout/LayoutModule',
-			MovieModule : 'app/modules/movie/MovieModule',
+			LayoutModule: 'app/modules/layout/LayoutModule',
+			MovieModule: 'app/modules/movie/MovieModule',
 			TVModule: 'app/modules/tv/TVModule',
 			PersonModule: 'app/modules/person/PersonModule',
-			ModalModule : 'app/modules/modal/ModalModule',
+			ModalModule: 'app/modules/modal/ModalModule',
+			GenreModule: 'app/modules/genre/GenreModule',
+			KeywordModule: 'app/modules/keyword/KeywordModule',
 			
 			// Helper Modules
-			LightboxModule : 'app/modules/lightbox/LightboxModule',
-			PaginationModule : 'app/modules/pagination/PaginationModule',
+			LightboxModule: 'app/modules/lightbox/LightboxModule',
+			PaginationModule: 'app/modules/pagination/PaginationModule',
 			CarouselModule: 'app/modules/carousel/CarouselModule',
 			
 			// Services
-			HttpService : 'app/services/HttpService',
+			HttpService: 'app/services/HttpService',
 			
 			// Helpers (pipe like)
-			CamelCase : 'app/services/CamelCase',
-			BreakpointService : 'app/services/BreakpointService',
+			CamelCase: 'app/services/CamelCase',
+			BreakpointService: 'app/services/BreakpointService',
 			Hyphenate: 'app/services/Hyphenate',
 			
 			
 			// CSS
-			applicationStyles : 'app/styles/app.scss'
+			applicationStyles: 'app/styles/app.scss'
 			
 		},
 		extensions : ['', '.js', '.jsx']
