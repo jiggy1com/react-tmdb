@@ -19,6 +19,8 @@ let MovieDetailGenresComponent = React.createClass({
 	
 	},
 	
+	// badge badge-primary
+	
 	render: function(){
 		
 		let { genres } = this.state;
@@ -31,9 +33,9 @@ let MovieDetailGenresComponent = React.createClass({
 			)
 		}else{
 			html = genres.map(function(obj){
-				let link = "/genre/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+				let link = "/genre/movie/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<Link key={obj.id} to={link}  className={"badge badge-primary mr-1"}>
+					<Link key={obj.id} to={link}  className={"btn btn-primary btn-sm mr-1 mb-1"}>
 						{obj.name}
 					</Link>
 				)
