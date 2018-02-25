@@ -52,6 +52,20 @@ exports.getTVDetail = function(req, res){
 	
 };
 
+exports.getTVSeason = function(req, res){
+	let obj = {
+		path : 'tv/' + req.params.tvId + '/season/' + req.params.seasonNumber,
+		method : 'GET',
+		qs : {
+			append_to_response : 'account_states,credits,external_ids,images,videos'
+		}
+	};
+	
+	let options = api.setOptions(obj);
+	
+	api.doRequest(req, res, options);
+};
+
 // exports.getImages = function(req, res){
 // 	let obj = {
 // 		path : 'tv/' + req.params.tvId + '/images',
