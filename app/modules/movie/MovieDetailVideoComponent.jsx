@@ -58,6 +58,7 @@ let MovieDetailVideoComponent = React.createClass({
 	},
 	
 	componentWillReceiveProps: function(nextProps){
+		// console.log('MovieDetailVideoComponent componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
 		this.getMovieVideos(nextProps)
 	},
