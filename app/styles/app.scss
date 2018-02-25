@@ -27,6 +27,14 @@ footer{
 
 }
 
+//
+// Movie Details
+//
+.movie-hero {
+    h1 {
+        color: #fff;
+    }
+}
 
 // Movie Reviews
 .review{
@@ -87,6 +95,23 @@ footer{
 
     }
 
+}
+
+//
+// TV SEASON
+//
+
+#tv-season{
+    .tv-season-hero{
+        img{
+            width: 100%;
+        }
+    }
+    .tv-season-episode-list-item{
+        img.img-full{
+            width: 100%;
+        }
+    }
 }
 
 //
@@ -379,6 +404,21 @@ footer{
 
         }
 
+    }
+
+}
+
+//
+// External Ids
+//
+#external-ids{
+
+    a:hover{
+        text-decoration: none;
+    }
+
+    span {
+        display: block;
     }
 
 }
