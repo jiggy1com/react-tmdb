@@ -13,16 +13,19 @@ let AboutComponent = require('AboutComponent');
 import { MovieController, MovieIndexComponent, MovieDetailComponent } from './modules/movie/MovieModule';
 import { TVController, TVDetailController, TVSeasonController } from 'TVModule';
 import { PersonController } from 'PersonModule';
+import { GenreController } from 'GenreModule';
+import { KeywordController } from 'KeywordModule';
+
 // import { TVSeasonController } from 'TVSeasonModule';
 
 /* BOOTSTRAP STYLES */
 
 // This is the default bootstrap theme in node
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // This is a custom bootstrap theme in /themes
 // import './styles/themes/materia.css';
-// import './styles/themes/lux.css';
+import './styles/themes/lux.css';
 
 /* END BOOTSTRAP STYLES */
 
@@ -47,20 +50,16 @@ ReactDOM.render(
 			)} />
 			<Route path="/about" component={AboutComponent} />
 			
-			{/* TODO: DISCOVER */}
+			{/* TODO: DISCOVER -- Discover is used for the Genre and Keyword, but "discover" can filter by all sorts of things */}
 			{/*<Route path="/discover" component={MovieIndexComponent} />*/}
 			{/*<Route path="/discover/movie" component={MoviePopularComponent} />*/}
 			{/*<Route path="/discover/tv" component={MovieTopRatedComponent} />*/}
 			
 			{/* GENRE */}
-			<Route path="/genre" component={IndexComponent} />
-			<Route path="/genre/movie/:genre/:id" component={IndexComponent} />
-			<Route path="/genre/tv/:genre/:id" component={IndexComponent} />
+			<Route path="/genre/:genreType/:genre/:id" component={GenreController} />
 			
 			{/* KEYWORD */}
-			<Route path="/keyword" component={IndexComponent} />
-			<Route path="/keyword/movie/:keyword/:id" component={IndexComponent} />
-			<Route path="/keyword/tv/:keyword/:id" component={IndexComponent} />
+			<Route path="/keyword/:keywordType/:keyword/:id" component={KeywordController} />
 			
 			{/* MOVIE */}
 			<Route path="/movie" component={MovieIndexComponent} />
@@ -81,7 +80,7 @@ ReactDOM.render(
 			<Route path="/tv/detail/:title/:id" component={TVDetailController} />
 			
 			{/* TODO: TVSeasonController */}
-			<Route path="/tv/season/:title/:id" component={TVSeasonController} />
+			<Route path="/tv/season/:title/:id/:seasonNumber" component={TVSeasonController} />
 			
 			{/* TODO: PERSON */}
 			<Route path="/person" component={PersonController} />
@@ -94,7 +93,7 @@ ReactDOM.render(
 			<Route path="/search/tv" component={IndexComponent} />
 			<Route path="/search/collections" component={IndexComponent} />
 			<Route path="/search/companies" component={IndexComponent} />
-			<Route path="/search/keywords" component={IndexComponent} />
+			<Route path="/search/keyword" component={IndexComponent} />
 			
 			{/* other potential routes */}
 			<Route path="/leaderboard" component={IndexComponent} />
