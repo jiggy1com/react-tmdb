@@ -21,7 +21,7 @@ let CarouselPrevNext = React.createClass({
 		
 		let prevNextClass = 'text-muted';
 		let prevClass = currentSlide === 0 ? 'disabled' : 'text-dark';
-		let nextClass = currentSlide === slides.length-1 ? 'disabled' : 'text-dark';
+		let nextClass = currentSlide === slides.length-1 && slides.length > 0 ? 'disabled' : 'text-dark';
 		
 		return (
 			<div className={"carousel-prev-next col-12 mb-2 " + prevNextClass}>
