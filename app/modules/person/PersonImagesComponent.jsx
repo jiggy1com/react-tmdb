@@ -12,7 +12,7 @@ let PersonImagesComponent = React.createClass({
 	
 	handleBreakpointChange: function(breakpoint){
 		
-		console.log('PersonImagesComponent handleBreakpointChange', breakpoint);
+		// console.log('PersonImagesComponent handleBreakpointChange', breakpoint);
 		
 		let { currentBreakpoint } = this.state;
 		
@@ -91,7 +91,7 @@ let PersonImagesComponent = React.createClass({
 							: breakpoint === 'md' ? 4
 							: breakpoint === 'lg' || breakpoint === 'xl' ? 6
 							: 4;
-		console.log('itemsPerSlide', itemsPerSlide, breakpoint);
+		// console.log('itemsPerSlide', itemsPerSlide, breakpoint);
 		this.setState({
 			currentBreakpoint : breakpoint,
 			itemsPerSlide : itemsPerSlide,
@@ -170,9 +170,7 @@ let PersonImagesComponent = React.createClass({
 	
 	render: function(){
 		
-		let { heading } = this.props;
 		let { carouselList, type, itemsPerSlide } = this.state;
-		
 		
 		return (
 			<div>
