@@ -59,6 +59,9 @@ module.exports = function(app) {
 	//
 	
 	app.post('/api/v1/search/multi', SearchController.getMulti);
+	app.post('/api/v1/search/movie', SearchController.getMovie);
+	app.post('/api/v1/search/tv', SearchController.getTV);
+	app.post('/api/v1/search/person', SearchController.getPerson);
 	
 	//
 	// Genre
