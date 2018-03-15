@@ -18,9 +18,6 @@ let LayoutHeaderComponent = React.createClass({
 	
 	doSearch: function(e, a){
 		
-		console.log('e', e);
-		console.log('a', a);
-		
 		e.preventDefault();
 		e.stopPropagation();
 		
@@ -29,18 +26,49 @@ let LayoutHeaderComponent = React.createClass({
 		let obj = {
 			search : search
 		};
-		let path = '/api/v1/search/multi';
+		
+		let path;
+		
+		// let path = '/api/v1/search/multi';
+		// httpService.doPost(obj, path).then(function(resp){
+		// 	self.setState({
+		// 		results : resp.data.data.results
+		// 	});
+		// });
+		
+		path = '/api/v1/search/movie';
 		httpService.doPost(obj, path).then(function(resp){
 			self.setState({
-				results : resp.data.data.results
+				movieList : resp.data.data.results
 			});
 		});
+		
+		path = '/api/v1/search/tv';
+		httpService.doPost(obj, path).then(function(resp){
+			self.setState({
+				tvList : resp.data.data.results
+			});
+		});
+		
+		path = '/api/v1/search/person';
+		httpService.doPost(obj, path).then(function(resp){
+			self.setState({
+				personList : resp.data.data.results
+			});
+		});
+		
+		this.setState({
+			search : search
+		});
+		
 	},
 	
 	clearSearchResults: function(){
 		this.refs.search.value = '';
 		this.setState({
-			results : []
+			movieList: [],
+			tvList: [],
+			personList: []
 		});
 	},
 	
@@ -85,13 +113,15 @@ let LayoutHeaderComponent = React.createClass({
 	
 	getInitialState: function(){
 		return {
-			results : []
+			movieList: [],
+			tvList: [],
+			personList: []
 		}
 	},
 	
 	render: function(){
 		
-		let { results } = this.state;
+		let { movieList, tvList, personList, search } = this.state;
 		
 		return (
 			<header>
@@ -149,7 +179,12 @@ let LayoutHeaderComponent = React.createClass({
 							</div>
 						</nav>
 						
-						<LayoutHeaderSearchResultsComponent results={results} onClose={this.clearSearchResults}>
+						<LayoutHeaderSearchResultsComponent
+							movieList={movieList}
+							tvList={tvList}
+							personList={personList}
+							search={search}
+							onClose={this.clearSearchResults}>
 						</LayoutHeaderSearchResultsComponent>
 						
 					</div>
