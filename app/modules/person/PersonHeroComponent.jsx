@@ -120,7 +120,7 @@ let PersonHeroComponent = React.createClass({
 						<div className={"row"}>
 							<div className={"col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"}>
 								
-								{person.profile_path !== '' &&
+								{person.profile_path !== '' && person.profile_path !== null &&
 									<img src={src} className={"d-block rounded mb-3 " + imgClass} />
 								}
 								
