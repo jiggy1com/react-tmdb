@@ -16,12 +16,12 @@ let PersonController = React.createClass({
 	
 	// my methods
 	
-	getPerson: function(personId) {
+	getPerson: function(id) {
 		
 		window.scrollTo(0,0);
 		
 		let self = this;
-		let path = '/api/v1/person/' + personId;
+		let path = '/api/v1/person/' + id;
 		httpService.doGet(path).then(function (resp) {
 			self.setState({
 				person : resp.data
@@ -93,15 +93,22 @@ let PersonController = React.createClass({
 	},
 	
 	componentWillMount: function(){
-	
+		let { id } = this.props.params;
+		this.getPerson(id);
 	},
 	
 	componentDidMount: function(){
-		let { location } = this.props;
-		let pathname = location.pathname;
-		let arrPath = pathname.split('/');
-		let personId = arrPath[ arrPath.length-1 ];
-		this.getPerson(personId);
+		// let { location } = this.props;
+		// let pathname = location.pathname;
+		// let arrPath = pathname.split('/');
+		// let personId = arrPath[ arrPath.length-1 ];
+		// this.getPerson(personId);
+		// this.getPerson();
+	},
+	
+	componentWillReceiveProps: function(nextProps){
+		let { id } = nextProps.params;
+		this.getPerson(id);
 	},
 	
 	render: function(){
