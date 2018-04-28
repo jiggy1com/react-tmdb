@@ -1,14 +1,15 @@
 
 # react-tmdb
 
-<h2>This is a personal project using React utilizing 
-<a href="http://developers.themoviedb.org" target="_blank">The Movie Database API</a>.
-</h2>
- 
+### Live Online Demo
+<pre><a href='https://infinite-depths-13252.herokuapp.com/'>https://infinite-depths-13252.herokuapp.com/</a></pre>
+
+### This is a personal project using React utilizing <a href="http://developers.themoviedb.org" target="_blank">The Movie Database API</a>.
+
 <p>This application is based on the boilerplate 
 provided by <strong>The Complete React Web App Developer Course</strong> found here: <a href="https://www.udemy.com/the-complete-react-web-app-developer-course/learn/v4/overview" target="_blank">https://www.udemy.com/the-complete-react-web-app-developer-course/learn/v4/overview</a>
 
-<h3>Installation</h3>
+# Installation
 
 <p>Clone or download, then...</p>
 
@@ -18,6 +19,14 @@ provided by <strong>The Complete React Web App Developer Course</strong> found h
 
 <div class="highlight highlight-source-shell">
     <pre>npm install</pre>
+</div>
+
+<ul start='A'>
+    <li>You may need to manually install `jquery`</li>
+</ul>
+
+<div class="highlight highlight-source-shell">
+    <pre>npm install jquery</pre>
 </div>
 
 <ol start='2'>
