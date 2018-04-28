@@ -2,7 +2,7 @@
 # react-tmdb
 
 ### Live Online Demo
-<pre><a href='https://infinite-depths-13252.herokuapp.com/'>https://infinite-depths-13252.herokuapp.com/</a></pre>
+<pre><a href='https://jv-react-tmdb.herokuapp.com'>https://jv-react-tmdb.herokuapp.com</a></pre>
 
 ### This is a personal project using React utilizing <a href="http://developers.themoviedb.org" target="_blank">The Movie Database API</a>.
 
