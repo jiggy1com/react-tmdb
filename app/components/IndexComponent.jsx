@@ -76,11 +76,13 @@ let IndexComponent = React.createClass({
 						
 						{/* Jumbotron of top 3-6 TV and Movies */}
 						
-						{/* Featured Lists (whatever this is) */}
+						{/* Featured Lists (whatever this is)
 						<h2>Featured Lists</h2>
+						*/}
 						
-						{/* Top Users (whatever this is) */}
+						{/* Top Users (whatever this is)
 						<h2>Top Users</h2>
+						*/}
 						
 					</div>
 				</div>
