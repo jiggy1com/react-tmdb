@@ -1,5 +1,5 @@
-let CarouselController = require('./CarouselController');
 
-module.exports = {
+import {CarouselController} from "modules/carousel/CarouselController";
+export {
 	CarouselController
-};
+}

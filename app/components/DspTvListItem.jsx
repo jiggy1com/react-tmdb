@@ -1,16 +1,13 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
 
-let DspTvListItem = React.createClass({
-	
-	render: function(){
+export class DspTvListItem extends React.Component {
+
+	render(){
 		return (
 			<div>
 				DspTvListItem
 			</div>
 		)
 	}
-	
-});
 
-module.exports = DspTvListItem;
+}

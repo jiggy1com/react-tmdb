@@ -1,11 +1,17 @@
-let React = require('react');
-let httpService = require('HttpService');
+import React from 'react';
+import {HttpService} from 'app/services/HttpService';
 
-let MovieDetailReleaseDatesComponent = React.createClass({
-	
-	update: true,
-	
-	getReleaseDates: function(nextProps){
+export class MovieDetailReleaseDatesComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			results : []
+		}
+		this.update = true;
+	}
+
+	getReleaseDates(nextProps){
 		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/release-dates/' + movieId;
@@ -14,18 +20,18 @@ let MovieDetailReleaseDatesComponent = React.createClass({
 				results : resp.data.results
 			});
 		});
-	},
-	
-	renderReleaseDates: function(releaseDates){
-		
+	}
+
+	renderReleaseDates(releaseDates){
+
 		let self = this;
-		
+
 		return releaseDates.map(function(obj, idx){
 
 			let date = new Date(obj.release_date);
 			let dateFormat = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
 			let typeText = self.getReleaseDateType(obj.type);
-			
+
 			return (
 				<div key={idx}>
 					{dateFormat} {typeText} {obj.note}
@@ -33,9 +39,9 @@ let MovieDetailReleaseDatesComponent = React.createClass({
 				</div>
 			)
 		});
-	},
-	
-	getReleaseDateType: function(type){
+	}
+
+	getReleaseDateType(type){
 		let types = [
 			'',
 			'Premier',
@@ -46,56 +52,42 @@ let MovieDetailReleaseDatesComponent = React.createClass({
 			'TV'
 		];
 		return types[type];
-	},
-	
-	renderHtml: function(results){
+	}
+
+	renderHtml(results){
 		if(results.length === 0){
 			return (
 				<span>
 				</span>
 			)
 		}else{
-			
+
 			this.update = false;
-			
+
 			let releaseDatesList = results.filter(function(obj){
 				return obj.iso_3166_1 === 'US';
 			});
-			
+
 			return this.renderReleaseDates(releaseDatesList[0].release_dates);
-			
+
 		}
-	},
-	
-	getInitialState: function(){
-		return {
-			results : []
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			// setState : function(){
-			//
-			// }
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		this.getReleaseDates(nextProps)
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
 		return this.update;
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { results } = this.state;
-		
+
 		let html = this.renderHtml(results);
-		
+
 		return (
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Release Information</h2>
@@ -105,7 +97,5 @@ let MovieDetailReleaseDatesComponent = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = MovieDetailReleaseDatesComponent;
+}

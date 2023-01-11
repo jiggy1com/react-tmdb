@@ -1,26 +1,26 @@
-let React = require('react');
+import React from 'react';
 
 
-let httpService = require('HttpService');
+import {HttpService} from 'app/services/HttpService';
 
-let MovieDetailReviewsComponent = React.createClass({
-	
-	getInitialState: function(){
-		return {
-			results : []
+export class MovieDetailReviewsComponent extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			results: []
 		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		this.getMovieReviews(nextProps)
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
-	getMovieReviews: function(nextProps){
+	}
+
+	componentDidMount(){
+
+	}
+
+	getMovieReviews(nextProps){
 		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/reviews/' + movieId;
@@ -32,13 +32,13 @@ let MovieDetailReviewsComponent = React.createClass({
 				results : resp.data.results
 			});
 		});
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { results } = this.state;
 		let html;
-		
+
 		if(results.length === 0){
 			html = (
 				<span key={"review-span"}>
@@ -55,7 +55,7 @@ let MovieDetailReviewsComponent = React.createClass({
 				)
 			});
 		}
-		
+
 		return (
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Reviews</h2>
@@ -65,6 +65,4 @@ let MovieDetailReviewsComponent = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = MovieDetailReviewsComponent;
+}

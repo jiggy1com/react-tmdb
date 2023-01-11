@@ -1,7 +1,7 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailComponent = React.createClass({
-	render: function(){
+export class TVDetailComponent extends React.Component {
+	render(){
 		return (
 			<div className={"card mb-5"}>
 				<div className={"card-body"}>
@@ -10,6 +10,4 @@ let TVDetailComponent = React.createClass({
 			</div>
 		)
 	}
-});
-
-module.exports = TVDetailComponent;
+}

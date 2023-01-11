@@ -1,12 +1,10 @@
-let React = require('react');
+import React from 'react';
+export class AboutComponent extends React.Component {
 
+	render() {
+		return (
+			<div>AboutComponent is working correctly.</div>
+		);
+	}
 
-let AboutComponent = (props) => {
-	
-	return (
-		<div>AboutComponent</div>
-	);
-	
 }
-
-module.exports = AboutComponent;

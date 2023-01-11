@@ -1,14 +1,17 @@
 let webpack = require('webpack');
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+	mode: 'development',
+	context: path.resolve(__dirname),
+	optimization: {
+		minimizer: [new TerserPlugin({ /* additional options here */ })],
+	},
 	entry : [
-		'script!jquery/dist/jquery.min.js',
-		// 'script!foundation-sites/dist/foundation.min.js',
-		'script!tether/dist/js/tether.js',
-		'script!bootstrap/dist/js/bootstrap.js',
-		
-		// 'font-awesome-webpack!./font-awesome.config.js',
-		
+		'script-loader!jquery/dist/jquery.min.js',
+		'script-loader!tether/dist/js/tether.js',
+		'script-loader!bootstrap/dist/js/bootstrap.js',
 		'./app/app.jsx',
 	],
 	externals: {
@@ -16,6 +19,9 @@ module.exports = {
 		'jquery' : 'jQuery'
 	},
 	plugins : [
+		// "@babel/plugin-transform-runtime",
+		// "@babel/plugin-syntax-dynamic-import",
+		// "@babel/plugin-proposal-class-properties",
 		new webpack.ProvidePlugin({
 			// variable name to watch for : module to replace it with
 			'$' : 'jquery',
@@ -28,13 +34,13 @@ module.exports = {
 		filename: './public/bundle.js'
 	},
 	resolve : {
-		root: __dirname,
+		// root: __dirname,
 		alias: {
+			// "react/jsx-runtime": "node_modules/react/jsx-runtime.js",
+			// "react/jsx-dev-runtime": "node_modules/react/jsx-dev-runtime.js",
 			// SomeComponent: 'app/components/SomeComponent.jsx',
-			Main: 'app/components/Main',
-			IndexComponent: 'app/components/IndexComponent',
-			AboutComponent: 'app/components/AboutComponent',
-			
+
+
 			// Modules
 			LayoutModule: 'app/modules/layout/LayoutModule',
 			MovieModule: 'app/modules/movie/MovieModule',
@@ -43,87 +49,137 @@ module.exports = {
 			ModalModule: 'app/modules/modal/ModalModule',
 			GenreModule: 'app/modules/genre/GenreModule',
 			KeywordModule: 'app/modules/keyword/KeywordModule',
-			
+
 			// Helper Modules
 			LightboxModule: 'app/modules/lightbox/LightboxModule',
 			PaginationModule: 'app/modules/pagination/PaginationModule',
 			CarouselModule: 'app/modules/carousel/CarouselModule',
-			
+
 			// Services
 			HttpService: 'app/services/HttpService',
-			
+
 			// Helpers (pipe like)
 			CamelCase: 'app/services/CamelCase',
 			BreakpointService: 'app/services/BreakpointService',
 			Hyphenate: 'app/services/Hyphenate',
-			
-			
+
+			Main: 'app/components/Main',
+			IndexComponent: 'app/components/IndexComponent',
+			AboutComponent: 'app/components/AboutComponent',
+
 			// CSS
-			applicationStyles: 'app/styles/app.scss'
-			
+			applicationStyles: 'app/styles/app.scss',
+
+			modules: 'app/modules',
+
 		},
-		extensions : ['', '.js', '.jsx']
+		extensions : ['.js', '.jsx'],
+		modules: [
+			path.resolve('./node_modules'),
+			path.resolve(__dirname),
+			// path.resolve('./app/modules/services'),
+			// path.resolve('./app/modules'),
+			// path.resolve('./app/modules/person'),
+			// path.resolve('./app/modules/movie'),
+			// path.resolve('./app/modules/keyword'),
+			// path.resolve('./app/modules/genre/GenreModule'),
+			// path.resolve('./app/modules/tv'),
+			// path.resolve('./app/styles'),
+			// path.resolve('./app/styles/themes'),
+			// path.resolve('./node_modules/react'),
+			// path.resolve('./node_modules/react-dom'),
+			// path.resolve('./node_modules/react-router'),
+		]
 	},
 	module: {
-		loaders : [
+
+		rules: [
 			{
-				loader : 'babel-loader',
-				query: {
-					presets: ['react', 'es2015', 'stage-0']
-				},
-				test: /\.jsx?$/,
-				exclude: /(node_modules|bower_components)/
+				loader: 'thread-loader',
+				// loaders with equal options will share worker pools
+				options: {
+					// the number of spawned workers, defaults to (number of cpus - 1) or
+					// fallback to 1 when require('os').cpus() is undefined
+					workers: 2,
+
+					// number of jobs a worker processes in parallel
+					// defaults to 20
+					workerParallelJobs: 10,
+
+					// Allow to respawn a dead worker pool
+					// respawning slows down the entire compilation
+					// and should be set to false for development
+					poolRespawn: false,
+
+					// timeout for killing the worker processes when idle
+					// defaults to 500 (ms)
+					// can be set to Infinity for watching builds to keep workers alive
+					poolTimeout: 2000,
+
+					// number of jobs the poll distributes to the workers
+					// defaults to 200
+					// decrease of less efficient but more fair distribution
+					poolParallelJobs: 20
+				}
 			},
 			{
-				test: /\.css$/,
-				loader: "style-loader!css-loader"
+				use: [
+					'babel-loader',
+					{
+						loader: 'babel-loader',
+						options: {
+							test: /\.jsx?$/, // /\.(jsx?)$/,
+							exclude: /node_modules/,
+							presets: [
+								'@babel/preset-env',
+								'@babel/preset-react',
+							]
+							// presets: [
+							// 	// 'react',
+							// 	'es2015',
+							// 	'stage-0',
+							// 	'@babel/preset-react',
+							// ],
+						}
+					}
+				]
 			},
 			{
-				test: /\.png$/,
-				loader: "url-loader?limit=100000"
+				test: /\.css/,
+				use: [
+					'style-loader',
+					'css-loader',
+				],
+				// use: [
+				// 	'style-loader',
+				// 	{
+				// 		loader: 'style-loader',
+				// 		options: {
+				// 			test: /\.css/,
+				// 		}
+				// 	}
+				// ]
 			},
-			{
-				test: /\.jpg$/,
-				loader: "file-loader"
-			},
-			
-			
-			// the file-loader emits files.
 			// {
-			// 	test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-			// 	loader: "url-loader?&limit=10000&mimetype=application/font-woff",
-			// 	output: {
-			// 		path : './public/',
-			// 		publicPath : '/'
-			// 	}
+			// 	test: /\.css$/,
+			// 	loader: "style-loader!css-loader"
 			// },
 			// {
-			// 	test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-			// 	loader: "file-loader",
-			// 	output: {
-			// 		path : './public/',
-			// 		publicPath : '/'
-			// 	}
+			// 	test: /\.png$/,
+			// 	loader: "url-loader?limit=100000"
 			// },
 			// {
-			// 	test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-			// 	loader: 'url?limit=10000&mimetype=image/svg+xml'
-			// },
-			
-			// test loaders
-			{
-				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'url-loader?limit=100000',
-			}
-			
-			
-		],
-		// rules: [
-		// 	{
-		// 		test: /\.css$/,
-		// 		use: ['style-loader', 'css-loader']
-		// 	}
-		// ]
+			// 	test: /\.jpg$/,
+			// 	loader: "file-loader"
+			// }
+		]
+
+	},
+	watch: true,
+	watchOptions: {
+		aggregateTimeout: 300,
+		poll: 1000,
+		ignored: /node_modules/ //['node_modules']
 	},
 	devtool: 'cheap-module-eval-source-map'
 };

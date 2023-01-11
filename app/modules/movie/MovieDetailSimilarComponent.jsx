@@ -1,15 +1,25 @@
-let React = require('react');
-let httpService = require('HttpService');
-let MovieListComponent = require('./MovieListComponent');
+import React from 'react';
+import {HttpService} from 'app/services/HttpService';
+import {MovieListComponent} from "MovieModule";
 
-let MovieDetailSimilarComponent = React.createClass({
-	
+export class MovieDetailSimilarComponent extends React.Component {
+
+	constructor() {
+		super();
+		this.httpService = new HttpService();
+		this.state = {
+			page : 0,
+			total_pages: 0,
+			total_results: 0,
+			results: []
+		}
+	}
 	// My Methods
-	
-	getSimilar: function(nextProps){
+
+	getSimilar(nextProps){
 		let self = this;
 		let path = '/api/v1/movie/similar/' + nextProps.movieId;
-		httpService.doGet(path).then(function(resp){
+		this.httpService.doGet(path).then(function(resp){
 			self.setState({
 				results : resp.data.results,
 				total_pages : resp.data.total_pages,
@@ -17,48 +27,35 @@ let MovieDetailSimilarComponent = React.createClass({
 				page: resp.data.page
 			});
 		});
-	},
-	
+	}
+
 	// React Methods
-	
-	getInitialState: function() {
-		return {
-			page : 0,
-			total_pages: 0,
-			total_results: 0,
-			results: []
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			movieId: ''
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		if(nextProps.movieId !== ''){
 			this.getSimilar(nextProps);
 		}
-	},
-	
-	shouldComponentUpdate: function(){
+	}
+
+	shouldComponentUpdate(){
 		return true;
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { results } = this.state;
-		
+
 		// console.warn('MovieDetailSimilarComponent results', results);
-		
+
 		return (
 			<MovieListComponent results={results}>
 			</MovieListComponent>
 		)
 	}
-	
-});
 
-module.exports = MovieDetailSimilarComponent;
+}
+
+MovieDetailSimilarComponent.defaultProps = {
+	movieId: ''
+}

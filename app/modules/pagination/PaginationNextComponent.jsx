@@ -1,13 +1,11 @@
-let React = require('react');
+import React from 'react';
 
-let PaginationNextComponent = React.createClass({
-	render: function(){
+export class PaginationNextComponent extends React.Component {
+	render(){
 		return (
 			<button className={"btn btn-primary"} onClick={this.props.handler}>
 				<span className={"fa fa-chevron-right"}></span>
 			</button>
 		);
 	}
-});
-
-module.exports = PaginationNextComponent;
+}

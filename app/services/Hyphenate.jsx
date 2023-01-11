@@ -1,15 +1,16 @@
-let React = require('react');
+import React from 'react';
 
-let Hyphenate = {
+export class Hyphenate {
 
-	hyphenate: function(str){
+	constructor() {
+	}
+
+	hyphenate(str){
 		return str.replace(/\s/g, '-');
-	},
-	
-	hyphenateAndLowercase: function(str){
+	}
+
+	hyphenateAndLowercase(str){
 		return this.hyphenate(str).toLowerCase();
 	}
-	
-};
 
-module.exports = Hyphenate;
+}

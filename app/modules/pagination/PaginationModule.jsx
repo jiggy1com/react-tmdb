@@ -1,18 +1,17 @@
-let React = require('react');
-
-let PaginationController = require('./PaginationController');
-let PaginationFirstComponent = require('./PaginationFirstComponent');
-let PaginationPrevComponent = require('./PaginationPrevComponent');
-let PaginationNextComponent = require('./PaginationNextComponent');
-let PaginationLastComponent = require('./PaginationLastComponent');
-let PaginationPagesComponent = require('./PaginationPagesComponent');
-let PaginationPageComponent = require('./PaginationPageComponent');
-
-module.exports = {
+import React from 'react';
+import {PaginationController} from "app/modules/pagination/PaginationController";
+import {PaginationFirstComponent} from "modules/pagination/PaginationFirstComponent";
+import {PaginationPrevComponent} from "modules/pagination/PaginationPrevComponent";
+import {PaginationNextComponent} from "modules/pagination/PaginationNextComponent";
+import {PaginationLastComponent} from "modules/pagination/PaginationLastComponent";
+import {PaginationPageComponent} from "modules/pagination/PaginationPageComponent";
+import {PaginationPagesComponent} from "modules/pagination/PaginationPagesComponent";
+export {
 	PaginationController,
 	PaginationFirstComponent,
 	PaginationPrevComponent,
 	PaginationNextComponent,
 	PaginationLastComponent,
-	PaginationPageComponent
+	PaginationPageComponent,
+	PaginationPagesComponent
 };

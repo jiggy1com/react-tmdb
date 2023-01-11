@@ -1,31 +1,33 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let hyphenate = require('Hyphenate');
+import {Hyphenate} from 'app/services/Hyphenate';
 
-let MovieDetailGenresComponent = React.createClass({
-	
-	getInitialState: function(){
-		return {
+export class MovieDetailGenresComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
 			genres : []
 		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
+	}
+
+	componentDidMount(){
+
+	}
+
 	// badge badge-primary
-	
-	render: function(){
-		
+
+	render(){
+
 		let { genres } = this.state;
 		let html;
-		
+
 		if(genres.length === 0){
 			html = (
 				<span key={"review-span"}>
@@ -41,7 +43,7 @@ let MovieDetailGenresComponent = React.createClass({
 				)
 			});
 		}
-		
+
 		return (
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Genres</h2>
@@ -51,6 +53,4 @@ let MovieDetailGenresComponent = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = MovieDetailGenresComponent;
+}

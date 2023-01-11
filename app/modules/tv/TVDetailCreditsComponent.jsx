@@ -1,21 +1,29 @@
-let React = require('react');
-let hyphenate = require('Hyphenate');
+import React from 'react';
+import {Hyphenate} from 'app/services/Hyphenate';
 
 import { CarouselController } from 'CarouselModule';
 
-let TVDetailCreditsComponent = React.createClass({
-	
-	generateCarousel: function(data, dataType){
-		
+export class TVDetailCreditsComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			castSlides: [],
+			crewSlides: []
+		}
+	}
+
+	generateCarousel(data, dataType){
+
 		let arr = data.map(function(obj, idx){
-			
+
 			let folder = dataType === 'castSlides' ? 'w185' : 'w185';
 			let folderLg = dataType === 'castSlides' ? 'h632' : 'h632';
-			
+
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.profile_path;
 			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.profile_path;
 			let href = '/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
-			
+
 			return {
 				id : obj.file_path,
 				src : src,
@@ -26,25 +34,25 @@ let TVDetailCreditsComponent = React.createClass({
 				job: obj.job
 			};
 		});
-		
+
 		let update = {};
-		
+
 		if(dataType === 'castSlides'){
 			update.castSlides =  arr;
 		}
-		
+
 		if(dataType === 'crewSlides'){
 			update.crewSlides = arr;
 		}
-		
+
 		this.setState(update);
-		
-	},
-	
-	renderPosters: function(){
+
+	}
+
+	renderPosters(){
 		let { images } = this.props;
 		let posters = images.posters;
-		
+
 		if(posters.length === 0){
 			return null
 		}else{
@@ -59,13 +67,13 @@ let TVDetailCreditsComponent = React.createClass({
 				})
 			)
 		}
-	},
-	
-	renderBackdrops: function(){
-		
+	}
+
+	renderBackdrops(){
+
 		let { images } = this.props;
 		let backdrops = images.backdrops;
-		
+
 		if(backdrops.length === 0){
 			return null
 		}else{
@@ -80,42 +88,37 @@ let TVDetailCreditsComponent = React.createClass({
 				})
 			)
 		}
-		
-	},
-	
-	componentWillReceiveProps: function(nextProps){
-		
+
+	}
+
+	componentWillReceiveProps(nextProps){
+
 		if(nextProps.credits.cast.length > 0){
 			this.generateCarousel(nextProps.credits.cast, 'castSlides');
-			
+
 		}
-		
+
 		if(nextProps.credits.crew.length > 0){
 			this.generateCarousel(nextProps.credits.crew, 'crewSlides');
 		}
-		
-	},
-	
-	getInitialState: function(){
-		return {
-			castSlides: [],
-			crewSlides: []
-		}
-	},
-	
-	render: function(){
-		
+
+	}
+
+
+
+	render(){
+
 		let { castSlides, crewSlides } = this.state;
-		
+
 		return (
 			<div id={"tv-credits"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Cast</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-5"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -126,13 +129,13 @@ let TVDetailCreditsComponent = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Crew</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -143,11 +146,9 @@ let TVDetailCreditsComponent = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-			
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailCreditsComponent;
+}

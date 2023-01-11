@@ -1,51 +1,32 @@
-let React = require('react');
-let httpService = require('HttpService');
+import React from 'react';
+import {HttpService} from "HttpService";
 
-let TVDetailComponent = require('./TVDetailComponent');
-let TVDetailHeroComponent = require('./TVDetailHeroComponent');
-let TVDetailImagesComponents = require('./TVDetailImagesComponents');
-let TVDetailContentRatingsComponent = require('./TVDetailContentRatingsComponent');
-let TVDetailCreditsComponent = require('./TVDetailCreditsComponent');
-let TVDetailExternalIdsComponent = require('./TVDetailExternalIdsComponent');
-let TVDetailKeywordsComponent = require('./TVDetailKeywordsComponent');
-let TVDetailRecommendationsComponent = require('./TVDetailRecommendationsComponent');
-let TVDetailSimilarComponent = require('./TVDetailSimilarComponent');
-let TVDetailVideosComponent = require('./TVDetailVideosComponent');
-let TVDetailSeasonsComponent = require('./TVDetailSeasonsComponent');
-let TVDetailProductionCompaniesComponent = require('./TVDetailProductionCompaniesComponent');
-let TVDetailCreatedByComponent = require('./TVDetailCreatedByComponent');
-let TVDetailRunTimeComponent = require('./TVDetailRunTimeComponent');
-let TVDetailGenresComponent = require('./TVDetailGenresComponent');
-let TVDetailLanguagesComponent = require('./TVDetailLanguagesComponent');
-let TVDetailNetworksComponent = require('./TVDetailNetworksComponent');
-let TVDetailOriginCountryComponent = require('./TVDetailOriginCountryComponent');
 
-let TVDetailController = React.createClass({
-	
-	// my methods
-	
-	getTvId: function(){
-		console.log('props', this.props);
-		let { location } = this.props;
-		let arrLoc = location.pathname.split('/');
-		return arrLoc[ arrLoc.length-1];
-	},
+import {TVDetailComponent} from "app/modules/tv/TVDetailComponent";
+import {TVDetailHeroComponent} from "app/modules/tv/TVDetailHeroComponent";
+import {TVDetailImagesComponents} from "app/modules/tv/TVDetailImagesComponents";
+// import {TVDetailContentRatingsComponents} from "modules/tv/TVDetailContentRatingsComponent";
+import {TVDetailCreditsComponent} from "app/modules/tv/TVDetailCreditsComponent";
+import {TVDetailExternalIdsComponent} from "app/modules/tv/TVDetailExternalIdsComponent";
+import {TVDetailKeywordsComponent} from "app/modules/tv/TVDetailKeywordsComponent";
+import {TVDetailRecommendationsComponent} from "app/modules/tv/TVDetailRecommendationsComponent";
+import {TVDetailSimilarComponent} from "app/modules/tv/TVDetailSimilarComponent";
+import {TVDetailVideosComponent} from "app/modules/tv/TVDetailVideosComponent";
+import {TVDetailSeasonsComponent} from "app/modules/tv/TVDetailSeasonsComponent";
+import {TVDetailProductionCompaniesComponent} from "app/modules/tv/TVDetailProductionCompaniesComponent";
+import {TVDetailCreatedByComponent} from "app/modules/tv/TVDetailCreatedByComponent";
+import {TVDetailRunTimeComponent} from "app/modules/tv/TVDetailRunTimeComponent";
+import {TVDetailGenresComponent} from "app/modules/tv/TVDetailGenresComponent";
+import {TVDetailLanguagesComponent} from "app/modules/tv/TVDetailLanguagesComponent";
+import {TVDetailNetworksComponent} from "app/modules/tv/TVDetailNetworksComponent";
+import {TVDetailOriginCountryComponent} from "app/modules/tv/TVDetailOriginCountryComponent";
 
-	
-	getTVDetail: function(obj){
-		let self = this;
-		let path = '/api/v1/tv/detail/' + obj.tvId;
-		httpService.doGet(path).then(function(resp){
-			self.setState({
-				data : resp.data
-			});
-		});
-	},
-	
-	// react methods
-	
-	getInitialState: function(){
-		return {
+export class TVDetailController extends React.Component {
+
+	constructor() {
+		super();
+		this.httpService = new HttpService();
+		this.state = {
 			data : {
 				"backdrop_path": "",
 				"created_by": [
@@ -104,15 +85,15 @@ let TVDetailController = React.createClass({
 				"type": "",
 				"vote_average": 0,
 				"vote_count": 0,
-				
-				
+
+
 				// content_ratings
 				content_ratings: {
 					results : []
 				},
-				
+
 				// credits
-				
+
 				// external_ids
 				external_ids: {
 					imdb_id: null,
@@ -124,19 +105,19 @@ let TVDetailController = React.createClass({
 					instagram_id: null,
 					twitter_id: null
 				},
-				
+
 				// images
-				
+
 				images: {
 					posters: [],
 					backdrops: []
 				},
-				
+
 				// keywords
 				keywords: {
 					results : []
 				},
-				
+
 				// recommendations
 				recommendations: {
 					page : 0,
@@ -144,7 +125,7 @@ let TVDetailController = React.createClass({
 					total_pages: 0,
 					total_results : 0
 				},
-				
+
 				// similar
 				similar: {
 					page : 0,
@@ -152,104 +133,126 @@ let TVDetailController = React.createClass({
 					total_pages: 0,
 					total_results : 0
 				},
-				
+
 				// videos
 				videos: {
 					results: []
 				}
-				
+
 			}
 		}
-	},
-	
-	componentDidMount: function(){
+	}
+
+	// my methods
+
+	getTvId(){
+		console.log('props', this.props);
+		let { location } = this.props;
+		let arrLoc = location.pathname.split('/');
+		return arrLoc[ arrLoc.length-1];
+	}
+
+
+	getTVDetail(obj){
+		let self = this;
+		let path = '/api/v1/tv/detail/' + obj.tvId;
+		this.httpService.doGet(path).then(function(resp){
+			self.setState({
+				data : resp.data
+			});
+		});
+	}
+
+	// react methods
+
+
+
+	componentDidMount(){
 		let obj = {
 			tvId : this.getTvId()
 		};
 		this.getTVDetail( obj );
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { data } = this.state;
-		
+
 		return (
 			<div id="tv-detail">
-				
+
 				<TVDetailHeroComponent data={data} />
-				
+
 				<div className={"container-fluid interior-wrapper"}>
-					
+
 					<TVDetailComponent>
 						<TVDetailImagesComponents images={data.images} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailVideosComponent videos={data.videos.results} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailCreditsComponent credits={data.credits} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailSeasonsComponent seasons={data.seasons} showId={data.id} showName={data.name} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailExternalIdsComponent externalIds={data.external_ids} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailKeywordsComponent keywords={data.keywords.results} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailRecommendationsComponent recommendations={data.recommendations} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailSimilarComponent similar={data.similar} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailCreatedByComponent createdBy={data.created_by} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailProductionCompaniesComponent productionCompanies={data.production_companies} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailContentRatingsComponent contentRatings={data.content_ratings.results} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailGenresComponent genres={data.genres} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailRunTimeComponent episodeRunTime={data.episode_run_time} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailLanguagesComponent languages={data.languages} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailNetworksComponent networks={data.networks} />
 					</TVDetailComponent>
-					
+
 					<TVDetailComponent>
 						<TVDetailOriginCountryComponent originCountry={data.origin_country} />
 					</TVDetailComponent>
-					
+
 				</div>
-				
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailController;
+}

@@ -1,16 +1,13 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailRecommendationsComponent = React.createClass({
-	
-	
-	render: function(){
+export class TVDetailRecommendationsComponent extends React.Component {
+
+	render(){
 		return (
 			<div>
 				TVDetailRecommendationsComponent
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailRecommendationsComponent;
+}

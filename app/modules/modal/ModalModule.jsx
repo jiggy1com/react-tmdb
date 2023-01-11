@@ -3,7 +3,7 @@ import { ModalHeaderComponent } from './ModalHeaderComponent';
 import { ModalFooterComponent } from './ModalFooterComponent';
 import { ModalBodyComponent } from './ModalBodyComponent';
 
-module.exports = {
+export {
 	ModalController,
 	ModalHeaderComponent,
 	ModalFooterComponent,

@@ -1,10 +1,10 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let LayoutFooterComponent = React.createClass({
-	render: function(){
+export class LayoutFooterComponent extends React.Component {
+	render(){
 		return (
-			
+
 			<footer>
 				<nav className="navbar fixed-bottom navbar-dark bg-dark">
 					<div>
@@ -12,9 +12,7 @@ let LayoutFooterComponent = React.createClass({
 					</div>
 				</nav>
 			</footer>
-			
+
 		);
 	}
-});
-
-module.exports = LayoutFooterComponent;
+}

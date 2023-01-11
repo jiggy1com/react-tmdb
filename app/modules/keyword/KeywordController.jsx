@@ -1,25 +1,38 @@
-let React = require('react');
+import React from 'react';
 
-let httpService = require('HttpService');
-let CamelCase = require('CamelCase');
+import {HttpService} from 'app/services/HttpService';
+import {CamelCase} from 'app/services/CamelCase';
 
 import { PaginationController } from 'PaginationModule';
+import {KeywordMovieComponent, KeywordTvComponent} from "modules/keyword/KeywordModule";
 
-let KeywordMovieComponent = require('./KeywordMovieComponent');
-let KeywordTvComponent = require('./KeywordTvComponent');
+export class KeywordController extends React.Component {
 
-let KeywordController = React.createClass({
-	
+	constructor(props) {
+		super(props);
+		this.httpService = new HttpService();
+		this.state = {
+			page: 0,
+			total_results: 0,
+			total_pages: 0,
+			results : []
+		}
+		this.getResults({
+			page : 1
+		});
+	}
+
+
 	// my methods
 	// update: false,
-	
-	getResults: function(obj){
+
+	getResults(obj){
 		window.scrollTo(0,0);
 		let self = this;
 		let { page } = obj;
 		let { keywordType, id } = this.props.params;
 		let path = '/api/v1/keyword/' + keywordType + '/' + id + '/' + page;
-		httpService.doGet(path).then(function(resp){
+		this.httpService.doGet(path).then(function(resp){
 			self.setState({
 				page: resp.data.page,
 				total_results: resp.data.total_results,
@@ -27,14 +40,14 @@ let KeywordController = React.createClass({
 				results : resp.data.results
 			});
 		});
-	},
-	
-	handleEvent: function(e){
-		
+	}
+
+	handleEvent(e){
+
 		console.log('Keyword Controller Handle Event', e);
-		
+
 		let { page, total_pages } = this.state;
-		
+
 		let newPage = 	  e.action === 'first' ? 1 									// go to first page
 						: e.action === 'last' ? total_pages 						// go to last page
 						: (e.action === 'prev' && page > 1) ? page - 1 				// go to previous page
@@ -42,47 +55,33 @@ let KeywordController = React.createClass({
 						: (e.action === 'prev' && page < 1) ? page 					// stay on page
 						: (e.action === 'next' && page > total_pages) ? page 		// stay on page
 						: e.page; // go directly to page
-		
+
 		this.setState({
 			results : [],
 			page : newPage
 		});
-		
+
 		if(page !== newPage){
 			// this.update = true;
 			this.getResults({
 				page : newPage
 			});
 		}
-		
-	},
-	
+
+	}
+
 	// react methods
-	
-	getInitialState: function(){
-		return {
-			page: 0,
-			total_results: 0,
-			total_pages: 0,
-			results : []
-		}
-	},
-	
-	componentDidMount: function(){
-		this.getResults({
-			page : 1
-		});
-	},
-	
-	render: function(){
-		
+
+
+	render(){
+
 		let { page, total_results, total_pages, results } = this.state;
 		let { keywordType, keyword } = this.props.params;
-		
+
 		return (
-			
+
 			<div>
-				
+
 				<div className={"container-fluid interior-wrapper pt-5 pb-3"}>
 					<div className={"row"}>
 						<div className={"col-12"}>
@@ -92,15 +91,15 @@ let KeywordController = React.createClass({
 						</div>
 					</div>
 				</div>
-				
+
 				{keywordType === 'tv' &&
 					<KeywordTvComponent results={results} />
 				}
-				
+
 				{keywordType === 'movie' &&
 					<KeywordMovieComponent results={results} />
 				}
-				
+
 				{typeof results !== 'undefined' && results.length > 0 ?
 					<PaginationController
 						page={page}
@@ -111,11 +110,9 @@ let KeywordController = React.createClass({
 					:
 					null
 				}
-			
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = KeywordController;
+}

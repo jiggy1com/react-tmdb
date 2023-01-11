@@ -1,22 +1,13 @@
-let React = require('react');
+import React from 'react';
 
-let CarouselSlideItem = require('./CarouselSlideItem');
+import {CarouselSlideItem} from "modules/carousel/CarouselSlideItem";
 
-let CarouselSlideItems = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			slideItems : [],
-			helpers : {},
-			template : 'default',
-			doMeasureSlide : null
-		}
-	},
-	
-	render: function(){
-		
+export class CarouselSlideItems extends React.Component {
+
+	render(){
+
 		let { slideItems, helpers, template, doMeasureSlide } = this.props;
-		
+
 		return (
 			<div className={"carousel-slideItems"}>
 				<div className={"row"}>
@@ -29,7 +20,12 @@ let CarouselSlideItems = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = CarouselSlideItems;
+}
+
+CarouselSlideItems.defaultProps = {
+	slideItems : [],
+	helpers : {},
+	template : 'default',
+	doMeasureSlide : null
+}

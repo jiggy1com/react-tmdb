@@ -1,16 +1,11 @@
-let React = require('react');
+import React from 'react';
 
-
-// let MoviePopularComponent = require('./MoviePopularComponent');
-
-let MovieComponent = React.createClass({
-	render: function(){
+export class MovieComponent extends React.Component {
+	render(){
 		return (
 			<div>
 				MovieComponent
 			</div>
 		);
 	}
-});
-
-module.exports = MovieComponent;
+}

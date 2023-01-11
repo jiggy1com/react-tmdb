@@ -1,58 +1,39 @@
-let React = require('react');
+import React from 'react';
+import {BreakpointService} from "BreakpointService";
 
-let BreakpointService = require('BreakpointService');
+export class TVSeasonEpisodeComponent extends React.Component {
 
-let TVSeasonEpisodeComponent = React.createClass({
-	
-	breakpointService: null,
-	handleBreakpointChange: function(breakpoint){
+	constructor(props) {
+		super(props);
+		this.breakpointService = null;
+		this.state = {
+			breakpoint: ''
+		}
+	}
+
+	handleBreakpointChange(breakpoint){
 		this.setState({
 			breakpoint: breakpoint
 		});
-	},
-	
-	getDefaultProps: function(){
-		return {
-			episode: {
-				air_date: '',
-				crew: [],
-				episode_number: 0,
-				guest_stars: [],
-				name: '',
-				overview: '',
-				id: 0,
-				production_code: '',
-				season_number: 0,
-				still_path: '',
-				vote_average: 0,
-				vote_count: 0
-			}
-		}
-	},
-	
-	getInitialState: function(){
-		return {
-			breakpoint: ''
-		}
-	},
-	
-	componentDidMount: function(){
+	}
+
+	componentDidMount(){
 		this.breakpointService = new BreakpointService();
 		this.breakpointService.init({
 			onChange: this.handleBreakpointChange
 		});
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { episode } = this.props;
 		let { breakpoint } = this.state;
-		
+
 		let src = 'https://image.tmdb.org/t/p/w300' + episode.still_path;
-		
+
 		let episodeImgClass = breakpoint === 'xs' || breakpoint === 'sm' ? 'img-full' : '';
 		let episodeTextClass = breakpoint === 'xs' || breakpoint === 'sm' ? 'mt-3' : '';
-		
+
 		return (
 			<div className="tv-season-episode-list-item mb-3 pb-3 border-bottom">
 				<div className={"row justify-content-md-center"}>
@@ -72,7 +53,22 @@ let TVSeasonEpisodeComponent = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVSeasonEpisodeComponent;
+}
+
+TVSeasonEpisodeComponent.defaultProps = {
+	episode: {
+		air_date: '',
+		crew: [],
+		episode_number: 0,
+		guest_stars: [],
+		name: '',
+		overview: '',
+		id: 0,
+		production_code: '',
+		season_number: 0,
+		still_path: '',
+		vote_average: 0,
+		vote_count: 0
+	}
+}

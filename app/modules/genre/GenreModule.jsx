@@ -1,5 +1,4 @@
-let GenreController = require('./GenreController');
-
-module.exports = {
+import {GenreController} from "modules/genre/GenreController";
+export{
 	GenreController
-};
+}

@@ -1,21 +1,20 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailNetworksComponent = React.createClass({
-	
-	
-	render: function(){
-		
+export class TVDetailNetworksComponent extends React.Component {
+
+	render(){
+
 		let { networks } = this.props;
-		
+
 		return (
 			<div id={"tv-external-ids"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Networks</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						{networks.map(function(obj){
@@ -27,11 +26,9 @@ let TVDetailNetworksComponent = React.createClass({
 						})}
 					</div>
 				</div>
-			
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailNetworksComponent;
+}

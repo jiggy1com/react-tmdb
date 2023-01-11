@@ -1,23 +1,12 @@
-let React = require('react');
-let ReactDOM = require('react-dom');
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import {CarouselSlide} from "modules/carousel/CarouselSlide";
+export class CarouselSlides extends React.Component {
 
-let CarouselSlide = require('./CarouselSlide');
+	render() {
 
-let CarouselSlides = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			currentSlide: 0,
-			helpers: {},
-			template : 'default',
-			carouselHeight : 0
-		}
-	},
-	
-	render: function() {
-		
 		let { slides, currentSlide, helpers, template, carouselHeight } = this.props;
-		
+
 		return (
 			<div className={"carousel-slides"} ref="slide">
 				{slides.length > 0 && slides.map(function (slide, slideIdx) {
@@ -34,12 +23,16 @@ let CarouselSlides = React.createClass({
 					)
 				})}
 			</div>
-			
-		);
-		
-	}
-	
-	
-});
 
-module.exports = CarouselSlides;
+		);
+
+	}
+
+}
+
+CarouselSlides.defaultProps = {
+	currentSlide: 0,
+	helpers: {},
+	template : 'default',
+	carouselHeight : 0
+}

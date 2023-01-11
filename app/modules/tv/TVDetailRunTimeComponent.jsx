@@ -1,21 +1,21 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailRunTimeComponent = React.createClass({
-	
-	render: function(){
-		
+export class TVDetailRunTimeComponent extends React.Component {
+
+	render(){
+
 		let { episodeRunTime } = this.props;
-		
+
 
 		return (
 			<div id={"tv-external-ids"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Runtime</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						{episodeRunTime.map(function(runtime, idx){
@@ -27,12 +27,10 @@ let TVDetailRunTimeComponent = React.createClass({
 						})}
 					</div>
 				</div>
-				
+
 			</div>
 		)
-		
-	}
-	
-});
 
-module.exports = TVDetailRunTimeComponent;
+	}
+
+}

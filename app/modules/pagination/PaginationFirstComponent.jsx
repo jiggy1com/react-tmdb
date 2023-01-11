@@ -1,7 +1,7 @@
-let React = require('react');
+import React from 'react';
 
-let PaginationFirstComponent = React.createClass({
-	render: function(){
+export class PaginationFirstComponent extends React.Component {
+	render(){
 		return (
 			<button className={"btn btn-primary"} onClick={this.props.handler}>
 				<span className={"fa fa-chevron-left"}></span>
@@ -9,6 +9,4 @@ let PaginationFirstComponent = React.createClass({
 			</button>
 		);
 	}
-});
-
-module.exports = PaginationFirstComponent;
+}

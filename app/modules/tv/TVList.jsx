@@ -1,13 +1,20 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let TVList = React.createClass({
-	
+export class TVList extends React.Component {
+
+	constructor() {
+		super();
+		this.state = {
+			list : []
+		}
+	}
+
 	// custom methods
-	renderList: function(){
-		
+	renderList(){
+
 		let { list } = this.state;
-		
+
 		if(list.length === 0){
 			return (
 				<div className={"container mb-5"}>
@@ -38,38 +45,32 @@ let TVList = React.createClass({
 				)
 			});
 		}
-		
-	},
-	
+
+	}
+
 	// react methods
-	
-	getInitialState: function(){
-		return {
-			list : []
-		}
-	},
-	
+
 	componentWillReceiveProps(nextProps){
 		console.log('componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
-	},
-	
-	componentWillMount: function(){
+	}
 
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
-	componentWillUpdate: function(){
-	
-	},
-	
-	render: function(){
-		
+	componentWillMount(){
+
+	}
+
+	componentDidMount(){
+
+	}
+
+	componentWillUpdate(){
+
+	}
+
+	render(){
+
 		let html = this.renderList();
-		
+
 		return (
 			<div>
 				<div className={"row mt-3"} id="tv-list">
@@ -78,7 +79,5 @@ let TVList = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVList;
+}

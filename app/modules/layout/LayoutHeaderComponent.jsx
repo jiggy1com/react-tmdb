@@ -1,79 +1,96 @@
-let React = require('react');
-let { Link } = require('react-router');
-let httpService = require('HttpService');
-let LayoutHeaderSearchResultsComponent = require('./LayoutHeaderSearchResultsComponent');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let LayoutHeaderComponent = React.createClass({
-	
-	// TODO: bind onresize and set the breakpoint
-	lastBreakpoint: '',
-	bp : '',
-	
-	handleKeyUp: function(e){
+import {HttpService} from "HttpService";
+import {LayoutHeaderSearchResultsComponent} from "app/modules/layout/LayoutHeaderSearchResultsComponent";
+
+export class LayoutHeaderComponent extends React.Component {
+
+	constructor() {
+		super();
+
+		// TODO: bind onresize and set the breakpoint
+
+		this.lastBreakpoint = '';
+		this.bp = '';
+
+		this.state = {
+			movieList: [],
+			tvList: [],
+			personList: []
+		}
+
+		this.doOldDidMount();
+
+	}
+
+
+
+	handleKeyUp(e){
 		e.preventDefault();
 		// if(e.keyCode === 13){
 		// 	this.doSearch();
 		// }
-	},
-	
-	doSearch: function(e, a){
-		
+	}
+
+	doSearch(e, a){
+
 		e.preventDefault();
 		e.stopPropagation();
-		
+
 		let self = this;
 		let search = this.refs.search.value;
 		let obj = {
 			search : search
 		};
-		
+
 		let path;
-		
+
 		// let path = '/api/v1/search/multi';
 		// httpService.doPost(obj, path).then(function(resp){
 		// 	self.setState({
 		// 		results : resp.data.data.results
 		// 	});
 		// });
-		
+
 		path = '/api/v1/search/movie';
 		httpService.doPost(obj, path).then(function(resp){
 			self.setState({
 				movieList : resp.data.data.results
 			});
 		});
-		
+
 		path = '/api/v1/search/tv';
 		httpService.doPost(obj, path).then(function(resp){
 			self.setState({
 				tvList : resp.data.data.results
 			});
 		});
-		
+
 		path = '/api/v1/search/person';
 		httpService.doPost(obj, path).then(function(resp){
 			self.setState({
 				personList : resp.data.data.results
 			});
 		});
-		
+
 		this.setState({
 			search : search
 		});
-		
-	},
-	
-	clearSearchResults: function(){
+
+	}
+
+	clearSearchResults(){
 		this.refs.search.value = '';
 		this.setState({
 			movieList: [],
 			tvList: [],
 			personList: []
 		});
-	},
-	
+	}
+
 	// Vanilla JS works...
-	closeNavigation: function(){
+	closeNavigation(){
 		// let navToggler = document.getElementById('navToggler');
 		// let navbarSupportedContent = document.getElementById('navbarSupportedContent');
 		//
@@ -84,45 +101,28 @@ let LayoutHeaderComponent = React.createClass({
 		// 		navToggler.click();
 		// 	}
 		// }
-	},
-	
+	}
+
 	// ...but going the jQuery way to test doing it inside componentDidMount
-	componentDidMount:function(){
-		
+	doOldDidMount(){
 		let navToggler = $('#navToggler');
 		let navbarSupportedContent = $('#navbarSupportedContent');
-		
 		$('.nav-item').click(function(){
 			if(navbarSupportedContent.hasClass('show')){
 				navToggler.click();
 			}
 		});
-		
-		// changing state will trigger shouldComponentUpdate
-		// why is this here, though?
-		// this.setState({
-		// 	test : true
-		// });
-		
-	},
-	
-	shouldComponentUpdate: function(){
+	}
+
+	shouldComponentUpdate(){
 		console.log('LayoutHeaderComponent shouldComponentUpdate');
 		return true;
-	},
-	
-	getInitialState: function(){
-		return {
-			movieList: [],
-			tvList: [],
-			personList: []
-		}
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { movieList, tvList, personList, search } = this.state;
-		
+
 		return (
 			<header>
 				<div className="bg-dark sticky-top" id="layout-header">
@@ -178,7 +178,7 @@ let LayoutHeaderComponent = React.createClass({
 								</form>
 							</div>
 						</nav>
-						
+
 						<LayoutHeaderSearchResultsComponent
 							movieList={movieList}
 							tvList={tvList}
@@ -186,12 +186,10 @@ let LayoutHeaderComponent = React.createClass({
 							search={search}
 							onClose={this.clearSearchResults}>
 						</LayoutHeaderSearchResultsComponent>
-						
+
 					</div>
 				</div>
 			</header>
 		);
 	}
-});
-
-module.exports = LayoutHeaderComponent;
+}

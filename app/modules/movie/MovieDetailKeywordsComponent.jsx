@@ -1,27 +1,29 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let httpService = require('HttpService');
-let hyphenate = require('Hyphenate');
+import {HttpService} from 'app/services/HttpService';
+import {Hyphenate} from 'app/services/Hyphenate';
 
-let MovieDetailKeywordsComponent = React.createClass({
-	
-	getInitialState: function(){
-		return {
+export class MovieDetailKeywordsComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
 			results : []
 		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		this.getMovieKeywords(nextProps)
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
-	getMovieKeywords: function(nextProps){
+	}
+
+	componentDidMount(){
+
+	}
+
+	getMovieKeywords(nextProps){
 		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/keywords/' + movieId;
@@ -31,13 +33,13 @@ let MovieDetailKeywordsComponent = React.createClass({
 				results : resp.data.keywords
 			});
 		});
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { results } = this.state;
 		let html;
-		
+
 		if(results.length === 0){
 			html = (
 				<span key={"review-span"}>
@@ -53,7 +55,7 @@ let MovieDetailKeywordsComponent = React.createClass({
 				)
 			});
 		}
-		
+
 		return (
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Keywords</h2>
@@ -63,6 +65,4 @@ let MovieDetailKeywordsComponent = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = MovieDetailKeywordsComponent;
+}

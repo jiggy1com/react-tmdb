@@ -1,19 +1,11 @@
-let React = require('react');
+import React from 'react';
+import {TVSeasonEpisodeComponent} from "modules/tvSeason/TVSeasonEpisodeComponent";
+export class TVSeasonEpisodesComponent extends React.Component {
 
-let TVSeasonEpisodeComponent = require('./TVSeasonEpisodeComponent');
+	render(){
 
-let TVSeasonEpisodesComponent = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			episodes: []
-		}
-	},
-	
-	render: function(){
-		
 		let { episodes } = this.props;
-		
+
 		return (
 			<div id={"episodes-list"}>
 				{episodes.map(function(episode, idx){
@@ -24,6 +16,8 @@ let TVSeasonEpisodesComponent = React.createClass({
 			</div>
 		)
 	}
-});
+}
 
-module.exports = TVSeasonEpisodesComponent;
+TVSeasonEpisodesComponent.defaultProps = {
+	episodes: []
+}

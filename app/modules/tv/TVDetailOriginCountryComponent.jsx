@@ -1,21 +1,20 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailOriginCountryComponent = React.createClass({
-	
-	
-	render: function(){
-		
+export class TVDetailOriginCountryComponent extends React.Component {
+
+	render(){
+
 		let { originCountry } = this.props;
-		
+
 		return (
 			<div id={"tv-external-ids"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Origin Country</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						{originCountry.map(function(val){
@@ -27,11 +26,9 @@ let TVDetailOriginCountryComponent = React.createClass({
 						})}
 					</div>
 				</div>
-			
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailOriginCountryComponent;
+}

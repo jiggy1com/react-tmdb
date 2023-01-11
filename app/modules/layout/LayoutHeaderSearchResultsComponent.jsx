@@ -1,81 +1,33 @@
-let React = require('react');
-let { Link } = require('react-router');
-let hyphenate = require('Hyphenate');
+import React from 'react';
+import { Link } from "react-router-dom";
+import {Hyphenate} from 'app/services/Hyphenate';
 
-let LayoutHeaderSearchResultsComponent = React.createClass({
-	
-	// @Deprecated
-	// filterResults: function(nextProps){
-	//
-	// 	let movieList = [];
-	// 	let tvList = [];
-	// 	let personList = [];
-	//
-	// 	nextProps.results.forEach(function(obj){
-	// 		if(obj.media_type === 'movie'){
-	// 			movieList.push(obj);
-	// 		}
-	// 	});
-	//
-	// 	nextProps.results.forEach(function(obj){
-	// 		if(obj.media_type === 'tv'){
-	// 			tvList.push(obj);
-	// 		}
-	// 	});
-	//
-	// 	nextProps.results.forEach(function(obj){
-	// 		if(obj.media_type === 'person'){
-	// 			personList.push(obj);
-	// 		}
-	// 	});
-	//
-	// 	let update = {
-	// 		movieList: movieList,
-	// 		tvList: tvList,
-	// 		personList: personList
-	// 	};
-	//
-	// 	this.setState(update);
-	//
-	// },
+export class LayoutHeaderSearchResultsComponent extends React.Component {
 
-	getInitialState: function(){
-		return {
+	constructor() {
+		super();
+		this.state = {
 			movieList : [],
 			tvList: [],
 			personList: [],
 			search: ''
 		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			
-			movieList: [],
-			tvList: [],
-			personList: [],
-			search: '',
-			
-			onClose : function(){
-				console.log('close was not passed in. This prop should be passed in to override THIS default prop.');
-			}
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
-		// this.filterResults(nextProps);
-		this.setState({
-			movieList: nextProps.movieList,
-			tvList: nextProps.tvList,
-			personList: nextProps.personList,
-			search: nextProps.search
-		});
-	},
-	
-	renderMovieList: function(){
+	}
+
+	// componentWillReceiveProps(nextProps){
+	// 	// this.filterResults(nextProps);
+	// 	this.setState({
+	// 		movieList: nextProps.movieList,
+	// 		tvList: nextProps.tvList,
+	// 		personList: nextProps.personList,
+	// 		search: nextProps.search
+	// 	});
+	// }
+
+	renderMovieList(){
 		let { movieList, search } = this.state;
 		let { onClose } = this.props;
-		
+
 		if(movieList.length === 0){
 			return (
 				<div>
@@ -94,12 +46,12 @@ let LayoutHeaderSearchResultsComponent = React.createClass({
 				)
 			});
 		}
-	},
-	
-	renderTvList: function(){
+	}
+
+	renderTvList(){
 		let { tvList, search } = this.state;
 		let { onClose } = this.props;
-		
+
 		if(tvList.length === 0){
 			return (
 				<div>
@@ -118,12 +70,12 @@ let LayoutHeaderSearchResultsComponent = React.createClass({
 				)
 			});
 		}
-	},
-	
-	renderPersonList: function(){
+	}
+
+	renderPersonList(){
 		let { personList, search } = this.state;
 		let { onClose } = this.props;
-		
+
 		if(personList.length === 0){
 			return (
 				<div>
@@ -142,15 +94,15 @@ let LayoutHeaderSearchResultsComponent = React.createClass({
 				)
 			});
 		}
-	},
-	
-	render: function(){
-	
+	}
+
+	render(){
+
 		let movieHtml = this.renderMovieList();
 		let tvHtml = this.renderTvList();
 		let personHtml = this.renderPersonList();
 		let { movieList, tvList, personList } = this.props;
-		
+
 		if(movieList.length === 0 && tvList.length === 0 && personList.length === 0){
 			return (
 				<div>
@@ -184,9 +136,27 @@ let LayoutHeaderSearchResultsComponent = React.createClass({
 				</div>
 			)
 		}
-		
-		
-	}
-});
 
-module.exports = LayoutHeaderSearchResultsComponent;
+
+	}
+}
+
+// static property
+LayoutHeaderSearchResultsComponent.defaultProps = {
+	movieList: [],
+	tvList: [],
+	personList: [],
+	search: '',
+	onClose (){
+		console.log('close was not passed in. This prop should be passed in to override THIS default prop.');
+	}
+}
+
+// LayoutHeaderSearchResultsComponent.getDerivedStateFromProps = function(props, state){
+// 	setState({
+// 		movieList: nextProps.movieList,
+// 		tvList: nextProps.tvList,
+// 		personList: nextProps.personList,
+// 		search: nextProps.search
+// 	});
+// }

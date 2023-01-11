@@ -1,11 +1,6 @@
 /* DO NOT USE */
-
-let React = require('react');
-
-let TVSeasonController = require('./TVSeasonController');
-
-module.exports = {
-	
-	TVSeasonController
-	
+import React from 'react';
+import {TVSeasonController} from 'app/modules/tvSeason/TVSeasonController';
+export {
+	// TVSeasonController
 };

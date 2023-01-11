@@ -1,28 +1,15 @@
-let React = require('react');
+import React from 'react';
 
-let CarouselPrevNext = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			slides: [],
-			currentSlide: 0,
-			doPrev: function(){
-				console.error('did not pass in doPrev');
-			},
-			doNext: function(){
-				console.error('did not pass in doNext');
-			}
-		}
-	},
-	
-	render: function(){
-		
+export class CarouselPrevNext extends React.Component {
+
+	render(){
+
 		let { slides, currentSlide, doPrev, doNext } = this.props;
-		
+
 		let prevNextClass = 'text-muted';
 		let prevClass = currentSlide === 0 ? 'disabled' : 'text-dark';
 		let nextClass = currentSlide === slides.length-1 && slides.length > 0 ? 'disabled' : 'text-dark';
-		
+
 		return (
 			<div className={"carousel-prev-next col-12 mb-2 " + prevNextClass}>
 				<div className={"text-right"}>
@@ -34,7 +21,16 @@ let CarouselPrevNext = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = CarouselPrevNext;
+}
+
+CarouselPrevNext.defaultProps = {
+	slides: [],
+	currentSlide: 0,
+	doPrev(){
+		console.error('did not pass in doPrev');
+	},
+	doNext(){
+		console.error('did not pass in doNext');
+	}
+}

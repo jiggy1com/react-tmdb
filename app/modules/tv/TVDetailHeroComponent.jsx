@@ -1,20 +1,20 @@
-let React = require('react');
+import React from 'react';
 
-let TVDetailHeroComponent = React.createClass({
-	
-	componentWillReceiveProps: function(nextProps){
+export class TVDetailHeroComponent extends React.Component {
+
+	componentWillReceiveProps(nextProps){
 		console.log('nextProps', nextProps);
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { data } = this.props;
 		let backgroundImage = 'https://image.tmdb.org/t/p/w1400_and_h450_face' + data.backdrop_path;
 		let posterImage = 'https://image.tmdb.org/t/p/w500' + data.poster_path;
 		let heroStyles = {
 			backgroundImage : "url(" + backgroundImage + ")"
 		};
-		
+
 		return (
 			<div className="tv-hero mb-5" style={heroStyles}>
 				<div className="tv-hero-guts p-5">
@@ -24,7 +24,5 @@ let TVDetailHeroComponent = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailHeroComponent;
+}

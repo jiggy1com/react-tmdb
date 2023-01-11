@@ -1,16 +1,14 @@
+import {PersonController} from "modules/person/PersonController";
+import {PersonComponent} from "modules/person/PersonComponent";
+import {PersonCombinedCreditsComponent} from "modules/person/PersonCombinedCreditsComponent";
+import {PersonExternalIdsComponent} from "modules/person/PersonExternalIdsComponent";
+import {PersonHeroComponent} from "modules/person/PersonHeroComponent";
+import {PersonImagesComponent} from "modules/person/PersonImagesComponent";
+import {PersonMovieCreditsComponent} from "modules/person/PersonMovieCreditsComponent";
+import {PersonTaggedImagesComponent} from "modules/person/PersonTaggedImagesComponent";
+import {PersonTVCreditsComponent} from "modules/person/PersonTVCreditsComponent";
 
-let PersonController = require('./PersonController');
-let PersonComponent = require('./PersonComponent');
-let PersonCombinedCreditsComponent = require('./PersonCombinedCreditsComponent');
-let PersonExternalIdsComponent = require('./PersonExternalIdsComponent');
-let PersonHeroComponent = require('./PersonHeroComponent');
-let PersonImagesComponent = require('./PersonImagesComponent');
-let PersonMovieCreditsComponent = require('./PersonMovieCreditsComponent');
-let PersonTaggedImagesComponent = require('./PersonTaggedImagesComponent');
-let PersonTVCreditsComponent = require('./PersonTVCreditsComponent');
-
-
-module.exports = {
+export {
 	PersonController,
 	PersonComponent,
 	PersonCombinedCreditsComponent,
