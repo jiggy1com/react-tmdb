@@ -42,6 +42,11 @@ export class CarouselController extends React.Component {
 		// carouselId : 'carousel-' + ( Math.floor(Math.random() * 1000) + new Date().getTime() ),
 		this.breakpointService = new BreakpointService();
 		this.carouselHeight = 0; // might store here
+
+		// did mount
+		this.breakpointService.init({
+			onChange : this.handleBreakpointChange
+		});
 	}
 
 	// My Methods
@@ -240,20 +245,6 @@ export class CarouselController extends React.Component {
 		// console.log('CarouselController componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
 		this.buildCarouselGuts(nextProps);
-	}
-
-	componentWillMount(){
-
-	}
-
-	componentDidMount(){
-		this.breakpointService.init({
-			onChange : this.handleBreakpointChange
-		});
-	}
-
-	componentDidUpdate(prevProps, prevState){
-		console.log('carousel did update');
 	}
 
 	shouldComponentUpdate(nextProps, nextState){

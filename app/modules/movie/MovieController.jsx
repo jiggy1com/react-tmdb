@@ -9,6 +9,7 @@ export class MovieController extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.httpService = new HttpService();
 		this.state = {
 			// locals
 			pageTitle : '',
@@ -18,9 +19,9 @@ export class MovieController extends React.Component {
 			page : 0,
 			total_pages : 0,
 			total_results : 0,
-			results : []
+			results : [],
+			update: false,
 		}
-		this.update = false;
 	}
 
 	getMovies(obj){
@@ -36,9 +37,11 @@ export class MovieController extends React.Component {
 		let apiPath = uri.replace(/-/g, '_');
 		let pageTitle = uri.replace(/-/g, ' ');
 
-		this.setState({
-			pageTitle : pageTitle
-		});
+		this.setState((state,props)=>{
+			return {
+				pageTitle: pageTitle
+			}
+		})
 
 		if(obj){
 			page = obj.page;
@@ -49,14 +52,16 @@ export class MovieController extends React.Component {
 		}
 
 		let path = '/api/v1/movie/' + apiPath + '/' + page;
-		httpService.doGet(path).then(function(resp){
+		this.httpService.doGet(path).then((resp) => {
 			if(resp.success){
-				self.update = true;
-				self.setState({
-					page : resp.data.page,
-					total_pages : resp.data.total_pages,
-					total_results : resp.data.total_results,
-					results : resp.data.results
+				this.setState((state, props)=>{
+					return {
+						page : resp.data.page,
+						total_pages : resp.data.total_pages,
+						total_results : resp.data.total_results,
+						results : resp.data.results,
+						update: true,
+					}
 				});
 			}else{
 
@@ -65,10 +70,10 @@ export class MovieController extends React.Component {
 	}
 
 	componentWillMount(){
-		// console.log('MovieController componentWillMount state', this.state);
-		// console.log('MovieController componentWillMount props', this.props);
-		this.setState({
-			route : this.props.location.pathname,
+		this.setState((state, props)=>{
+			return {
+				route : document.location.pathname
+			}
 		});
 	}
 
@@ -77,8 +82,6 @@ export class MovieController extends React.Component {
 	}
 
 	componentDidMount(){
-		// console.log('MovieController componentDidMount', this.props);
-		// console.log('MovieController componentDidMount', this.state);
 		let { route } = this.state;
 		this.getMovies({
 			page : 1,
@@ -95,19 +98,28 @@ export class MovieController extends React.Component {
 		// console.log('## compare to', nextProps);
 		// console.log('update', this.update);
 
-		if(this.props.location.pathname !== nextProps.location.pathname){
-			this.getMovies({
-				page : 1,
-				route : nextProps.location.pathname
+		if (this.state.route !== document.location.pathname) {
+			this.setState((state, props) => {
+				return {
+					route: document.location.pathname
+				}
+			}, () => {
+				this.getMovies({
+					page: 1,
+					route: this.state.route
+				});
+			})
+			return false;
+		}
+		if (nextState.update) {
+			this.setState((state, props) => {
+				return {
+					update: false
+				}
 			});
 			return true;
-		}else{
-			if(this.update){
-				this.update = false;
-				return true;
-			}else{
-				return false;
-			}
+		} else {
+			return false;
 		}
 	}
 
@@ -123,14 +135,21 @@ export class MovieController extends React.Component {
 					: (e.action === 'next' && page > total_pages) ? page 		// stay on page
 					: e.page; // go directly to page
 
-		this.setState({
-			results : [],
-			page : newPage
-		});
+
+		// this.setState((state, props)=>{
+		// 	return {
+		// 		results : [],
+		// 		page : newPage
+		// 	}
+		// });
 
 		if(page !== newPage){
 
-			this.update = true;
+			this.setState((state, props)=>{
+				return {
+					update: true
+				}
+			});
 
 			this.getMovies({
 				page : newPage,
@@ -167,7 +186,7 @@ export class MovieController extends React.Component {
 						page={page}
 						total_pages={total_pages}
 						total_results={total_results}
-						notifyParent={this.handleEvent}>
+						notifyParent={this.handleEvent.bind(this)}>
 					</PaginationController>
 				}
 

@@ -103,7 +103,6 @@ export class LayoutHeaderComponent extends React.Component {
 		// }
 	}
 
-	// ...but going the jQuery way to test doing it inside componentDidMount
 	doOldDidMount(){
 		let navToggler = $('#navToggler');
 		let navbarSupportedContent = $('#navbarSupportedContent');

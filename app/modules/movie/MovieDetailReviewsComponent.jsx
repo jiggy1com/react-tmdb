@@ -16,10 +16,6 @@ export class MovieDetailReviewsComponent extends React.Component {
 		this.getMovieReviews(nextProps)
 	}
 
-	componentDidMount(){
-
-	}
-
 	getMovieReviews(nextProps){
 		let self = this;
 		let { movieId } = nextProps;

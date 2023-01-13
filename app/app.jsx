@@ -33,7 +33,7 @@ import { KeywordController } from 'app/modules/keyword/KeywordModule';
 
 // This is a custom bootstrap theme in /themes
 // import './styles/themes/materia.css';
-import 'app/styles/themes/lux.css';
+// import 'app/styles/themes/lux.css';
 import {LayoutHeaderComponent} from "LayoutModule";
 
 /* END BOOTSTRAP STYLES */
@@ -45,6 +45,11 @@ import {LayoutHeaderComponent} from "LayoutModule";
 
 // App CSS (update webpack.config.js for this to work)
 // require('style-loader!css-loader!sass-loader!applicationStyles');
+
+// import 'applicationStyles';
+// import 'app/styles/app.scss';
+// import 'public/styles';
+// import 'app/styles/bundleStyles';
 
 const container = document.getElementById('app');
 const root = createRoot(container);

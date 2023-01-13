@@ -34,6 +34,7 @@ export class MovieDetailComponent extends React.Component {
 			// scroll
 			// scroll :
 		}
+		this.doOldDidMount()
 	}
 
 
@@ -97,7 +98,7 @@ export class MovieDetailComponent extends React.Component {
 		window.scrollTo(0,0);
 	}
 
-	componentDidMount(){
+	doOldDidMount(){
 		// window.scrollTo(0,0);
 		let body = document.getElementById('body');
 		this.getMovieDetail({

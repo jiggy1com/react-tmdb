@@ -57,6 +57,7 @@ export class TVSeasonController extends React.Component {
 			crewCarousel: [],
 			videosCarousel: []
 		}
+		this.getSeason();
 	}
 
 	// my methods
@@ -147,14 +148,6 @@ export class TVSeasonController extends React.Component {
 
 	componentWillReceiveProps(nextProps){
 		console.log('TVSeasonController componentWillReceiveProps', nextProps);
-		this.getSeason();
-	}
-
-	componentWillMount(){
-
-	}
-
-	componentDidMount(){
 		this.getSeason();
 	}
 

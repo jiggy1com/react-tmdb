@@ -1,0 +1,243 @@
+body {
+    font-size: 1em;
+    padding-bottom: 100px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.interior-wrapper {
+    max-width: 1140px;
+}
+
+.movie-hero h1 {
+    color: #fff;
+}
+
+.review pre {
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre-wrap;
+}
+
+.scroll-up-fixed {
+    position: absolute;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+}
+
+#tv-detail .tv-hero {
+    position: relative;
+    min-height: 600px;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#tv-detail .tv-hero .tv-hero-guts {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    max-width: 1140px;
+    margin: 0 auto;
+}
+#tv-detail .tv-hero .tv-hero-guts h1 {
+    color: #fff;
+}
+#tv-detail .tv-hero .tv-hero-guts p {
+    color: #999;
+}
+#tv-detail .tv-hero .tv-hero-guts .lead {
+    max-height: 100px;
+    overflow: scroll;
+}
+
+#tv-season .tv-season-hero img {
+    width: 100%;
+}
+#tv-season .tv-season-episode-list-item img.img-full {
+    width: 100%;
+}
+
+#person #person-hero {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+}
+#person #person-hero .person-hero-guts {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+#person #person-hero .person-hero-guts img {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    #person #person-hero .person-hero-guts img {
+        margin: 0 auto 30px;
+        float: none;
+    }
+}
+.carousel-inner .carousel-item {
+    margin: 0 auto;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: auto;
+    cursor: pointer;
+    padding: 0 20px;
+}
+
+.video-thumbnail {
+    cursor: pointer;
+}
+
+.modal button {
+    cursor: pointer;
+}
+
+.carousel-prev-next span {
+    cursor: pointer;
+}
+.carousel-prev-next span.disabled {
+    cursor: none;
+}
+
+.carousel-slides {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    width: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    -webkit-transition: left 0.5s ease-out, right 0s;
+    -moz-transition: left 0.5s ease-out, right 0s;
+    -o-transition: left 0.5s ease-out, right 0s;
+    transition: left 0.5s ease-out, right 0s;
+}
+.carousel-slide.active {
+    left: 0;
+    z-index: 10;
+    position: relative;
+}
+.carousel-slide.prev {
+    left: -100%;
+    z-index: 5;
+}
+.carousel-slide.next {
+    left: 100%;
+    z-index: 5;
+}
+.carousel-slide.left {
+    left: -100%;
+    visibility: hidden;
+    z-index: 1;
+    transition: left 0s;
+}
+.carousel-slide.right {
+    left: 100%;
+    visibility: hidden;
+    z-index: 1;
+}
+.carousel-slide .row {
+    margin: 0;
+}
+
+.carousel-slideItems .template-gallery img,
+.carousel-slideItems .template-video img {
+    cursor: pointer;
+}
+
+.paginationController .btn {
+    cursor: pointer;
+}
+
+.jv-lightbox.hide {
+    display: none;
+}
+.jv-lightbox.show {
+    display: block;
+}
+.jv-lightbox .jv-lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.8;
+    z-index: 50000;
+}
+.jv-lightbox .jv-lightbox-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    height: auto;
+    width: 1110px;
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 50001;
+    overflow: scroll;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-header h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-header .fa-times {
+    cursor: pointer;
+    position: absolute;
+    top: 0.2em;
+    right: 0.2em;
+    z-index: 50002;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body .prev, .jv-lightbox .jv-lightbox-modal .jv-lightbox-body .next {
+    cursor: pointer;
+    transform: translate(0, -50%);
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    padding: 1.5em;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body .prev {
+    left: 0;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body .next {
+    right: 0;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body .prev span, .jv-lightbox .jv-lightbox-modal .jv-lightbox-body .next span {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body .spinner-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body img {
+    display: block;
+    max-width: 100%;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body img.visible {
+    visibility: visible;
+}
+.jv-lightbox .jv-lightbox-modal .jv-lightbox-body img.not-visible {
+    visibility: hidden;
+}
+
+#external-ids a:hover {
+    text-decoration: none;
+}
+#external-ids span {
+    display: block;
+}

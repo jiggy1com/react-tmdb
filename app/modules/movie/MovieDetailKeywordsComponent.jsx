@@ -19,10 +19,6 @@ export class MovieDetailKeywordsComponent extends React.Component {
 		this.getMovieKeywords(nextProps)
 	}
 
-	componentDidMount(){
-
-	}
-
 	getMovieKeywords(nextProps){
 		let self = this;
 		let { movieId } = nextProps;

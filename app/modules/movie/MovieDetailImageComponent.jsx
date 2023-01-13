@@ -34,6 +34,12 @@ export class MovieDetailImageComponent extends React.Component {
 			backdropsList : [],
 			postersList: []
 		}
+
+		// TODO: implement correctly
+		window.addEventListener('scroll', (e) => {
+			this.handleScroll(e);
+		});
+
 	}
 	generateCarousel(data, dataType){
 		let arr = data.map(function(obj, idx){
@@ -67,13 +73,6 @@ export class MovieDetailImageComponent extends React.Component {
 	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		this.getMovieImageList(nextProps)
-	}
-
-	componentDidMount(){
-		// handle scroll
-		window.addEventListener('scroll', (e) => {
-			this.handleScroll(e);
-		});
 	}
 
 	componentWillUnmount(){

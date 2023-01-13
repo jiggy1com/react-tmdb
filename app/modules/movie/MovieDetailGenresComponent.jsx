@@ -12,13 +12,8 @@ export class MovieDetailGenresComponent extends React.Component {
 		}
 	}
 
-
 	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
-	}
-
-	componentDidMount(){
-
 	}
 
 	// badge badge-primary

@@ -5,6 +5,11 @@ import {BreakpointService} from "BreakpointService";
 
 export class CarouselSlide extends React.Component {
 
+	constructor() {
+		super();
+		this.doOldDidMount()
+	}
+
 	handleSlideOnChange(){
 		// console.log('handleSlideOnChange');
 		this.doMeasureSlide();
@@ -30,7 +35,7 @@ export class CarouselSlide extends React.Component {
 		// console.log('CarouselSlide will mount');
 	}
 
-	componentDidMount(){
+	doOldDidMount(){
 		// console.log('CarouselSlide did mount');
 		// let c = ReactDOM.findDOMNode(this);
 		// console.log('c', c.offsetHeight);

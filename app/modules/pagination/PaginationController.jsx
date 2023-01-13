@@ -23,11 +23,6 @@ export class PaginationController extends React.Component {
 		}
 	}
 
-
-	componentDidMount(){
-
-	}
-
 	first(){
 		this.props.notifyParent({
 			action : 'first'
@@ -53,7 +48,6 @@ export class PaginationController extends React.Component {
 	}
 
 	goToPage(e){
-		console.log('goToPage', e);
 		this.props.notifyParent({
 			page : e.page
 		});
@@ -113,25 +107,41 @@ export class PaginationController extends React.Component {
 					<div className={"row"}>
 						<div className={"col-12 text-center paginationController"}>
 
-							<PaginationFirstComponent handler={this.first} page={page} pageArray={pageArray}>
+							<PaginationFirstComponent
+								handler={this.first.bind(this)}
+								page={page}
+								pageArray={pageArray}>
 							</PaginationFirstComponent>
 
-							<PaginationPrevComponent handler={this.prev} page={page} pageArray={pageArray}>
+							<PaginationPrevComponent
+								handler={this.prev.bind(this)}
+								page={page}
+								pageArray={pageArray}>
 							</PaginationPrevComponent>
 
-							<PaginationPagesComponent handler={this.goToPage} page={page} pageArray={pageArray} start={start} end={end} >
+							<PaginationPagesComponent
+								handler={this.goToPage.bind(this)}
+								page={page}
+								pageArray={pageArray}
+								start={start}
+								end={end} >
 							</PaginationPagesComponent>
 
-							<PaginationNextComponent handler={this.next} page={page} pageArray={pageArray}>
+							<PaginationNextComponent
+								handler={this.next.bind(this)}
+								page={page}
+								pageArray={pageArray}>
 							</PaginationNextComponent>
 
-							<PaginationLastComponent handler={this.last} page={page} pageArray={pageArray}>
+							<PaginationLastComponent
+								handler={this.last.bind(this)}
+								page={page}
+								pageArray={pageArray}>
 							</PaginationLastComponent>
 
 						</div>
 					</div>
 				</div>
-
 
 			);
 

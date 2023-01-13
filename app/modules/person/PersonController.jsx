@@ -97,15 +97,6 @@ export class PersonController extends React.Component {
 		this.getPerson(id);
 	}
 
-	componentDidMount(){
-		// let { location } = this.props;
-		// let pathname = location.pathname;
-		// let arrPath = pathname.split('/');
-		// let personId = arrPath[ arrPath.length-1 ];
-		// this.getPerson(personId);
-		// this.getPerson();
-	}
-
 	componentWillReceiveProps(nextProps){
 		let { id } = nextProps.params;
 		this.getPerson(id);

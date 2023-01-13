@@ -3,6 +3,10 @@ import {PaginationPageComponent} from "PaginationModule";
 
 export class PaginationPagesComponent extends React.Component {
 
+	constructor(props) {
+		super(props);
+	}
+
 	handlePageComponentEvent(e){
 		this.props.handler({
 			page : e.page
@@ -10,8 +14,6 @@ export class PaginationPagesComponent extends React.Component {
 	}
 
 	render(){
-
-		let self = this;
 
 		let { page, pageArray, handler } = this.props;
 
@@ -22,10 +24,14 @@ export class PaginationPagesComponent extends React.Component {
 			)
 		}else{
 
-			let pageListHtml = pageArray.map(function(pageNumber) {
+			let pageListHtml = pageArray.map((pageNumber) => {
 				return (
 
-					<PaginationPageComponent key={pageNumber} page={page} pageNumber={pageNumber} handler={self.handlePageComponentEvent}>
+					<PaginationPageComponent
+						key={pageNumber}
+						page={page}
+						pageNumber={pageNumber}
+						handler={this.handlePageComponentEvent.bind(this)}>
 					</PaginationPageComponent>
 				)
 			});

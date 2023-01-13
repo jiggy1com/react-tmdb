@@ -64,10 +64,6 @@ export class MovieDetailVideoComponent extends React.Component {
 		this.getMovieVideos(nextProps)
 	}
 
-	componentDidMount(){
-
-	}
-
 	getMovieVideos(nextProps){
 		let self = this;
 		let { movieId } = nextProps;

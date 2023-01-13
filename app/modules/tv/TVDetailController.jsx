@@ -141,6 +141,7 @@ export class TVDetailController extends React.Component {
 
 			}
 		}
+		this.doOldDidMount()
 	}
 
 	// my methods
@@ -167,7 +168,7 @@ export class TVDetailController extends React.Component {
 
 
 
-	componentDidMount(){
+	doOldDidMount(){
 		let obj = {
 			tvId : this.getTvId()
 		};

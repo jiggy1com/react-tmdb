@@ -9,6 +9,7 @@ export class TVSeasonHeroComponent extends React.Component {
 		this.state = {
 			breakpoint : ''
 		}
+		this.doOldDidMount()
 	}
 
 	handleBreakpointChange(breakpoint){
@@ -17,7 +18,7 @@ export class TVSeasonHeroComponent extends React.Component {
 		});
 	}
 
-	componentDidMount(){
+	doOldDidMount(){
 		this.localBreakpointService = new BreakpointService();
 		this.localBreakpointService.init({
 			onChange: this.handleBreakpointChange

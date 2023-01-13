@@ -108,14 +108,6 @@ export class MovieDetailCreditsComponent extends React.Component {
 
 	// life cycle methods
 
-	componentWillMount(){
-
-	}
-
-	componentDidMount(){
-
-	}
-
 	componentWillReceiveProps(nextProps){
 		// console.log('ModalController componentWillReceiveProps', nextProps);
 		this.setState(nextProps);

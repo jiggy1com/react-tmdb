@@ -1,6 +1,7 @@
 import React from "react";
 import {RouteModel} from "modules/routes/RouteModel";
 import {TVController, TVDetailController, TVSeasonController} from "TVModule";
+// import {useLocation} from "react-router-dom";
 export const TVRoutes = [
     new RouteModel('/tv', <TVController />),
     new RouteModel('/tv/latest', <TVController />),

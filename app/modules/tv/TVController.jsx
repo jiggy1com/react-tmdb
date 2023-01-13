@@ -3,192 +3,250 @@ import {HttpService} from 'app/services/HttpService';
 // import TVList from "TVModule";
 import {TVList} from "modules/tv/TVList";
 import {CamelCase} from 'app/services/CamelCase';
-import { PaginationController } from 'PaginationModule';
+import {PaginationController} from 'PaginationModule';
 
 export class TVController extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.httpService = new HttpService();
-		this.update = false;
-		this.state = {
-			// locals
-			pageTitle : '',
-			route : '',
+    constructor(props) {
+        super(props);
+        this.httpService = new HttpService();
+        this.state = {
+            // locals
+            pageTitle: '',
+            route: null, //document.location.pathname,
 
-			page : 0,
-			total_pages : 0,
-			total_results : 0,
-			results : []
+            page: 0,
+            total_pages: 0,
+            total_results: 0,
+            results: [],
+            update: false,
+            joe: '',
 
-			// results
-			// data : {
-			// 	page : 1,
-			// 	results : [],
-			// 	total_pages : 0,
-			// 	total_results : 0
-			// }
-		}
-	}
+            // results
+            // data : {
+            // 	page : 1,
+            // 	results : [],
+            // 	total_pages : 0,
+            // 	total_results : 0
+            // }
+        }
 
+        // console.log('TVController', this);
 
-	// custom methods
-	getTVData(obj){
+    }
 
-		window.scrollTo(0,0);
+    UNSAFE_componentWillMount() {
+        console.log('componetWillMount or UNSAFE_componentWillMount');
+        this.setState((state, props) => {
+            return {
+                route: document.location.pathname
+            }
+        });
+    }
 
-		let self = this;
-		let { page, route } = obj;
+    componentDidMount() {
+        console.log('componentDidMount')
+        this.doOldDidMount()
+    }
 
-		let arrRoute = route.split('/');
-		let uri = arrRoute[arrRoute.length-1];
-		let apiPath = uri.replace(/-/g, '_');
-		let pageTitle = uri.replace(/-/g, ' ');
-		this.setState({
-			pageTitle : pageTitle
-		});
+    componentDidUpdate() {
+        console.log('componentDidUpdate')
+        // this.getTVData({
+        // 	page: 1,
+        // 	route: this.state.route
+        // })
+    }
 
-		if(obj){
-			page = obj.page;
-		}
-		// let path = '/api/v1' + this.props.location.pathname.replace(/-/g, '_') + '/' + obj.page;
-		if(page === 0){
-			page = 1;
-		}
+    // useEffect(() => { moveMap(position) }, [position])
 
-		let path = '/api/v1/tv/' + apiPath + '/' + page;
-
-		// console.log('path', path);
-		this.httpService.doGet(path).then(function(resp){
-			self.update = true;
-			self.setState({
-				page : resp.data.page,
-				total_pages : resp.data.total_pages,
-				total_results : resp.data.total_results,
-				results : resp.data.results
-			});
-		});
-	}
-
-	handleEvent(e){
-
-		console.log('TV Controller Handle Event', e);
-
-		let { page, total_pages, route } = this.state;
-
-		let newPage = 	  e.action === 'first' ? 1 									// go to first page
-						: e.action === 'last' ? total_pages 						// go to last page
-						: (e.action === 'prev' && page > 1) ? page - 1 				// go to previous page
-						: (e.action === 'next' && page < total_pages) ? page + 1 	// go to next page
-						: (e.action === 'prev' && page < 1) ? page 					// stay on page
-						: (e.action === 'next' && page > total_pages) ? page 		// stay on page
-						: e.page; // go directly to page
-
-		this.setState({
-			results : [],
-			page : newPage
-		});
-
-		if(page !== newPage){
-
-			this.update = true;
-
-			this.getTVData({
-				page : newPage,
-				route : route
-			});
-
-		}
-
-	}
-
-	// react methods
+    useEffect() {
+        console.log('useEffect')
+        this.doOldDidMount();
+    }
 
 
+    // custom methods
+    getTVData(obj) {
+        console.log('getTVData')
+        window.scrollTo(0, 0);
 
-	componentWillMount(){
-		// let { data } = this.state;
-		// this.getTVData(data);
-		this.setState({
-			route : this.props.location.pathname,
-		});
-	}
+        let self = this;
+        let {
+            page,
+            route
+        } = obj;
 
-	componentDidMount(){
-		let { route } = this.state;
-		this.getTVData({
-			page : 1,
-			route: route
-		});
-	}
+        let arrRoute = route.split('/');
+        let uri = arrRoute[arrRoute.length - 1];
+        let apiPath = uri.replace(/-/g, '_');
+        let pageTitle = uri.replace(/-/g, ' ');
+        this.setState((state, props) => {
+            return {
+                pageTitle: pageTitle
+            }
+        });
 
-	componentWillUpdate(){
+        if (obj) {
+            page = obj.page;
+        }
 
-	}
+        if (page === 0) {
+            page = 1;
+        }
 
-	shouldComponentUpdate(nextProps, nextState){
+        let path = '/api/v1/tv/' + apiPath + '/' + page;
 
-		// console.log('MovieController shouldComponentUpdate', nextProps, nextState);
-		// console.log('## compare state', this.state.route);
-		// console.log('## compare to', nextState.route);
-		// console.log('## compare props', this.props);
-		// console.log('## compare to', nextProps);
-		// console.log('update', this.update);
+        console.log('path', path);
+        this.httpService.doGet(path).then((res) => {
+            console.log('res', res);
 
-		if(this.props.location.pathname !== nextProps.location.pathname){
-			this.getTVData({
-				page : 1,
-				route : nextProps.location.pathname
-			});
-			return true;
-		}else{
-			if(this.update){
-				this.update = false;
-				return true;
-			}else{
-				return false;
-			}
-		}
-	}
+            this.setState((state, props) => {
+                return {
+                    page: res.data.page,
+                    total_pages: res.data.total_pages,
+                    total_results: res.data.total_results,
+                    results: res.data.results,
+                    update: true,
+                }
+            });
+        });
+    }
 
-	render(){
+    handleEvent(e) {
 
-		let { data, page, total_pages, total_results, results, pageTitle } = this.state;
+        let {
+            page,
+            total_pages,
+            route
+        } = this.state;
 
+        let newPage = e.action === 'first' ? 1 									// go to first page
+            : e.action === 'last' ? total_pages 						// go to last page
+            : (e.action === 'prev' && page > 1) ? page - 1 				// go to previous page
+            : (e.action === 'next' && page < total_pages) ? page + 1 	// go to next page
+            : (e.action === 'prev' && page < 1) ? page 					// stay on page
+            : (e.action === 'next' && page > total_pages) ? page 		// stay on page
+            : e.page; // go directly to page
 
-		// let { data } = this.state;
-		// let { location } = this.props;
+        // this.setState((state, props) => {
+        //     return {
+        //         results: [],
+        //         page: newPage,
+        //         update: true,
+        //     }
+        // })
 
-		// let locArray = location.pathname.split('/');
-		// let category = locArray[locArray.length-1];
+        if (page !== newPage) {
 
-		console.log('render data', data);
+            this.setState((state, props) => {
+                return {
+                    results: [],
+                    page: newPage,
+                    update: true
+                }
+            })
 
-		return (
-			<div className={"container-fluid interior-wrapper mt-5 mb-5"}>
+            this.getTVData({
+                page: newPage,
+                route: route
+            });
 
-				<h1 className={"card-header"}>
-					TV: <CamelCase str={pageTitle}>
-						</CamelCase>
-				</h1>
+        }
+    }
 
-				<TVList
-					list={results}>
-				</TVList>
+    // react methods
 
-				{typeof results !== 'undefined' && results.length > 0 ?
-					<PaginationController
-						page={page}
-						total_pages={total_pages}
-						total_results={total_results}
-						notifyParent={this.handleEvent}>
-					</PaginationController>
-					:
-					null
-				}
+    doOldDidMount() {
+        console.log('doOldDidMount')
+        this.getTVData({
+            page: 1,
+            route: this.state.route
+        });
+    }
 
-			</div>
-		)
-	}
+    shouldComponentUpdate(nextProps, nextState) {
+
+        console.warn('shouldComponentUpdate', this.state, nextState)
+
+        if (this.state.route !== document.location.pathname) {
+            this.setState((state, props) => {
+                return {
+                    route: document.location.pathname
+                }
+            }, () => {
+                this.getTVData({
+                    page: 1,
+                    route: this.state.route
+                });
+            })
+            return false;
+        }
+
+        if (nextState.update) {
+            this.setState((state, props) => {
+                return {
+                    update: false
+                }
+            });
+            return true;
+        } else {
+            return false;
+        }
+        // TODO: save this code - refactor with hooks or something
+        // if(this.props.location.pathname !== nextProps.location.pathname){
+        // 	this.getTVData({
+        // 		page : 1,
+        // 		route : nextProps.location.pathname
+        // 	});
+        // 	return true;
+        // }else{
+        // 	if(this.update){
+        // 		this.update = false;
+        // 		return true;
+        // 	}else{
+        // 		return false;
+        // 	}
+        // }
+    }
+
+    render() {
+
+        console.log('render');
+
+        let {
+            data,
+            page,
+            total_pages,
+            total_results,
+            results,
+            pageTitle
+        } = this.state;
+
+        return (
+            <div className={"container-fluid interior-wrapper mt-5 mb-5"}>
+
+                <h1 className={"card-header"}>
+                    TV: <CamelCase str={pageTitle}>
+                </CamelCase>
+                </h1>
+
+                <TVList
+                    list={results}>
+                </TVList>
+
+                {typeof results !== 'undefined' && results.length > 0 ?
+                    <PaginationController
+                        page={page}
+                        total_pages={total_pages}
+                        total_results={total_results}
+                        notifyParent={this.handleEvent.bind(this)}>
+                    </PaginationController>
+                    :
+                    null
+                }
+
+            </div>
+        )
+    }
 
 }

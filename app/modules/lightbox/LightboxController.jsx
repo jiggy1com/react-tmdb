@@ -93,22 +93,19 @@ export class LightboxController extends React.Component {
 
 	// react methods
 
-	componentWillReceiveProps(nextProps){
-		// console.log('Lightbox componentWillReceiveProps', nextProps);
-		this.setState(nextProps);
-		if(nextProps.currentIdx>=0){
-			this.setState({
-				currentImage : nextProps.imageList[nextProps.currentIdx],
-				imageLoading : true,
-				imageError : false
-			});
-			// if(!this.state.imageLoading){
-			// 	this.setState({
-			// 		imageLoading : true
-			// 	})
-			// }
-		}
-	}
+	// static getDerivedStateFromProps(props, state){
+	// 	// this.setState(nextProps);
+	// 	if(props.currentIdx>=0){
+	// 		state.currentImage = props.imageList[props.currentIdx];
+	// 		state.imageLoading = true;
+	// 		state.imageError = false;
+	// 		// this.setState({
+	// 		// 	currentImage : nextProps.imageList[nextProps.currentIdx],
+	// 		// 	imageLoading : true,
+	// 		// 	imageError : false
+	// 		// });
+	// 	}
+	// }
 
 	shouldComponentUpdate(nextProps, nextState){
 		// console.log('LightboxController shouldComponentUpdate', nextProps, nextState);

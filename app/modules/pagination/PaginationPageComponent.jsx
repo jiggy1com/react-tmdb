@@ -2,10 +2,13 @@ import React from 'react';
 
 export class PaginationPageComponent extends React.Component {
 
+	constructor(props) {
+		super(props);
+	}
+
 	notifyPaginationPagesComponent(){
 		this.props.handler({
-			page : this.props.pageNumber
-
+			page : this.props.pageNumber,
 		});
 	}
 
@@ -16,7 +19,9 @@ export class PaginationPageComponent extends React.Component {
 		let thisClass = page === pageNumber ? 'btn btn-info' : 'btn btn-primary';
 
 		return (
-			<button key={pageNumber} className={thisClass} onClick={this.notifyPaginationPagesComponent}>
+			<button key={pageNumber}
+					className={thisClass}
+					onClick={this.notifyPaginationPagesComponent.bind(this)}>
 				{this.props.pageNumber}
 			</button>
 		);

@@ -50,21 +50,12 @@ export class TVList extends React.Component {
 
 	// react methods
 
+	componentDidUpdate(arg){
+
+	}
+
 	componentWillReceiveProps(nextProps){
-		console.log('componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
-	}
-
-	componentWillMount(){
-
-	}
-
-	componentDidMount(){
-
-	}
-
-	componentWillUpdate(){
-
 	}
 
 	render(){
@@ -80,4 +71,8 @@ export class TVList extends React.Component {
 		)
 	}
 
+}
+
+TVList.defaultProps = {
+	list: []
 }
