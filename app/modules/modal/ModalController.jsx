@@ -19,14 +19,6 @@ import {HttpService} from 'app/services/HttpService';
 
 export class ModalController extends React.Component {
 
-	// state and props
-
-	propTypes = {
-		// modalId : React.PropTypes.string.isRequired,
-		// header : React.PropTypes.string,
-		// close : React.PropTypes.string,
-		// show : React.PropTypes.bool
-	}
 
 	// controller methods
 
@@ -86,7 +78,7 @@ export class ModalController extends React.Component {
 							<h5 className="modal-title">
 								{header}
 							</h5>
-							<button type="button" className="close" data-dismiss-disabled="modal" aria-label="Close" onClick={this.closeModal}>
+							<button type="button" className="close" data-dismiss-disabled="modal" aria-label="Close" onClick={this.closeModal.bind(this)}>
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -94,7 +86,7 @@ export class ModalController extends React.Component {
 							{this.props.children}
 						</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-dismiss-disabled="modal" onClick={this.closeModal}>
+							<button type="button" className="btn btn-secondary" data-dismiss-disabled="modal" onClick={this.closeModal.bind(this)}>
 								{close}
 							</button>
 						</div>

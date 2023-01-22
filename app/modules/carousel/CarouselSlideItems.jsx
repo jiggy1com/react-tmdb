@@ -11,9 +11,14 @@ export class CarouselSlideItems extends React.Component {
 		return (
 			<div className={"carousel-slideItems"}>
 				<div className={"row"}>
-					{slideItems.map(function(slideItem, slideItemIdx){
+					{slideItems.map((slideItem, slideItemIdx)=>{
 						return(
-							<CarouselSlideItem key={slideItemIdx} slideItem={slideItem} helpers={helpers} template={template} doMeasureSlide={doMeasureSlide} />
+							<CarouselSlideItem
+								key={slideItemIdx}
+								slideItem={slideItem}
+								helpers={helpers}
+								template={template}
+								doMeasureSlide={doMeasureSlide} />
 						)
 					})}
 				</div>

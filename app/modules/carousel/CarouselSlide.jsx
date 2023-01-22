@@ -7,7 +7,6 @@ export class CarouselSlide extends React.Component {
 
 	constructor() {
 		super();
-		this.doOldDidMount()
 	}
 
 	handleSlideOnChange(){
@@ -35,13 +34,13 @@ export class CarouselSlide extends React.Component {
 		// console.log('CarouselSlide will mount');
 	}
 
-	doOldDidMount(){
+	componentDidMount(){
 		// console.log('CarouselSlide did mount');
 		// let c = ReactDOM.findDOMNode(this);
 		// console.log('c', c.offsetHeight);
 		let b = new BreakpointService();
 		b.init({
-			onChange : this.handleSlideOnChange
+			onChange : this.handleSlideOnChange.bind(this)
 		});
 	}
 
@@ -58,7 +57,7 @@ export class CarouselSlide extends React.Component {
 						// : currentSlide+2 === slideIdx ? 'right'
 						: '';
 
-		let doMeasureSlide = this.doMeasureSlide;
+		let doMeasureSlide = this.doMeasureSlide.bind(this);
 
 		let slideStyles = {};
 		if(carouselHeight > 0){
@@ -67,7 +66,12 @@ export class CarouselSlide extends React.Component {
 
 		return (
 			<div className={"carousel-slide " + slideClass} id={'slide-' + slideIdx} style={slideStyles}>
-				<CarouselSlideItems key={'slideItems-' + slideIdx} slideItems={slide} helpers={helpers} template={template} doMeasureSlide={doMeasureSlide} />
+				<CarouselSlideItems
+					key={'slideItems-' + slideIdx}
+					slideItems={slide}
+					helpers={helpers}
+					template={template}
+					doMeasureSlide={doMeasureSlide} />
 			</div>
 		)
 	}

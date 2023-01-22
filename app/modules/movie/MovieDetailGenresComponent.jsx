@@ -10,6 +10,7 @@ export class MovieDetailGenresComponent extends React.Component {
 		this.state = {
 			genres : []
 		}
+		this.hyphenate = new Hyphenate();
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -21,6 +22,7 @@ export class MovieDetailGenresComponent extends React.Component {
 	render(){
 
 		let { genres } = this.state;
+		console.log('genres', genres);
 		let html;
 
 		if(genres.length === 0){
@@ -29,10 +31,11 @@ export class MovieDetailGenresComponent extends React.Component {
 				</span>
 			)
 		}else{
-			html = genres.map(function(obj){
-				let link = "/genre/movie/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			html = genres.map((obj)=>{
+				let link = "/genre/movie/" + this.hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<Link key={obj.id} to={link}  className={"btn btn-primary btn-sm mr-1 mb-1"}>
+					<Link key={obj.id} to={link}
+						  className={"btn btn-primary btn-sm mr-1 mb-1"}>
 						{obj.name}
 					</Link>
 				)
@@ -48,4 +51,8 @@ export class MovieDetailGenresComponent extends React.Component {
 			</div>
 		);
 	}
+}
+
+MovieDetailGenresComponent.defaultProps = {
+	genres: []
 }

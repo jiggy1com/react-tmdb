@@ -25,6 +25,8 @@ export class MovieDetailCreditsComponent extends React.Component {
 				crewCustomStyles : {}
 			}
 		}
+		this.httpService = new HttpService();
+		this.hyphenate = new Hyphenate();
 	}
 
 
@@ -37,12 +39,13 @@ export class MovieDetailCreditsComponent extends React.Component {
 	// controller methods
 
 	getMovieCredits(nextProps){
-		let self = this;
+		console.log('getMovieCredits', nextProps);
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/credits/' + movieId;
-		httpService.doGet(path).then(function(resp){
-			self.generateCarousel(resp.data.cast, 'cast');
-			self.generateCarousel(resp.data.crew, 'crew');
+		this.httpService.doGet(path).then((res)=>{
+			console.log('getMovieCredits:res', res);
+			this.generateCarousel(res.data.cast, 'cast');
+			this.generateCarousel(res.data.crew, 'crew');
 			// self.setState({
 			// 	results : resp.data
 				// page : resp.data.page,
@@ -55,9 +58,9 @@ export class MovieDetailCreditsComponent extends React.Component {
 
 	generateCarousel(data, stateProperty){
 
-		let arr = data.map(function(obj, idx){
+		let arr = data.map((obj, idx)=>{
 			let src = 'https://image.tmdb.org/t/p/w185' + obj.profile_path;
-			let href = '/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			let href = '/person/' + this.hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 			return {
 				id : obj.id,
 				src : src,

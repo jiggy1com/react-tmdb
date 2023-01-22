@@ -9,6 +9,7 @@ export class MovieDetailReviewsComponent extends React.Component {
 		this.state = {
 			results: []
 		}
+		this.httpService = new HttpService();
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -17,11 +18,10 @@ export class MovieDetailReviewsComponent extends React.Component {
 	}
 
 	getMovieReviews(nextProps){
-		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/reviews/' + movieId;
-		httpService.doGet(path).then(function(resp){
-			self.setState({
+		this.httpService.doGet(path).then((resp)=>{
+			this.setState({
 				page : resp.data.page,
 				total_pages : resp.data.total_pages,
 				total_results : resp.data.total_results,

@@ -11,6 +11,8 @@ export class MovieDetailKeywordsComponent extends React.Component {
 		this.state = {
 			results : []
 		}
+		this.httpService = new HttpService();
+		this.hyphenate = new Hyphenate();
 	}
 
 
@@ -20,12 +22,11 @@ export class MovieDetailKeywordsComponent extends React.Component {
 	}
 
 	getMovieKeywords(nextProps){
-		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/keywords/' + movieId;
-		httpService.doGet(path).then(function(resp){
+		this.httpService.doGet(path).then((resp)=>{
 			console.log('getMovieKeywords', resp);
-			self.setState({
+			this.setState({
 				results : resp.data.keywords
 			});
 		});
@@ -42,8 +43,8 @@ export class MovieDetailKeywordsComponent extends React.Component {
 				</span>
 			)
 		}else{
-			html = results.map(function(obj){
-				let link = '/keyword/movie/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			html = results.map((obj)=>{
+				let link = '/keyword/movie/' + this.hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
 					<Link key={obj.id} to={link}  className={"btn btn-primary btn-sm mr-1 mb-1"}>
 						{obj.name}
@@ -61,4 +62,8 @@ export class MovieDetailKeywordsComponent extends React.Component {
 			</div>
 		);
 	}
+}
+
+MovieDetailKeywordsComponent.defaultProps = {
+	results: []
 }

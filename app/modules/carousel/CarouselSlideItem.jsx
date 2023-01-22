@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 
 export class CarouselSlideItem extends React.Component {
 
+	constructor(props) {
+		super(props);
+	}
+
 	// my methods
 
 	openVideo(){
@@ -65,7 +69,9 @@ export class CarouselSlideItem extends React.Component {
 				{template === 'cast' && (
 					<div className={"template-cast"}>
 						<Link to={slideItem.href}>
-							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete}  />
+							<img src={slideItem.src}
+								 onLoad={this.onLoadComplete.bind(this)}
+								 onError={this.onErrorComplete.bind(this)}  />
 						</Link>
 						<div className={"pt-1"}>{slideItem.name}</div>
 						<div className={"font-weight-bold"}>{slideItem.character}</div>
@@ -75,7 +81,9 @@ export class CarouselSlideItem extends React.Component {
 				{template === 'crew' && (
 					<div className={"template-crew"}>
 						<Link to={slideItem.href}>
-							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
+							<img src={slideItem.src}
+								 onLoad={this.onLoadComplete.bind(this)}
+								 onError={this.onErrorComplete.bind(this)} />
 						</Link>
 						<div className={"pt-1"}>{slideItem.name}</div>
 						<div className={"font-weight-bold"}>{slideItem.job}</div>
@@ -84,14 +92,20 @@ export class CarouselSlideItem extends React.Component {
 
 				{template === 'video' && (
 					<div className={"template-video"}>
-						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openVideo} />
+						<img src={slideItem.src}
+							 onLoad={this.onLoadComplete.bind(this)}
+							 onError={this.onErrorComplete.bind(this)}
+							 onClick={this.openVideo.bind(this)} />
 						<h4 className={"pt-1"}>{slideItem.name}</h4>
 					</div>
 				)}
 
 				{template === 'gallery' && (
 					<div className={"template-gallery"}>
-						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						<img src={slideItem.src}
+							 onLoad={this.onLoadComplete.bind(this)}
+							 onError={this.onErrorComplete.bind(this)}
+							 onClick={this.openImage.bind(this)} />
 						{/*<div>*/}
 							{/*<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.*/}
 						{/*</div>*/}
@@ -101,7 +115,9 @@ export class CarouselSlideItem extends React.Component {
 				{template === 'season' && (
 					<div className={"template-season"}>
 						<Link to={slideItem.href}>
-							<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} />
+							<img src={slideItem.src}
+								 onLoad={this.onLoadComplete.bind(this)}
+								 onError={this.onErrorComplete.bind(this)} />
 						</Link>
 						<div>
 							Season {slideItem.season}
@@ -116,16 +132,23 @@ export class CarouselSlideItem extends React.Component {
 
 				{template === 'images' && (
 					<div className={"template-gallery"}>
-						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						<img src={slideItem.src}
+							 onLoad={this.onLoadComplete.bind(this)}
+							 onError={this.onErrorComplete.bind(this)}
+							 onClick={this.openImage.bind(this)} />
 						<div>
-							<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.
+							<strong>{slideItem.voteAverage}</strong>
+							rating based on {slideItem.voteCount} votes.
 						</div>
 					</div>
 				)}
 
 				{template === 'tagged_images' && (
 					<div className={"template-gallery"}>
-						<img src={slideItem.src} onLoad={this.onLoadComplete} onError={this.onErrorComplete} onClick={this.openImage} />
+						<img src={slideItem.src}
+							 onLoad={this.onLoadComplete.bind(this)}
+							 onError={this.onErrorComplete.bind(this)}
+							 onClick={this.openImage.bind(this)} />
 						<h4>
 							{typeof slideItem.media !== 'undefined' && typeof slideItem.media.title !== 'undefined' &&
 								<span>
@@ -134,7 +157,8 @@ export class CarouselSlideItem extends React.Component {
 							}
 						</h4>
 						<div>
-							<strong>{slideItem.voteAverage}</strong> rating based on {slideItem.voteCount} votes.
+							<strong>{slideItem.voteAverage}</strong>
+							rating based on {slideItem.voteCount} votes.
 						</div>
 					</div>
 				)}

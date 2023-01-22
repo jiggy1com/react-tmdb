@@ -70,7 +70,7 @@ export class MovieDetailImageListComponent extends React.Component {
 
 			// preload images
 			// TODO: make sure this doesn't repeat on scroll
-			let src = 'https://image.tmdb.org/t/p/w300' + obj.file_path;
+			let src = 'https://image.tmdb.org/t/p/w300' + obj.src;
 			// let img = new Image();
 			// 	img.onload = function(){
 			// 		console.log('loaded', src);
@@ -82,11 +82,11 @@ export class MovieDetailImageListComponent extends React.Component {
 
 			// push image into array
 			arr.push({
-				id : obj.file_path,
-				title : obj.file_path,
+				id : obj.id, //obj.file_path,
+				title : obj.src,
 				src : src,
-				vote_average : obj.vote_average,
-				vote_count : obj.vote_count
+				vote_average : '', //obj.vote_average,
+				vote_count : '', //obj.vote_count
 			});
 		});
 		return arr;
@@ -101,7 +101,7 @@ export class MovieDetailImageListComponent extends React.Component {
 			)
 		}else{
 			return imageList.map(function(obj, idx){
-				// console.log('idx', idx);
+				// console.warn('idx', obj);
 
 				let thisClass = idx === 0 ? 'active' : '';
 

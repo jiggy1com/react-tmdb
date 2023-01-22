@@ -9,14 +9,14 @@ export class MovieDetailReleaseDatesComponent extends React.Component {
 			results : []
 		}
 		this.update = true;
+		this.httpService = new HttpService();
 	}
 
 	getReleaseDates(nextProps){
-		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/release-dates/' + movieId;
-		httpService.doGet(path).then(function(resp){
-			self.setState({
+		this.httpService.doGet(path).then((resp)=>{
+			this.setState({
 				results : resp.data.results
 			});
 		});

@@ -63,6 +63,7 @@ export class MovieDetailImageComponent extends React.Component {
 		if(dataType === 'posters'){
 			update.postersList = arr;
 		}
+		console.warn('update', update);
 
 		this.setState(update);
 	}
@@ -89,7 +90,8 @@ export class MovieDetailImageComponent extends React.Component {
 
 
 	shouldComponentUpdate(nextProps, nextState){
-		console.warn('MovieDetailImageComponent shouldComponentUpdate', nextProps.movieId !== '', nextProps, nextState);
+		// console.warn('MovieDetailImageComponent shouldComponentUpdate', nextProps.movieId !== '', nextProps, nextState);
+
 		return nextProps.movieId !== '';
 		// return true;
 	}
@@ -97,12 +99,12 @@ export class MovieDetailImageComponent extends React.Component {
 	// custom methods
 
 	getMovieImageList(nextProps){
-		let self = this;
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/images/' + movieId;
-		this.httpService.doGet(path).then(function(resp){
-			self.generateCarousel(resp.data.backdrops, 'backdrops');
-			self.generateCarousel(resp.data.posters, 'posters');
+		this.httpService.doGet(path).then((resp)=>{
+			console.log('getMovieImageList', resp);
+			this.generateCarousel(resp.data.backdrops, 'backdrops');
+			this.generateCarousel(resp.data.posters, 'posters');
 			// self.setState({
 			// 	results : resp.data,
 			// 	backdropsList : resp.data.backdrops,
@@ -285,12 +287,14 @@ export class MovieDetailImageComponent extends React.Component {
 				</div>
 				<div className="tab-content" id="imageTabsContent">
 					<div className="tab-pane fade show active pt-3" id="backdrops" role="tabpanel" aria-labelledby="backdrops-tab">
-						<MovieDetailImageListComponent imageList={backdropsList}>
+						<MovieDetailImageListComponent
+							imageList={backdropsList}>
 						</MovieDetailImageListComponent>
 						{/*{backdropsHtml}*/}
 					</div>
 					<div className="tab-pane fade pt-3" id="posters" role="tabpanel" aria-labelledby="posters-tab">
-						<MovieDetailImageListComponent imageList={postersList}>
+						<MovieDetailImageListComponent
+							imageList={postersList}>
 						</MovieDetailImageListComponent>
 						{/*{postersHtml}*/}
 					</div>
@@ -309,4 +313,32 @@ export class MovieDetailImageComponent extends React.Component {
 			</div>
 		);
 	}
+}
+
+MovieDetailImageComponent.defaultProps = {
+	movieId: null,
+	scrollUp: function(){
+		console.log('scrollUp')
+	},
+	// // modal
+	// modalHeader : 'Image',
+	// modalSrc : '',
+	// modalShow : false,
+	//
+	// // lightbox
+	// initialIdx : 0,
+	// imageList : [],
+	// showLightbox : false,
+	//
+	// // list of images
+	// results : {
+	// 	backdrops : [],
+	// 	posters : []
+	// },
+	//
+	// // up arrow
+	// showUpArrow : false,
+	// initialPosition : 0,
+	// backdropsList : [],
+	// postersList: []
 }

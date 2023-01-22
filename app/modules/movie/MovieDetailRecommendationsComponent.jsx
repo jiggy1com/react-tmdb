@@ -17,10 +17,9 @@ export class MovieDetailRecommendationsComponent extends React.Component {
 	// My Methods
 
 	getRecommendations(nextProps){
-		let self = this;
 		let path = '/api/v1/movie/recommendations/' + nextProps.movieId;
-		this.httpService.doGet(path).then(function(resp){
-			self.setState({
+		this.httpService.doGet(path).then((resp)=>{
+			this.setState({
 				results : resp.data.results,
 				total_pages : resp.data.total_pages,
 				total_results : resp.data.total_results,

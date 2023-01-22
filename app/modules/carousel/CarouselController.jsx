@@ -3,11 +3,13 @@ import {CarouselPrevNext} from "modules/carousel/CarouselPrevNext";
 import {CarouselSlides} from "modules/carousel/CarouselSlides";
 import {BreakpointService} from "BreakpointService";
 import {ModalController} from "ModalModule";
+import {HttpService} from "HttpService";
+import {Hyphenate} from "Hyphenate";
 
 export class CarouselController extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			currentBreakpoint : '',
 
@@ -24,9 +26,12 @@ export class CarouselController extends React.Component {
 		this.originalItemsPerSlide = 0;
 
 		this.b = new BreakpointService();
-		this.b.init({
-			onChange : this.handleOnChange
-		});
+		this.httpService = new HttpService();
+		this.hyphenate = new Hyphenate();
+		// todo get this working
+		// this.b.init({
+		// 	onChange : this.handleOnChange
+		// });
 
 	}
 	// my methods
@@ -172,16 +177,15 @@ export class CarouselController extends React.Component {
 	//
 	render(){
 
-		let self = this;
 		let { carouselId, slides, currentSlide, template, carouselHeight,
 				showModal, video, image} = this.state;
 
 		let helpers = {
-			handleOnChange : this.handleOnChange,
-			doGetSlideHeight : this.doGetSlideHeight,
-			doSetSlideHeight : this.doSetSlideHeight,
-			doOpenImage : this.doOpenImage,
-			doOpenVideo : this.doOpenVideo
+			handleOnChange : this.handleOnChange.bind(this),
+			doGetSlideHeight : this.doGetSlideHeight.bind(this),
+			doSetSlideHeight : this.doSetSlideHeight.bind(this),
+			doOpenImage : this.doOpenImage.bind(this),
+			doOpenVideo : this.doOpenVideo.bind(this),
 		};
 
 
@@ -201,8 +205,8 @@ export class CarouselController extends React.Component {
 				<div className={"carousel"}>
 
 					<CarouselPrevNext
-						doPrev={this.doPrev}
-						doNext={this.doNext}
+						doPrev={this.doPrev.bind(this)}
+						doNext={this.doNext.bind(this)}
 						slides={slides}
 						currentSlide={currentSlide}>
 					</CarouselPrevNext>
@@ -217,11 +221,20 @@ export class CarouselController extends React.Component {
 
 				</div>
 
-				<ModalController modalId={carouselId + "-" + "modal"} header={modalHeader} show={showModal} close={"Close"} onClose={self.doHideModal}>
+				<ModalController
+					modalId={carouselId + "-" + "modal"}
+					header={modalHeader}
+					show={showModal}
+					close={"Close"}
+					onClose={this.doHideModal.bind(this)}>
 
 					{typeof video.iFrameSrc !== 'undefined' &&
 						<div className="embed-responsive embed-responsive-16by9 mb-2">
-							<iframe src={video.iFrameSrc} width={'100%'} height={'100px'} frameBorder={'0'} allow={"encrypted-media"} />
+							<iframe src={video.iFrameSrc}
+									width={'100%'}
+									height={'100px'}
+									frameBorder={'0'}
+									allow={"encrypted-media"} />
 						</div>
 					}
 
@@ -242,4 +255,8 @@ export class CarouselController extends React.Component {
 
 		)
 	}
+}
+
+CarouselController.defaultProps = {
+	slides: [],
 }
