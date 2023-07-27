@@ -1,10 +1,7 @@
-let React = require('react');
+import React from 'react';
 
-
-// let MoviePopularComponent = require('./MoviePopularComponent');
-
-let MovieIndexComponent = React.createClass({
-	render: function(){
+export class MovieIndexComponent extends React.Component {
+	render(){
 		return (
 			<div>
 				<h1 className="heading">Movies</h1>
@@ -12,6 +9,4 @@ let MovieIndexComponent = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = MovieIndexComponent;
+}

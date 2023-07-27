@@ -1,17 +1,11 @@
-let React = require('react');
+import React from 'react';
 
-let TVSeasonComponent = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			heading : ''
-		}
-	},
-	
-	render: function(){
-		
+export class TVSeasonComponent extends React.Component {
+
+	render(){
+
 		let { heading } = this.props;
-		
+
 		return(
 			<div className={"card mb-5"}>
 				<h3 className={"card-header"}>
@@ -23,7 +17,9 @@ let TVSeasonComponent = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVSeasonComponent;
+}
+
+TVSeasonComponent.defaultProps = {
+	heading : ''
+}

@@ -1,6 +1,6 @@
-let React = require('react');
+import React from 'react';
 
-let httpService = require('HttpService');
+import {HttpService} from 'app/services/HttpService';
 
 // class MyComponent extends React.Component {
 // 	constructor(props) {
@@ -17,95 +17,60 @@ let httpService = require('HttpService');
 // 	},
 // });
 
-let ModalController = React.createClass({
-	
-	// state and props
-	
-	getInitialState: function(){
-		return {
-		
-		}
-	},
-	
-	getDefaultProps: function() {
-		return {
-			modalId: '',
-			header: 'Modal',
-			close: 'Close',
-			modalShow: false,
-			onClose : function(){
-				console.error('you did not set the onClose prop');
-			}
-		}
-	},
-	
-	propTypes: {
-		modalId : React.PropTypes.string.isRequired,
-		header : React.PropTypes.string,
-		close : React.PropTypes.string,
-		show : React.PropTypes.bool
-	},
-	
+export class ModalController extends React.Component {
+
+
 	// controller methods
-	
-	openModal: function(){
+
+	openModal(){
 		// console.log('open modal');
 		$('#'+this.props.modalId).modal('show');
-	},
-	
-	closeModal: function(){
+	}
+
+	closeModal(){
 		// console.log('close modal');
 		let { onClose } = this.props;
 		onClose();
 		$('#' + this.props.modalId).modal('hide');
-		
-	},
-	
+	}
+
 	// life cycle methods
-	
-	componentWillMount: function(){
-	
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+
+	componentWillReceiveProps(nextProps){
 		// console.log('ModalController componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
 		if(nextProps.show){
 			this.openModal();
 		}
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
 		// console.log('ModalController shouldComponentUpdate', nextProps, nextState);
 		return true;
-	},
-	
-	componentWillUpdate: function(){
-	
-	},
-	
-	componentDidUpdate: function(){
+	}
+
+	componentWillUpdate(){
+
+	}
+
+	componentDidUpdate(){
 		// console.log('ModalController Did Update');
-	},
-	
-	componentWillUnmount: function(){
-	
-	},
-	
-	render : function(){
-		
+	}
+
+	componentWillUnmount(){
+
+	}
+
+	render (){
+
 		let { header, close, modalId, showModal, onClose } = this.props;
-		
+
 		if(modalId === ''){
 			console.error('You did not set the modalId. This is required, and MUST be unique.');
 		}
-		
+
 		return (
-			
+
 			<div className="modal" tabIndex="-1" role="dialog" id={modalId} data-backdrop={"static"}>
 				<div className="modal-dialog modal-lg" role="document">
 					<div className="modal-content">
@@ -113,7 +78,7 @@ let ModalController = React.createClass({
 							<h5 className="modal-title">
 								{header}
 							</h5>
-							<button type="button" className="close" data-dismiss-disabled="modal" aria-label="Close" onClick={this.closeModal}>
+							<button type="button" className="close" data-dismiss-disabled="modal" aria-label="Close" onClick={this.closeModal.bind(this)}>
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
@@ -121,19 +86,26 @@ let ModalController = React.createClass({
 							{this.props.children}
 						</div>
 						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-dismiss-disabled="modal" onClick={this.closeModal}>
+							<button type="button" className="btn btn-secondary" data-dismiss-disabled="modal" onClick={this.closeModal.bind(this)}>
 								{close}
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 		)
-		
+
 	}
-	
-});
 
-module.exports = ModalController;
+}
 
+ModalController.defaultProps = {
+	modalId: '',
+	header: 'Modal',
+	close: 'Close',
+	modalShow: false,
+	onClose (){
+		console.error('you did not set the onClose prop');
+	}
+}

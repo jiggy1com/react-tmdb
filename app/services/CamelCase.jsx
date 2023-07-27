@@ -1,23 +1,17 @@
-let React = require('react');
+import React from 'react';
 
-let CamelCase = React.createClass({
-	
-	getDefaultProps: function(){
-		return {
-			str : ''
-		}
-	},
-	
-	setCamelCase: function(str){
+export class CamelCase extends React.Component {
+
+	setCamelCase(str){
 		let arr = str.split(' ');
 		let returnThis = [];
 		arr.forEach(function(word){
 			returnThis.push( word.charAt(0).toUpperCase() + word.slice(1, word.length) );
 		});
 		return returnThis.join(' ');
-	},
-	
-	render: function(){
+	}
+
+	render(){
 		let { str } = this.props;
 		let camelCaseVersion = this.setCamelCase(str);
 		return (
@@ -26,7 +20,9 @@ let CamelCase = React.createClass({
 			</span>
 		)
 	}
-	
-});
 
-module.exports = CamelCase;
+}
+
+CamelCase.defaultProps = {
+	str : ''
+}

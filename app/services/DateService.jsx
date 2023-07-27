@@ -1,8 +1,8 @@
 
 let DateService = {
-	
+
 	date : new Date(),
-	
+
 	MonthMap : [
 		'January',
 		'February',
@@ -17,28 +17,30 @@ let DateService = {
 		'November',
 		'December'
 	],
-	
-	getMonthAsString: function(oDate){
+
+	getMonthAsString(oDate){
 		return this.MonthMap[oDate.getMonth()];
 	},
-	
-	getAbbrMonthAsString: function(oDate){
+
+	getAbbrMonthAsString(oDate){
 		return this.MonthMap[oDate.getMonth()].slice(0,3);
 	},
-	
-	formatDate: function(oDate, format){
+
+	formatDate(oDate, format){
 		let d = new Date(oDate);
-		
+
 		// date formats
 		// m, d, y, M, D, Y, mm, MM, dd, DD, yy, YY, YYYY
-		
+
 		// time formats
 		// h, m, s
-		
+
 	}
-	
-	
-	
+
+
+
 };
 
-module.exports = DateService;
+export {
+	DateService
+}

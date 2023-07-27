@@ -1,35 +1,36 @@
-let React = require('react');
-let BreakpointService = require('BreakpointService');
+import React from 'react';
+import {BreakpointService} from "BreakpointService";
 
-let TVSeasonHeroComponent = React.createClass({
+export class TVSeasonHeroComponent extends React.Component {
 
-	localBreakpointService: null,
-	
-	handleBreakpointChange: function(breakpoint){
+	constructor(props) {
+		super(props);
+		this.localBreakpointService = null;
+		this.state = {
+			breakpoint : ''
+		}
+		this.doOldDidMount()
+	}
+
+	handleBreakpointChange(breakpoint){
 		this.setState({
 			breakpoint: breakpoint
 		});
-	},
-	
-	getInitialState: function(){
-		return {
-			breakpoint : ''
-		}
-	},
-	
-	componentDidMount: function(){
+	}
+
+	doOldDidMount(){
 		this.localBreakpointService = new BreakpointService();
 		this.localBreakpointService.init({
 			onChange: this.handleBreakpointChange
 		});
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { breakpoint } = this.state;
 		let { data } = this.props;
 		let posterImage = 'https://image.tmdb.org/t/p/w500' + data.poster_path;
-		
+
 		let heroClass = breakpoint === 'xs' || breakpoint === 'sm' ? '' : 'mb-5';
 		let heroTextClass = breakpoint === 'xs' || breakpoint === 'sm' ? 'p-5' : 'pt-3 pr-5';
 
@@ -51,10 +52,8 @@ let TVSeasonHeroComponent = React.createClass({
 				</div>
 			</div>
 		)
-		
-	}
-	
-	
-});
 
-module.exports = TVSeasonHeroComponent;
+	}
+
+
+}

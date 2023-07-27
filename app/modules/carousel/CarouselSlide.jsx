@@ -1,16 +1,20 @@
-let React = require('react');
-let ReactDOM = require('react-dom');
-let CarouselSlideItems = require('./CarouselSlideItems');
-let BreakpointService = require('BreakpointService');
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import {CarouselSlideItems} from "modules/carousel/CarouselSlideItems";
+import {BreakpointService} from "BreakpointService";
 
-let CarouselSlide = React.createClass({
-	
-	handleSlideOnChange: function(){
+export class CarouselSlide extends React.Component {
+
+	constructor() {
+		super();
+	}
+
+	handleSlideOnChange(){
 		// console.log('handleSlideOnChange');
 		this.doMeasureSlide();
-	},
-	
-	doMeasureSlide: function(){
+	}
+
+	doMeasureSlide(){
 		// console.log('doMeasureSlide');
 		let { helpers } = this.props;
 		let c = ReactDOM.findDOMNode(this);
@@ -24,42 +28,26 @@ let CarouselSlide = React.createClass({
 			// console.log('not setting height', h, currentHeight);
 		}
 		// console.log('c', c.offsetHeight);
-	},
-	
-	getDefaultProps: function(){
-		return {
-			slide: [],
-			slideIdx: -1,
-			currentSlide : 0,
-			helpers : {
-				handleOnChange : function(){
-					console.error('handleOnChange was not included????')
-				}
-			},
-			template : 'default',
-			carouselHeight : 0,
-			
-		}
-	},
-	
-	componentWillMount: function(){
+	}
+
+	componentWillMount(){
 		// console.log('CarouselSlide will mount');
-	},
-	
-	componentDidMount: function(){
+	}
+
+	componentDidMount(){
 		// console.log('CarouselSlide did mount');
 		// let c = ReactDOM.findDOMNode(this);
 		// console.log('c', c.offsetHeight);
 		let b = new BreakpointService();
 		b.init({
-			onChange : this.handleSlideOnChange
+			onChange : this.handleSlideOnChange.bind(this)
 		});
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { slide, slideIdx, currentSlide, helpers, template, carouselHeight } = this.props;
-		
+
 		let slideClass =  currentSlide   === slideIdx ? 'active'
 						: currentSlide-1 === slideIdx ? 'prev'
 						: currentSlide+1 === slideIdx ? 'next'
@@ -68,21 +56,37 @@ let CarouselSlide = React.createClass({
 						// : currentSlide-2 === slideIdx ? 'left'
 						// : currentSlide+2 === slideIdx ? 'right'
 						: '';
-		
-		let doMeasureSlide = this.doMeasureSlide;
-		
+
+		let doMeasureSlide = this.doMeasureSlide.bind(this);
+
 		let slideStyles = {};
 		if(carouselHeight > 0){
 			slideStyles.height = carouselHeight;
 		}
-		
+
 		return (
 			<div className={"carousel-slide " + slideClass} id={'slide-' + slideIdx} style={slideStyles}>
-				<CarouselSlideItems key={'slideItems-' + slideIdx} slideItems={slide} helpers={helpers} template={template} doMeasureSlide={doMeasureSlide} />
+				<CarouselSlideItems
+					key={'slideItems-' + slideIdx}
+					slideItems={slide}
+					helpers={helpers}
+					template={template}
+					doMeasureSlide={doMeasureSlide} />
 			</div>
 		)
 	}
-	
-});
 
-module.exports = CarouselSlide;
+}
+
+CarouselSlide.defaultProps = {
+	slide: [],
+	slideIdx: -1,
+	currentSlide : 0,
+	helpers : {
+		handleOnChange (){
+			console.error('handleOnChange was not included????')
+		}
+	},
+	template : 'default',
+	carouselHeight : 0,
+}

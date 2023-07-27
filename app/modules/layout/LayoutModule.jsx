@@ -1,13 +1,11 @@
-let React = require('react');
+import React from 'react';
 
 // Module Example
-
-let LayoutHeaderComponent = require('./LayoutHeaderComponent');
-let LayoutInteriorComponent = require('./LayoutInteriorComponent');
-let LayoutFooterComponent = require('./LayoutFooterComponent');
-
-module.exports = {
+import {LayoutHeaderComponent} from "app/modules/layout/LayoutHeaderComponent";
+import {LayoutInteriorComponent} from "app/modules/layout/LayoutInteriorComponent";
+import {LayoutFooterComponent} from "app/modules/layout/LayoutFooterComponent";
+export{
 	LayoutHeaderComponent,
 	LayoutInteriorComponent,
 	LayoutFooterComponent
-};
+}

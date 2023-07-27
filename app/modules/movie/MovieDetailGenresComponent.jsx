@@ -1,47 +1,47 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let hyphenate = require('Hyphenate');
+import {Hyphenate} from 'app/services/Hyphenate';
 
-let MovieDetailGenresComponent = React.createClass({
-	
-	getInitialState: function(){
-		return {
+export class MovieDetailGenresComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
 			genres : []
 		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+		this.hyphenate = new Hyphenate();
+	}
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
-	},
-	
-	componentDidMount: function(){
-	
-	},
-	
+	}
+
 	// badge badge-primary
-	
-	render: function(){
-		
+
+	render(){
+
 		let { genres } = this.state;
+		console.log('genres', genres);
 		let html;
-		
+
 		if(genres.length === 0){
 			html = (
 				<span key={"review-span"}>
 				</span>
 			)
 		}else{
-			html = genres.map(function(obj){
-				let link = "/genre/movie/" + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			html = genres.map((obj)=>{
+				let link = "/genre/movie/" + this.hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 				return (
-					<Link key={obj.id} to={link}  className={"btn btn-primary btn-sm mr-1 mb-1"}>
+					<Link key={obj.id} to={link}
+						  className={"btn btn-primary btn-sm mr-1 mb-1"}>
 						{obj.name}
 					</Link>
 				)
 			});
 		}
-		
+
 		return (
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Genres</h2>
@@ -51,6 +51,8 @@ let MovieDetailGenresComponent = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
-module.exports = MovieDetailGenresComponent;
+MovieDetailGenresComponent.defaultProps = {
+	genres: []
+}

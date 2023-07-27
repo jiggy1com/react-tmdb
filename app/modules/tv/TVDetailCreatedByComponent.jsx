@@ -1,25 +1,25 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let camelCase = require('CamelCase');
-let hyphenate = require('Hyphenate');
+import {CamelCase} from 'app/services/CamelCase';
+import {Hyphenate} from 'app/services/Hyphenate';
 
-let TVDetailCreatedByComponent = React.createClass({
-	
-	renderHtml: function(){
-		
+export class TVDetailCreatedByComponent extends React.Component {
+
+	renderHtml(){
+
 		let { createdBy } = this.props;
-		
+
 		if(createdBy.length === 0){
 			return null
 		}else{
 			return (
 				createdBy.map(function(obj){
-					
+
 					let linkName = hyphenate.hyphenate(obj.name);
 					let href = '/person/' + linkName + '/' + obj.id;
 					let src = '//image.tmdb.org/t/p/' + 'w185' + obj.profile_path;
-					
+
 					return (
 						<div key={obj.id} className={"col"}>
 							<Link to={href}>
@@ -31,14 +31,14 @@ let TVDetailCreatedByComponent = React.createClass({
 				})
 			)
 		}
-		
-		
-	},
-	
-	render: function(){
-		
+
+
+	}
+
+	render(){
+
 		let html = this.renderHtml();
-		
+
 		return (
 			<div id={"tv-created-by"}>
 				<div className={"container-fluid"}>
@@ -54,7 +54,5 @@ let TVDetailCreatedByComponent = React.createClass({
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailCreatedByComponent;
+}

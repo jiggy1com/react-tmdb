@@ -1,10 +1,10 @@
-let React = require('react');
+import React from 'react';
 
-let PersonComponent = React.createClass({
-	render: function(){
-		
+export class PersonComponent extends React.Component {
+	render(){
+
 		let { heading } = this.props;
-		
+
 		return (
 			<div className={"card mb-5"}>
 				<h3 className={"card-header"}>
@@ -16,6 +16,4 @@ let PersonComponent = React.createClass({
 			</div>
 		)
 	}
-});
-
-module.exports = PersonComponent;
+}

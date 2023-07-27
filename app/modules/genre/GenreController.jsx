@@ -1,19 +1,30 @@
-let React = require('react');
+import React from 'react';
 
-let httpService = require('HttpService');
-let CamelCase = require('CamelCase');
-
+import {HttpService} from 'app/services/HttpService';
+import {CamelCase} from 'app/services/CamelCase';
 import { PaginationController } from 'PaginationModule';
+import {GenreMovieComponent} from "modules/genre/GenreMovieComponent";
+import {GenreTvComponent} from "modules/genre/GenreTvComponent";
 
-let GenreMovieComponent = require('./GenreMovieComponent');
-let GenreTvComponent = require('./GenreTvComponent');
+export class GenreController extends React.Component {
 
-let GenreController = React.createClass({
-	
+	constructor(props) {
+		super(props);
+		this.state = {
+			page: 0,
+			total_results: 0,
+			total_pages: 0,
+			results : []
+		}
+		this.getGenreResults({
+			page : 1
+		});
+	}
+
 	// my methods
 	// update: false,
-	
-	getGenreResults: function(obj){
+
+	getGenreResults(obj){
 		window.scrollTo(0,0);
 		let self = this;
 		let { page } = obj;
@@ -27,14 +38,14 @@ let GenreController = React.createClass({
 				results : resp.data.results
 			});
 		});
-	},
-	
-	handleEvent: function(e){
-		
+	}
+
+	handleEvent(e){
+
 		console.log('Genre Controller Handle Event', e);
-		
+
 		let { page, total_pages } = this.state;
-		
+
 		let newPage = 	  e.action === 'first' ? 1 									// go to first page
 						: e.action === 'last' ? total_pages 						// go to last page
 						: (e.action === 'prev' && page > 1) ? page - 1 				// go to previous page
@@ -47,42 +58,28 @@ let GenreController = React.createClass({
 			results : [],
 			page : newPage
 		});
-		
+
 		if(page !== newPage){
 			// this.update = true;
 			this.getGenreResults({
 				page : newPage
 			});
 		}
-		
-	},
-	
+
+	}
+
 	// react methods
-	
-	getInitialState: function(){
-		return {
-			page: 0,
-			total_results: 0,
-			total_pages: 0,
-			results : []
-		}
-	},
-	
-	componentDidMount: function(){
-		this.getGenreResults({
-			page : 1
-		});
-	},
-	
-	render: function(){
-		
+
+
+	render(){
+
 		let { page, total_results, total_pages, results } = this.state;
 		let { genreType, genre } = this.props.params;
-		
+
 		return (
-			
+
 			<div>
-				
+
 				<div className={"container-fluid interior-wrapper pt-5 pb-3"}>
 					<div className={"row"}>
 						<div className={"col-12"}>
@@ -92,15 +89,15 @@ let GenreController = React.createClass({
 						</div>
 					</div>
 				</div>
-				
+
 				{genreType === 'tv' &&
 					<GenreTvComponent results={results} />
 				}
-				
+
 				{genreType === 'movie' &&
 					<GenreMovieComponent results={results} />
 				}
-				
+
 				{typeof results !== 'undefined' && results.length > 0 ?
 					<PaginationController
 						page={page}
@@ -111,11 +108,9 @@ let GenreController = React.createClass({
 					:
 					null
 				}
-				
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = GenreController;
+}

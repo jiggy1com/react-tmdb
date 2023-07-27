@@ -1,5 +1,6 @@
-let React = require('react');
-
+import React from 'react';
+import {Route, Routes} from "react-router-dom";
+import {IndexComponent} from "IndexComponent";
 /*
 original html
 <div className="container-fluid interior-wrapper">
@@ -11,12 +12,12 @@ original html
 </div>
 */
 
-let LayoutInteriorComponent = (props) => {
-	return (
-		<div>
-			{props.children}
-		</div>
-	);
-};
-
-module.exports = LayoutInteriorComponent;
+export class LayoutInteriorComponent extends React.Component {
+	render(){
+		return (
+			<div>
+				{/*{this.props.children}*/}
+			</div>
+		);
+	}
+}

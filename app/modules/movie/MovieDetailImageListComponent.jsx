@@ -1,37 +1,46 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
 import { LightboxController } from 'LightboxModule';
 
-let MovieDetailImageListComponent = React.createClass({
-	
+export class MovieDetailImageListComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			imageList : [],
+			currentIdx : -1
+		}
+	}
+
+
 	// custom methods
-	
-	showLightbox: function(obj, idx){
+
+	showLightbox(obj, idx){
 		this.setState({
 			showLightbox : true,
 			currentIdx : idx
 		});
-	},
-	
-	onCloseLightbox: function(){
+	}
+
+	onCloseLightbox(){
 		this.setState({
 			showLightbox : false,
 			currentIdx : -1
 		});
-	},
-	
-	onStateChange: function(idx){
+	}
+
+	onStateChange(idx){
 		this.setState({
 			currentIdx : idx
 		});
-	},
-	
-	renderImages: function(){
-		
+	}
+
+	renderImages(){
+
 		let self = this;
 		let { imageList } = this.state;
-		
+
 		if(imageList.length === 0){
 			return (
 				<span>
@@ -53,15 +62,15 @@ let MovieDetailImageListComponent = React.createClass({
 				)
 			});
 		}
-	},
-	
-	setImageList: function(imageList){
+	}
+
+	setImageList(imageList){
 		let arr = [];
 		imageList.map(function(obj,idx){
-			
+
 			// preload images
 			// TODO: make sure this doesn't repeat on scroll
-			let src = 'https://image.tmdb.org/t/p/w300' + obj.file_path;
+			let src = 'https://image.tmdb.org/t/p/w300' + obj.src;
 			// let img = new Image();
 			// 	img.onload = function(){
 			// 		console.log('loaded', src);
@@ -70,20 +79,20 @@ let MovieDetailImageListComponent = React.createClass({
 			// 		});
 			// 	};
 			// 	img.src = src;
-				
+
 			// push image into array
 			arr.push({
-				id : obj.file_path,
-				title : obj.file_path,
+				id : obj.id, //obj.file_path,
+				title : obj.src,
 				src : src,
-				vote_average : obj.vote_average,
-				vote_count : obj.vote_count
+				vote_average : '', //obj.vote_average,
+				vote_count : '', //obj.vote_count
 			});
 		});
 		return arr;
-	},
-	
-	renderCarousel: function(){
+	}
+
+	renderCarousel(){
 		let { imageList } = this.state;
 		if(imageList.length === 0){
 			return (
@@ -92,10 +101,10 @@ let MovieDetailImageListComponent = React.createClass({
 			)
 		}else{
 			return imageList.map(function(obj, idx){
-				// console.log('idx', idx);
-				
+				// console.warn('idx', obj);
+
 				let thisClass = idx === 0 ? 'active' : '';
-				
+
 				return (
 					<div key={obj.src} className={"carousel-item jiggy " + thisClass}>
 						<div className={"container"}>
@@ -118,45 +127,31 @@ let MovieDetailImageListComponent = React.createClass({
 				)
 			});
 		}
-	},
-	
+	}
+
 	// react methods
-	
-	getInitialState: function(){
-		return {
-			imageList : [],
-			currentIdx : -1
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			imageList : [],
-			currentIdx : -1
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+
+	componentWillReceiveProps(nextProps){
 		// console.log('MovieDetailImageListComponent componentWillReceiveProps', nextProps);
 		this.setState({
 			imageList : this.setImageList(nextProps.imageList)
 		});
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
 		// console.log('MovieDetailImageListComponent shouldComponentUpdate', nextProps, nextState);
 		let { imageList } = this.props;
 		return imageList !== nextProps.imageList || nextState.currentIdx !== -1;
-	},
-	
-	render: function(){
+	}
+
+	render(){
 		let { currentIdx, imageList, showLightbox } = this.state;
 		let html = this.renderImages();
 		let carousel = this.renderCarousel();
-		
+
 		return (
 			<div className={"row"}>
-				
+
 				{/*
 				<div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
 					<div className="carousel-inner mt-5">
@@ -174,11 +169,11 @@ let MovieDetailImageListComponent = React.createClass({
 					</a>
 				</div>
 				*/}
-				
-				
+
+
 				{/* Image List */}
 				{html}
-				
+
 				{/* Lightbox */}
 				<LightboxController
 					currentIdx={currentIdx}
@@ -187,10 +182,13 @@ let MovieDetailImageListComponent = React.createClass({
 					onCloseLightbox={this.onCloseLightbox}
 					onStateChange={this.onStateChange}>
 				</LightboxController>
-				
+
 			</div>
 		);
 	}
-});
+}
 
-module.exports = MovieDetailImageListComponent;
+MovieDetailImageListComponent.defaultProps = {
+	imageList : [],
+	currentIdx : -1
+}

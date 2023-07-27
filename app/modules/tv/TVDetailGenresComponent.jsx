@@ -1,23 +1,23 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
+import { Link } from "react-router-dom";
 
-let hyphenate = require('Hyphenate');
-let TVDetailGenresComponent = React.createClass({
-	
+import {Hyphenate} from 'app/services/Hyphenate';
+export class TVDetailGenresComponent extends React.Component {
+
 	// badge badge-primary
-	
-	render: function(){
+
+	render(){
 		let { genres } = this.props;
-		
+
 		return (
 			<div id={"tv-external-ids"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Genres</h2>
 					</div>
 				</div>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						{genres.map(function(obj){
@@ -30,11 +30,9 @@ let TVDetailGenresComponent = React.createClass({
 						})}
 					</div>
 				</div>
-				
+
 			</div>
 		);
 	}
-	
-});
 
-module.exports = TVDetailGenresComponent;
+}

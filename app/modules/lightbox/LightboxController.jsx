@@ -1,12 +1,27 @@
-let React = require('react');
+import React from 'react';
 
-let LightboxController = React.createClass({
-	
+export class LightboxController extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			imageLoading : true,
+			imageError: false,
+			isFirstLoad : true,
+			showLightbox : false, // change to false when ready to use
+			currentIdx : -1,
+			currentImage : {
+				title : 'Initial State',
+				src : ''
+			}
+		}
+	}
+
 	// my methods
-	prev: function(){
-		
+	prev(){
+
 		let { currentIdx } = this.state;
-		
+
 		if(currentIdx-1 < 0){
 			// do nothing
 		}else{
@@ -18,14 +33,14 @@ let LightboxController = React.createClass({
 			this.setCurrentImage(prevIdx);
 			this.props.onStateChange(prevIdx);
 		}
-		
-	},
-	
-	next: function(){
-		
+
+	}
+
+	next(){
+
 		let { currentIdx } = this.state;
 		let { imageList } = this.props;
-		
+
 		if(currentIdx+1 > imageList.length-1){
 			// do nothing
 		}else{
@@ -37,10 +52,10 @@ let LightboxController = React.createClass({
 			this.setCurrentImage(nextIdx);
 			this.props.onStateChange(nextIdx);
 		}
-		
-	},
-	
-	close: function(e){
+
+	}
+
+	close(e){
 		e.preventDefault();
 		e.stopPropagation();
 		this.setState({
@@ -53,9 +68,9 @@ let LightboxController = React.createClass({
 			currentImage : {src:'',title : 'closed!'},
 		});
 		this.props.onCloseLightbox();
-	},
-	
-	setCurrentImage: function(idx){
+	}
+
+	setCurrentImage(idx){
 		let { imageList } = this.props;
 		this.setState({
 			currentImage : {
@@ -69,117 +84,65 @@ let LightboxController = React.createClass({
 			currentImage : imageList.length > 0 ? imageList[idx] : {src: '', title: 'Oops! No images. How did this open???'},
 			imageLoading : true
 		});
-	},
-	
-	getCurrentImage: function(){
+	}
+
+	getCurrentImage(){
 		let { currentImage } = this.state;
 		return currentImage;
-	},
-	
+	}
+
 	// react methods
-	
-	getInitialState: function(){
-		return {
-			imageLoading : true,
-			imageError: false,
-			isFirstLoad : true,
-			showLightbox : false, // change to false when ready to use
-			currentIdx : -1,
-			currentImage : {
-				title : 'Initial State',
-				src : ''
-			}
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			// show lightbox
-			showLightbox : false,
-			
-			// show dark overlay
-			overlay : true,
-			
-			// currentIdx
-			currentIdx : -1,
-			
-			// list of images
-			imageList: [
-				/*
-				{
-					src : @string - required - full url to image
-					title : @string - optional - title for the lightbox
-					blurb : @string - optional - blurb to go under the image // TODO: make this work
-				}
-				*/
-			],
-			
-			onCloseLightbox : function(){
-				console.error('You forgot to set the onCloseLightbox prop!!! The Lightbox will fail to work properly if you do not set the parent state accordingly.');
-			},
-			onStateChange : function(){
-				console.error('You forgot to set the onStateChange prop!!! The Lightbox will fail to work properly if you do not set the parent state accordingly.');
-			}
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
-		// console.log('Lightbox componentWillReceiveProps', nextProps);
-		this.setState(nextProps);
-		if(nextProps.currentIdx>=0){
-			this.setState({
-				currentImage : nextProps.imageList[nextProps.currentIdx],
-				imageLoading : true,
-				imageError : false
-			});
-			// if(!this.state.imageLoading){
-			// 	this.setState({
-			// 		imageLoading : true
-			// 	})
-			// }
-		}
-	},
-	
-	componentDidMount:function(){
-		// console.log('LightboxController componentDidMount');
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+
+	// static getDerivedStateFromProps(props, state){
+	// 	// this.setState(nextProps);
+	// 	if(props.currentIdx>=0){
+	// 		state.currentImage = props.imageList[props.currentIdx];
+	// 		state.imageLoading = true;
+	// 		state.imageError = false;
+	// 		// this.setState({
+	// 		// 	currentImage : nextProps.imageList[nextProps.currentIdx],
+	// 		// 	imageLoading : true,
+	// 		// 	imageError : false
+	// 		// });
+	// 	}
+	// }
+
+	shouldComponentUpdate(nextProps, nextState){
 		// console.log('LightboxController shouldComponentUpdate', nextProps, nextState);
 		return true;
-	},
-	
-	handleImageLoaded:function(){
+	}
+
+	handleImageLoaded(){
 		// console.log('image loaded');
 		this.setState({
 			imageVisible: true,
 			imageError : false,
 			imageLoading : false
 		});
-	},
-	
-	handleImageError: function(){
+	}
+
+	handleImageError(){
 		// console.log('image error');
 		this.setState({
 			imageError : true,
 			imageLoading : false
 		});
-	},
-	
-	render: function(){
+	}
+
+	render(){
 		// console.log('LightboxController render');
 		let { isFirstLoad, showLightbox, currentIdx, imageList, imageLoading, imageError, imageVisible } = this.state;
 		let { initialIdx } = this.props;
 		let thisIdx = isFirstLoad ? initialIdx : currentIdx;
 		let currentImage = this.getCurrentImage(currentIdx); // thisIdx
-		
+
 		// let currentImage = imageList[currentIdx];
-		
+
 		// console.log('LightboxController render', currentIdx, imageList);
-		
+
 		return (
 			<div className={"jv-lightbox " + (showLightbox ? 'show' : 'hide') }>
-				
+
 				<div className={"jv-lightbox-overlay"} onClick={this.close}>
 				</div>
 				<div className={"jv-lightbox-modal p-5"}>
@@ -197,7 +160,7 @@ let LightboxController = React.createClass({
 								</span>
 							</div>
 							<div className={"col"}>
-								
+
 								{imageLoading ?
 									<div className={"spinner-container text-center pt-5"}>
 										<span className={"fa fa-spin fa-spinner fa-4x"}>
@@ -206,13 +169,13 @@ let LightboxController = React.createClass({
 									:
 									null
 								}
-								
+
 								{currentImage.src !== '' ?
 									<img src={currentImage.src} onLoad={this.handleImageLoaded} onError={this.handleImageError} className={imageVisible ? 'visible' : 'not-visible'} />
 									:
 									null
 								}
-								
+
 								{imageError ?
 									<div>
 										Sorry, the image could not be loaded. Dunno why.
@@ -220,7 +183,7 @@ let LightboxController = React.createClass({
 									:
 									null
 								}
-								
+
 							</div>
 							<div className={"next text-center"} onClick={this.next}>
 								<span className={"fa fa-chevron-right fa-2x"}>
@@ -232,7 +195,34 @@ let LightboxController = React.createClass({
 			</div>
 		);
 	}
-	
-});
 
-module.exports = LightboxController;
+}
+
+LightboxController.defaultProps = {
+	// show lightbox
+	showLightbox : false,
+
+	// show dark overlay
+	overlay : true,
+
+	// currentIdx
+	currentIdx : -1,
+
+	// list of images
+	imageList: [
+		/*
+        {
+            src : @string - required - full url to image
+            title : @string - optional - title for the lightbox
+            blurb : @string - optional - blurb to go under the image // TODO: make this work
+        }
+        */
+	],
+
+	onCloseLightbox (){
+		console.error('You forgot to set the onCloseLightbox prop!!! The Lightbox will fail to work properly if you do not set the parent state accordingly.');
+	},
+	onStateChange (){
+		console.error('You forgot to set the onStateChange prop!!! The Lightbox will fail to work properly if you do not set the parent state accordingly.');
+	}
+}

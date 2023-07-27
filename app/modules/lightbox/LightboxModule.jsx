@@ -1,9 +1,7 @@
-let React = require('react');
-
-let LightboxController = require('./LightboxController');
-let LightboxHeaderComponent = require('./LightboxHeaderComponent');
-
-module.exports = {
+import React from 'react';
+import {LightboxController} from "modules/lightbox/LightboxController";
+import {LightboxHeaderComponent} from "modules/lightbox/LightboxHeaderComponent";
+export {
 	LightboxController,
-	LightboxHeaderComponent,
-};
+	LightboxHeaderComponent
+}

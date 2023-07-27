@@ -1,64 +1,60 @@
-let React = require('react');
-let httpService = require('HttpService');
-let MovieListComponent = require('./MovieListComponent');
+import React from 'react';
+import {HttpService} from 'app/services/HttpService';
+import {MovieListComponent} from "MovieModule";
 
-let MovieDetailRecommendationsComponent = React.createClass({
-	
+export class MovieDetailRecommendationsComponent extends React.Component {
+
+	constructor() {
+		super();
+		this.httpService = new HttpService();
+		this.state = {
+			page : 0,
+			total_pages: 0,
+			total_results: 0,
+			results: []
+		}
+	}
 	// My Methods
-	
-	getRecommendations: function(nextProps){
-		let self = this;
+
+	getRecommendations(nextProps){
 		let path = '/api/v1/movie/recommendations/' + nextProps.movieId;
-		httpService.doGet(path).then(function(resp){
-			self.setState({
+		this.httpService.doGet(path).then((resp)=>{
+			this.setState({
 				results : resp.data.results,
 				total_pages : resp.data.total_pages,
 				total_results : resp.data.total_results,
 				page: resp.data.page
 			});
 		});
-	},
-	
+	}
+
 	// React Methods
-	
-	getInitialState: function() {
-		return {
-			page : 0,
-			total_pages: 0,
-			total_results: 0,
-			results: []
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			movieId: ''
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+
+	componentWillReceiveProps(nextProps){
 		this.setState(nextProps);
 		if(nextProps.movieId !== ''){
 			this.getRecommendations(nextProps);
 		}
-	},
-	
-	shouldComponentUpdate: function(){
+	}
+
+	shouldComponentUpdate(){
 		return true;
-	},
-	
-	render: function(){
-		
+	}
+
+	render(){
+
 		let { results } = this.state;
-		
+
 		// console.warn('MovieDetailRecommendationsComponent results', results);
-		
+
 		return (
 			<MovieListComponent results={results}>
 			</MovieListComponent>
 		)
 	}
-	
-});
 
-module.exports = MovieDetailRecommendationsComponent;
+}
+
+MovieDetailRecommendationsComponent.defaultProps = {
+	movieId: ''
+}

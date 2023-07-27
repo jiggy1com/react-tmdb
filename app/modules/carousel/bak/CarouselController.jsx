@@ -1,10 +1,7 @@
-let React = require('react');
-let ReactDOM = require('react-dom');
-
-let CarouselSlide = require('./CarouselSlide');
-
-// import { Breakpoint } from 'Breakpoint';
-let BreakpointService = require('../../services/BreakpointService');
+import React from 'react';
+import * as ReactDOM from 'react-dom';
+import {CarouselSlide} from "modules/carousel/CarouselSlide";
+import {BreakpointService} from "BreakpointService";
 /*
 
 list = []
@@ -15,17 +12,44 @@ items per slide = xs : 2, sm: 2, md: 4, lg: 6, xl: 6 (or whatever is set)
 
 // TODO: loop each .carousel-item and find out the height, set the height to each based on the highest height
 
-let CarouselController = React.createClass({
-	
+export class CarouselController extends React.Component {
+
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			carouselId : '',
+			carouselWidth : 0,
+			carouselHeight : 0,
+			carouselSlideWidth : 0,
+			carouselSlideHeight : 0,
+			carouselSlidePaddingLeft : 0,
+			carouselSlidePaddingRight : 0,
+
+			items : [],
+			itemsPerSlide : 6,
+			carousel : [
+				// {
+				// 	items : []
+				// }
+			],
+
+			// custom
+			customProperties: [],
+			customClasses: {},
+			customStyles : {}
+		}
+		// carouselId : 'carousel-' + ( Math.floor(Math.random() * 1000) + new Date().getTime() ),
+		this.breakpointService = new BreakpointService();
+		this.carouselHeight = 0; // might store here
+	}
+
 	// My Methods
-	
-	breakpointService : new BreakpointService(),
-	
-	// carouselId : 'carousel-' + ( Math.floor(Math.random() * 1000) + new Date().getTime() ),
-	
-	carouselHeight : 0, // might store here
-	
-	slideWasRendered: function(x){
+
+
+
+
+	slideWasRendered(x){
 		// console.log('slide was rendered:', x);
 		let c = $('#' + this.props.carouselId);
 		let h = 0;
@@ -38,33 +62,33 @@ let CarouselController = React.createClass({
 				w = $(this).width();
 			}
 		});
-		
+
 		w = w - c.find('.carousel-control-prev').width() - c.find('.carousel-control-next').width();
-		
+
 		// console.log('h w', h, w);
-		
+
 		let update = {
 		};
-		
+
 		if(h > 0){
 			update.carouselHeight = h;
 			update.carouselSlideHeight = h;
 		}
-		
+
 		if(w > 0){
 			update.carouselWidth = w;
 			update.carouselSlideWidth = w;
 		}
-		
+
 		if(update.hasOwnProperty('carouselHeight') || update.hasOwnProperty('carouselWidth')){
 			this.setState(update);
 		}
-		
-	},
-	
-	handleBreakpointChange: function(breakpoint){
+
+	}
+
+	handleBreakpointChange(breakpoint){
 		// console.log('CarouselController handleBreakpointChange');
-		
+
 		// let el = $(ReactDOM.findDOMNode(this));
 		// // this.setState({
 		// // 	carouselWidth : el.width()
@@ -87,22 +111,22 @@ let CarouselController = React.createClass({
 		// 	carouselSlidePaddingLeft : prev.outerWidth(),
 		// 	carouselSlidePaddingRight : next.outerWidth()
 		// });
-		
-	},
-	
-	buildCarouselGuts: function(nextProps){
-		
+
+	}
+
+	buildCarouselGuts(nextProps){
+
 		let { itemsPerSlide, items } = nextProps;
-		
+
 		let carousel = [];
-		
+
 		let cnt = 0;
 		let arr = [];
-		
+
 		items.forEach((itm, idx)=>{
 			cnt++;
 			arr.push(items[idx]);
-			
+
 			// set empty placeholders only for last slide
 			if(idx === items.length-1){
 				for(let j=0; j<itemsPerSlide-cnt; j++){
@@ -112,7 +136,7 @@ let CarouselController = React.createClass({
 					});
 				}
 			}
-			
+
 			// set array of array (the array of images for each slide of images)
 			if(cnt === itemsPerSlide || idx === items.length-1){
 				cnt = 0;
@@ -120,19 +144,19 @@ let CarouselController = React.createClass({
 				arr = [];
 			}
 		});
-		
+
 		this.setState({
 			items : carousel
 		});
-		
-	},
-	
-	slideMounted: function(height){
+
+	}
+
+	slideMounted(height){
 		// console.log('do nothing here');
-	},
-	
-	slideItemMounted: function(height){
-		
+	}
+
+	slideItemMounted(height){
+
 		// this.handleBreakpointChange();
 		//
 		// let { carouselSlideHeight, carouselId } = this.state;
@@ -146,32 +170,32 @@ let CarouselController = React.createClass({
 		// 	carouselSlideHeight : h
 		// });
 		// this.carouselHeight = h;
-		
+
 		// console.log('h', h);
-		
+
 		/*
-		
+
 		let { carouselSlideHeight, carouselId } = this.state;
 		// let { carouselId } = this.props;
-		
+
 		let el = $(ReactDOM.findDOMNode(this));
 		let c = $('#' + carouselId);
-		
+
 		// only update the carousel height if necessary
 		if(this.carouselHeight < c.height()){
 			this.carouselHeight = c.height()
 		}
-		
+
 		// set state so component updates
 		this.setState({
 			settingState : Math.random()
 		});
-		
+
 		console.log('slideItemMounted', height, c.height());
 		*/
-	},
-	
-	// renderCarouselSlides: function(arr){
+	}
+
+	// renderCarouselSlides(arr){
 	// 	let self = this;
 	// 	let { carouselWidth } = this.state;
 	// 	let carouselWidthCss = {
@@ -193,7 +217,7 @@ let CarouselController = React.createClass({
 	// 	});
 	// },
 	//
-	// renderCarouselSlideItems: function(arr){
+	// renderCarouselSlideItems(arr){
 	// 	return arr.map(function(obj){
 	// 		return (
 	// 			<div key={obj.id} className={"col"}>
@@ -206,96 +230,58 @@ let CarouselController = React.createClass({
 	// 	});
 	// },
 	//
-	// renderCarousel: function(carousel){
+	// renderCarousel(carousel){
 	// 	return this.renderCarouselSlides(carousel);
 	// },
-	
+
 	// React Methods
-	
-	getInitialState: function(){
-		return {
-			carouselId : '',
-			carouselWidth : 0,
-			carouselHeight : 0,
-			carouselSlideWidth : 0,
-			carouselSlideHeight : 0,
-			carouselSlidePaddingLeft : 0,
-			carouselSlidePaddingRight : 0,
-			
-			items : [],
-			itemsPerSlide : 6,
-			carousel : [
-				// {
-				// 	items : []
-				// }
-			],
-			
-			// custom
-			customProperties: [],
-			customClasses: {},
-			customStyles : {}
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			carouselId : '',
-			items : [],
-			itemsPerSlide: 6,
-			
-			// custom
-			customProperties: [],
-			customClasses: {},
-			customStyles : {}
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+
+	componentWillReceiveProps(nextProps){
 		// console.log('CarouselController componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
 		this.buildCarouselGuts(nextProps);
-	},
-	
-	componentWillMount: function(){
-	
-	},
-	
-	componentDidMount: function(){
+	}
+
+	componentWillMount(){
+
+	}
+
+	componentDidMount(){
 		this.breakpointService.init({
 			onChange : this.handleBreakpointChange
 		});
-	},
-	
-	componentDidUpdate: function(prevProps, prevState){
+	}
+
+	componentDidUpdate(prevProps, prevState){
 		console.log('carousel did update');
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
 		// console.log('CarouselController shouldComponentUpdate', nextProps);
 		// console.log('CarouselController shouldComponentUpdate', nextState);
 		// console.log('test', nextProps.items === this.props.items);
 		// return nextProps !== this.props.items && nextProps.items.length !== 0;
-		
+
 		// console.log('compare props', this.props);
 		// console.log('compare props', nextProps);
 		//
 		// console.log('compare state', this.state);
 		// console.log('compare state', nextState);
-		
+
 		let { carouselHeight, carouselWidth } = this.state;
 		let { items } = this.props;
 		// let { carousel } = this.props;
-		
+
 		// console.log('carouselHeight', carouselHeight);
 		// console.log('carouselWidth', carouselWidth);
 		// console.log('items.length', items.length);
-		
+
 		console.log('carouselHeight', carouselHeight, nextState.carouselHeight, carouselHeight === 0 || carouselHeight !== nextState.carouselHeight);
-		
+
 		return carouselHeight === 0 || carouselHeight !== nextState.carouselHeight;
-		
+
 		// return false;
-		
+
 		// if(carouselHeight !== nextState.carouselHeight){
 		// 	return true;
 		// }else if(carouselWidth !== nextState.carouselWidth){
@@ -306,36 +292,36 @@ let CarouselController = React.createClass({
 		// 	return false;
 		// }
 		//
-		
-	},
-	
-	render: function(){
-		
-		
-		
+
+	}
+
+	render(){
+
+
+
 		let self = this;
 		let { items, carouselId, itemsPerSlide, carouselWidth, carouselHeight,
 			carouselSlideWidth, carouselSlideHeight, carouselSlidePaddingLeft, carouselSlidePaddingRight,
 			customProperties, customClasses, customStyles } = this.state;
-		
+
 		console.log('render carousel', carouselHeight, carouselSlideHeight, carouselWidth, carouselSlideWidth);
-		
+
 		// let { carouselId } = this.props;
 		// let html = this.renderCarousel(carousel);
-		
+
 		let carouselStyles = {};
-		
-		
+
+
 		if(carouselHeight !== 0){
 			carouselStyles.height = carouselHeight
 		}
-		
+
 		if(carouselWidth !== 0){
 			carouselStyles.width = carouselWidth;
 		}
-		
+
 		return (
-			
+
 				<div id={carouselId} className="carousel slide" data-ride="carousel" data-wrap="false" data-keyboard="true" style={carouselStyles}>
 					<div className="carousel-inner">
 						{items.map(function(slideItems, idx){
@@ -371,10 +357,19 @@ let CarouselController = React.createClass({
 						<span className="sr-only">Next</span>
 					</a>
 				</div>
-			
+
 		)
 	}
-	
-});
 
-module.exports = CarouselController;
+}
+
+CarouselController.defaultProps = {
+	carouselId : '',
+	items : [],
+	itemsPerSlide: 6,
+
+	// custom
+	customProperties: [],
+	customClasses: {},
+	customStyles : {}
+}

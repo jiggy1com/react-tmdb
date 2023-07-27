@@ -1,16 +1,13 @@
-let React = require('react');
-let { Link } = require('react-router');
+import React from 'react';
 
-let DspMovieListItem = React.createClass({
-	
-	render: function(){
-		return (
-			<div>
-				DspMovieListItem
-			</div>
-		)
-	}
-	
-});
+export class DspMovieListItem extends React.Component {
 
-module.exports = DspMovieListItem;
+    render() {
+        return (
+            <div>
+                DspMovieListItem
+            </div>
+        )
+    }
+
+}

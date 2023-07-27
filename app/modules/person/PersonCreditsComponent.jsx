@@ -1,19 +1,15 @@
 /* DEPRECATED */
 
-let React = require('react');
+import React from 'react';
 
-let PersonCreditsComponent = React.createClass({
-	
-	render: function(){
-		
-		
+export class PersonCreditsComponent extends React.Component {
+
+	render(){
 		return (
 			<div>
 				PersoneCreditsComponent
 			</div>
 		)
 	}
-	
-});
 
-module.exports = PersonCreditsComponent;
+}

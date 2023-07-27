@@ -1,132 +1,132 @@
-let React = require('react');
+import React from 'react';
+import {HttpService} from 'app/services/HttpService';
+// import MovieListComponent from "MovieModule";
+import {MovieListComponent} from "modules/movie/MovieListComponent";
+import { PaginationController } from 'app/modules/pagination/PaginationModule';
+import {CamelCase} from 'app/services/CamelCase';
 
-let httpService = require('HttpService');
+export class MovieController extends React.Component {
 
-let MovieListComponent = require('./MovieListComponent');
-
-import { PaginationController } from '../pagination/PaginationModule';
-// import { CamelCase } from 'CamelCase';
-let CamelCase = require('CamelCase');
-
-let MovieController = React.createClass({
-	
-	update : false,
-	
-	getInitialState: function(){
-		return {
+	constructor(props) {
+		super(props);
+		this.httpService = new HttpService();
+		this.state = {
 			// locals
 			pageTitle : '',
 			route : '',
-			
+
 			// pagination & results
 			page : 0,
 			total_pages : 0,
 			total_results : 0,
-			results : []
+			results : [],
+			update: false,
 		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			page : 0,
-			total_pages : 0,
-			total_results : 0,
-			results : []
-		}
-	},
-	
-	getMovies: function(obj){
-		
+	}
+
+	getMovies(obj){
+
 		window.scrollTo(0,0);
-		
+
 		let self = this;
 		let { page, route } = obj; //this.state;
-		
+
 		// let arrLoc = location.pathname.split('/');
 		let arrRoute = route.split('/');
 		let uri = arrRoute[arrRoute.length-1];
 		let apiPath = uri.replace(/-/g, '_');
 		let pageTitle = uri.replace(/-/g, ' ');
-		
-		this.setState({
-			pageTitle : pageTitle
-		});
-		
+
+		this.setState((state,props)=>{
+			return {
+				pageTitle: pageTitle
+			}
+		})
+
 		if(obj){
 			page = obj.page;
 		}
-		
+
 		if(page === 0){
 			page = 1;
 		}
-		
+
 		let path = '/api/v1/movie/' + apiPath + '/' + page;
-		httpService.doGet(path).then(function(resp){
+		this.httpService.doGet(path).then((resp) => {
 			if(resp.success){
-				self.update = true;
-				self.setState({
-					page : resp.data.page,
-					total_pages : resp.data.total_pages,
-					total_results : resp.data.total_results,
-					results : resp.data.results
+				this.setState((state, props)=>{
+					return {
+						page : resp.data.page,
+						total_pages : resp.data.total_pages,
+						total_results : resp.data.total_results,
+						results : resp.data.results,
+						update: true,
+					}
 				});
 			}else{
-			
+
 			}
 		});
-	},
-	
-	componentWillMount: function(){
-		// console.log('MovieController componentWillMount state', this.state);
-		// console.log('MovieController componentWillMount props', this.props);
-		this.setState({
-			route : this.props.location.pathname,
+	}
+
+	componentWillMount(){
+		this.setState((state, props)=>{
+			return {
+				route : document.location.pathname
+			}
 		});
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+	componentWillReceiveProps(nextProps){
 		// console.log('MovieController componentWillReceiveProps', nextProps);
-	},
-	
-	componentDidMount:function(){
-		// console.log('MovieController componentDidMount', this.props);
-		// console.log('MovieController componentDidMount', this.state);
+	}
+
+	componentDidMount(){
 		let { route } = this.state;
 		this.getMovies({
 			page : 1,
 			route : route
 		});
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
-		
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
+
 		// console.log('MovieController shouldComponentUpdate', nextProps, nextState);
 		// console.log('## compare state', this.state.route);
 		// console.log('## compare to', nextState.route);
 		// console.log('## compare props', this.props);
 		// console.log('## compare to', nextProps);
 		// console.log('update', this.update);
-		
-		if(this.props.location.pathname !== nextProps.location.pathname){
-			this.getMovies({
-				page : 1,
-				route : nextProps.location.pathname
+
+		if (this.state.route !== document.location.pathname) {
+			this.setState((state, props) => {
+				return {
+					route: document.location.pathname
+				}
+			}, () => {
+				this.getMovies({
+					page: 1,
+					route: this.state.route
+				});
+			})
+			return false;
+		}
+		if (nextState.update) {
+			this.setState((state, props) => {
+				return {
+					update: false
+				}
 			});
 			return true;
-		}else{
-			if(this.update){
-				this.update = false;
-				return true;
-			}else{
-				return false;
-			}
+		} else {
+			return false;
 		}
-	},
-	
-	handleEvent:function(e){
-		
+	}
+
+	handleEvent(e){
+
 		let { page, total_pages, route } = this.state;
-		
+
 		let newPage = e.action === 'first' ? 1 									// go to first page
 					: e.action === 'last' ? total_pages 						// go to last page
 					: (e.action === 'prev' && page > 1) ? page - 1 				// go to previous page
@@ -134,31 +134,38 @@ let MovieController = React.createClass({
 					: (e.action === 'prev' && page < 1) ? page 					// stay on page
 					: (e.action === 'next' && page > total_pages) ? page 		// stay on page
 					: e.page; // go directly to page
-		
-		this.setState({
-			results : [],
-			page : newPage
-		});
-		
+
+
+		// this.setState((state, props)=>{
+		// 	return {
+		// 		results : [],
+		// 		page : newPage
+		// 	}
+		// });
+
 		if(page !== newPage){
-			
-			this.update = true;
-			
+
+			this.setState((state, props)=>{
+				return {
+					update: true
+				}
+			});
+
 			this.getMovies({
 				page : newPage,
 				route : route
 			});
-			
+
 		}
-		
-	},
-	
-	render: function(){
-		
+
+	}
+
+	render(){
+
 		let { page, total_pages, total_results, results, pageTitle } = this.state;
-		
+
 		return (
-			
+
 			<div>
 				<div className={"container-fluid interior-wrapper pt-5 pb-3"}>
 					<div className={"row"}>
@@ -170,23 +177,28 @@ let MovieController = React.createClass({
 						</div>
 					</div>
 				</div>
-				
+
 				<MovieListComponent results={results}>
 				</MovieListComponent>
-				
+
 				{results.length > 0 &&
 					<PaginationController
 						page={page}
 						total_pages={total_pages}
 						total_results={total_results}
-						notifyParent={this.handleEvent}>
+						notifyParent={this.handleEvent.bind(this)}>
 					</PaginationController>
 				}
-			
+
 			</div>
-			
+
 		);
 	}
-});
+}
 
-module.exports = MovieController;
+MovieController.defaultProps = {
+	page : 0,
+	total_pages : 0,
+	total_results : 0,
+	results : []
+}

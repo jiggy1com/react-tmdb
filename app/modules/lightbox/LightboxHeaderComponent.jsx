@@ -1,31 +1,12 @@
-let React = require('react');
+import React from 'react';
 
-let LightboxHeaderComponent = React.createClass({
-	
-	getInitialState: function(){
-		return {
-		
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-		
-		}
-	},
-	
-	componentDidMount:function(){
-	
-	},
-	
-	render: function(){
-		
+export class LightboxHeaderComponent extends React.Component {
+
+	render(){
 		return (
 			<div>
 				LightboxHeaderComponent
 			</div>
 		);
 	}
-});
-
-module.exports = LightboxHeaderComponent;
+}

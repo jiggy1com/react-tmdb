@@ -1,7 +1,7 @@
 
 
 let ImageSizes = {
-	
+
 	"images": {
 		"base_url": "http://image.tmdb.org/t/p/",
 		"secure_base_url": "https://image.tmdb.org/t/p/",
@@ -42,7 +42,7 @@ let ImageSizes = {
 			"original"
 		]
 	},
-	
+
 	"change_keys": [
 		"adult",
 		"air_date",
@@ -98,7 +98,8 @@ let ImageSizes = {
 		"video",
 		"videos"
 	]
-	
-}
 
-module.exports = ImageSizes;
+}
+export{
+	ImageSizes
+}

@@ -1,52 +1,51 @@
-let React = require('react');
+import React from 'react';
 
-let httpService = require('HttpService');
-let hyphenate = require('Hyphenate');
+import {HttpService} from 'app/services/HttpService';
+import {Hyphenate} from 'app/services/Hyphenate';
 
 import { CarouselController } from 'CarouselModule';
 
 // TODO: remove the sidebar, stack everything
 
-let MovieDetailCreditsComponent = React.createClass({
-	
-	// state and props
-	
-	getInitialState: function(){
-		return {
+export class MovieDetailCreditsComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
 			results : {
 				cast : [],
 				crew : [],
-				
+
 				castCustomProperties: [],
 				castCustomClasses : {},
 				castCustomStyles : {},
-				
+
 				crewCustomProperties: [],
 				crewCustomClasses : {},
 				crewCustomStyles : {}
 			}
 		}
-	},
-	
-	getDefaultProps: function() {
-		return {
-		
-		}
-	},
-	
-	propTypes: {
-	
-	},
-	
+		this.httpService = new HttpService();
+		this.hyphenate = new Hyphenate();
+	}
+
+
+	// state and props
+
+	// propTypes: {
+	//
+	// },
+
 	// controller methods
-	
-	getMovieCredits:function(nextProps){
-		let self = this;
+
+	getMovieCredits(nextProps){
+		console.log('getMovieCredits', nextProps);
 		let { movieId } = nextProps;
 		let path = '/api/v1/movie/credits/' + movieId;
-		httpService.doGet(path).then(function(resp){
-			self.generateCarousel(resp.data.cast, 'cast');
-			self.generateCarousel(resp.data.crew, 'crew');
+		this.httpService.doGet(path).then((res)=>{
+			console.log('getMovieCredits:res', res);
+			this.generateCarousel(res.data.cast, 'cast');
+			this.generateCarousel(res.data.crew, 'crew');
 			// self.setState({
 			// 	results : resp.data
 				// page : resp.data.page,
@@ -55,13 +54,13 @@ let MovieDetailCreditsComponent = React.createClass({
 				// results : resp.data.results
 			// });
 		});
-	},
-	
-	generateCarousel: function(data, stateProperty){
-		
-		let arr = data.map(function(obj, idx){
+	}
+
+	generateCarousel(data, stateProperty){
+
+		let arr = data.map((obj, idx)=>{
 			let src = 'https://image.tmdb.org/t/p/w185' + obj.profile_path;
-			let href = '/person/' + hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
+			let href = '/person/' + this.hyphenate.hyphenateAndLowercase(obj.name) + '/' + obj.id;
 			return {
 				id : obj.id,
 				src : src,
@@ -72,11 +71,11 @@ let MovieDetailCreditsComponent = React.createClass({
 				job : obj.job
 			};
 		});
-		
+
 		// this.setState({
 		// 	[stateProperty] : arr
 		// });
-		
+
 		if(stateProperty === 'cast'){
 			this.setState({
 				cast : arr,
@@ -91,7 +90,7 @@ let MovieDetailCreditsComponent = React.createClass({
 				}
 			});
 		}
-		
+
 		if(stateProperty === 'crew'){
 			this.setState({
 				crew : arr,
@@ -106,45 +105,37 @@ let MovieDetailCreditsComponent = React.createClass({
 				}
 			});
 		}
-		
-	},
-	
-	
-	// life cycle methods
-	
-	componentWillMount: function(){
-	
-	},
-	
-	componentDidMount: function(){
 
-	},
-	
-	componentWillReceiveProps: function(nextProps){
+	}
+
+
+	// life cycle methods
+
+	componentWillReceiveProps(nextProps){
 		// console.log('ModalController componentWillReceiveProps', nextProps);
 		this.setState(nextProps);
 		this.getMovieCredits(nextProps)
-	},
-	
-	shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	shouldComponentUpdate(nextProps, nextState){
 		// console.log('ModalController shouldComponentUpdate', nextProps, nextState);
 		return true;
-	},
-	
-	componentWillUpdate: function(){
-	
-	},
-	
-	componentDidUpdate: function(){
-	
-	},
-	
-	componentWillUnmount: function(){
-	
-	},
-	
-	render : function(){
-		
+	}
+
+	componentWillUpdate(){
+
+	}
+
+	componentDidUpdate(){
+
+	}
+
+	componentWillUnmount(){
+
+	}
+
+	render (){
+
 		// {
 		// 	"cast_id": 14,
 		// 	"character": "Luke Skywalker / Dobbu Scay (voice)",
@@ -155,7 +146,7 @@ let MovieDetailCreditsComponent = React.createClass({
 		// 	"order": 0,
 		// 	"profile_path": "/fk8OfdReNltKZqOk2TZgkofCUFq.jpg"
 		// },
-		
+
 		let { results, cast, crew,
 			castCustomProperties, castCustomClasses, castCustomStyles,
 			crewCustomProperties, crewCustomClasses, crewCustomStyles } = this.state;
@@ -172,14 +163,14 @@ let MovieDetailCreditsComponent = React.createClass({
 		// 		</div>
 		// 	)
 		// });
-		
+
 		return (
-			
+
 			<div className={"pt-3 pb-3"}>
 				<h2 className={"card-header mb-3"}>Credits</h2>
-				
+
 				<h3 className={"text-center"}>Cast</h3>
-				
+
 				<div className={"mb-5"}>
 					<CarouselController
 						carouselId={"castCarousel"}
@@ -194,7 +185,7 @@ let MovieDetailCreditsComponent = React.createClass({
 				</div>
 
 				<h3 className={"text-center"}>Crew</h3>
-				
+
 				<div className={"mb-5"}>
 					<CarouselController
 						carouselId={"crewCarousel"}
@@ -207,14 +198,11 @@ let MovieDetailCreditsComponent = React.createClass({
 						customStyles={crewCustomStyles}>
 					</CarouselController>
 				</div>
-				
+
 			</div>
-		
+
 		)
-		
+
 	}
-	
-});
 
-module.exports = MovieDetailCreditsComponent;
-
+}

@@ -1,31 +1,54 @@
-let React = require('react');
+import React from 'react';
+import {CarouselPrevNext} from "modules/carousel/CarouselPrevNext";
+import {CarouselSlides} from "modules/carousel/CarouselSlides";
+import {BreakpointService} from "BreakpointService";
+import {ModalController} from "ModalModule";
+import {HttpService} from "HttpService";
+import {Hyphenate} from "Hyphenate";
 
-let CarouselPrevNext = require('./CarouselPrevNext');
-let CarouselSlides = require('./CarouselSlides');
-let BreakpointService = require('BreakpointService');
+export class CarouselController extends React.Component {
 
-let ModalController = require('../modal/ModalController');
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentBreakpoint : '',
 
-let CarouselController = React.createClass({
-	
+			slides : [],
+			currentSlide : 0,
+			template : 'default',
+			carouselHeight : 0,
+
+			showModal: false,
+			video : {},
+			image : {}
+		}
+		this.localHeight = 0;
+		this.originalItemsPerSlide = 0;
+
+		this.b = new BreakpointService();
+		this.httpService = new HttpService();
+		this.hyphenate = new Hyphenate();
+		// todo get this working
+		// this.b.init({
+		// 	onChange : this.handleOnChange
+		// });
+
+	}
 	// my methods
-	
-	localHeight : 0,
-	originalItemsPerSlide: 0,
-	
-	buildCarouselGuts: function(nextProps){
-		
+
+	buildCarouselGuts(nextProps){
+
 		let { itemsPerSlide, slides } = nextProps;
-		
+
 		let carousel = [];
-		
+
 		let cnt = 0;
 		let arr = [];
-		
+
 		slides.forEach((itm, idx)=>{
 			cnt++;
 			arr.push(slides[idx]);
-			
+
 			// set empty placeholders only for last slide
 			if(idx === slides.length-1){
 				for(let j=0; j<itemsPerSlide-cnt; j++){
@@ -35,7 +58,7 @@ let CarouselController = React.createClass({
 					});
 				}
 			}
-			
+
 			// set array of array (the array of images for each slide of images)
 			if(cnt === itemsPerSlide || idx === slides.length-1){
 				cnt = 0;
@@ -43,15 +66,15 @@ let CarouselController = React.createClass({
 				arr = [];
 			}
 		});
-		
+
 		this.setState({
 			slides : carousel
 		});
-		
-	},
-	
-	handleOnChange: function(breakpoint){
-		
+
+	}
+
+	handleOnChange(breakpoint){
+
 		let { currentBreakpoint } = this.state;
 		let update = {
 			carouselHeight : 0
@@ -60,122 +83,91 @@ let CarouselController = React.createClass({
 			update.currentBreakpoint = breakpoint;
 			update.currentSlide = 0;
 		}
-		
+
 		this.localHeight = 0;
 		this.setState(update);
-	},
-	
+	}
+
 	// controls
-	
-	doPrev: function(){
+
+	doPrev(){
 		let { currentSlide, slides } = this.state;
 		if(currentSlide !== 0){
 			this.setState({
 				currentSlide : currentSlide-1
 			});
 		}
-	},
-	
-	doNext: function(){
+	}
+
+	doNext(){
 		let { currentSlide, slides } = this.state;
 		if(slides.length-1 !== currentSlide){
 			this.setState({
 				currentSlide : currentSlide+1
 			});
 		}
-	},
-	
+	}
+
 	// helpers
-	
-	imageLoaded: function(){
-	
-	},
-	
-	doGetSlideHeight: function(){
+
+	imageLoaded(){
+
+	}
+
+	doGetSlideHeight(){
 		return this.localHeight;
-	},
-	
-	doSetSlideHeight: function(height){
+	}
+
+	doSetSlideHeight(height){
 		// console.log('doSetSlideHeight');
-		
+
 		if(this.localHeight < height){
 			this.localHeight = height;
 			this.setState({
 				carouselHeight : height
 			});
 		}
-	},
-	
-	doOpenImage: function(obj){
+	}
+
+	doOpenImage(obj){
 		console.log('CarouselController doOpenImage', obj);
 		this.setState({
 			showModal: true,
 			image : obj
 		});
-	},
-	
-	doOpenVideo: function(obj){
+	}
+
+	doOpenVideo(obj){
 		// console.log('CarouselController doOpenVideo', obj);
 		this.setState({
 			showModal: true,
 			video : obj
 		});
-	},
-	
+	}
+
 	// react methods
-	
-	getInitialState: function (){
-		return {
-			currentBreakpoint : '',
-			
-			slides : [],
-			currentSlide : 0,
-			template : 'default',
-			carouselHeight : 0,
-			
-			showModal: false,
-			video : {},
-			image : {}
-		}
-	},
-	
-	getDefaultProps: function(){
-		return {
-			// items: [],
-			slides: [],
-			itemsPerSlide: 6,
-			template : 'default'
-		}
-	},
-	
-	componentWillReceiveProps: function(nextProps) {
+
+	componentWillReceiveProps(nextProps) {
 		// console.log('component will receive props', nextProps);
 		// let { items, itemsPerSlide } = this.props;
 		this.setState(nextProps);
 		this.buildCarouselGuts(nextProps);
-	},
-	
-	componentDidMount: function(){
-		let b = new BreakpointService();
-		b.init({
-			onChange : this.handleOnChange
-		});
-	},
-	
-	componentDidUpdate: function(){
+	}
+
+	componentDidUpdate(){
 		// console.log('CarouselController component did update');
-	},
-	
-	doHideModal: function(){
+	}
+
+	doHideModal(){
 		// console.log('doHideModal');
 		this.setState({
 			showModal : false,
 			video : {},
 			image : {}
 		});
-	},
-	
-	// shouldComponentUpdate: function(nextProps, nextState){
+	}
+
+	// shouldComponentUpdate(nextProps, nextState){
 	//
 	// 	let { video } = this.state;
 	//
@@ -183,21 +175,20 @@ let CarouselController = React.createClass({
 	//
 	// },
 	//
-	render: function(){
-		
-		let self = this;
+	render(){
+
 		let { carouselId, slides, currentSlide, template, carouselHeight,
 				showModal, video, image} = this.state;
-		
+
 		let helpers = {
-			handleOnChange : this.handleOnChange,
-			doGetSlideHeight : this.doGetSlideHeight,
-			doSetSlideHeight : this.doSetSlideHeight,
-			doOpenImage : this.doOpenImage,
-			doOpenVideo : this.doOpenVideo
+			handleOnChange : this.handleOnChange.bind(this),
+			doGetSlideHeight : this.doGetSlideHeight.bind(this),
+			doSetSlideHeight : this.doSetSlideHeight.bind(this),
+			doOpenImage : this.doOpenImage.bind(this),
+			doOpenVideo : this.doOpenVideo.bind(this),
 		};
-		
-		
+
+
 		// modal
 		let modalHeader = '';
 		if(typeof video.iFrameSrc !== 'undefined'){
@@ -206,20 +197,20 @@ let CarouselController = React.createClass({
 		if(typeof image.src !== 'undefined'){
 			modalHeader = image.id;
 		}
-		
+
 		return (
-			
+
 			<div>
-				
+
 				<div className={"carousel"}>
-					
+
 					<CarouselPrevNext
-						doPrev={this.doPrev}
-						doNext={this.doNext}
+						doPrev={this.doPrev.bind(this)}
+						doNext={this.doNext.bind(this)}
 						slides={slides}
 						currentSlide={currentSlide}>
 					</CarouselPrevNext>
-					
+
 					<CarouselSlides
 						slides={slides}
 						currentSlide={currentSlide}
@@ -227,34 +218,45 @@ let CarouselController = React.createClass({
 						template={template}
 						carouselHeight={carouselHeight}>
 					</CarouselSlides>
-					
+
 				</div>
-				
-				<ModalController modalId={carouselId + "-" + "modal"} header={modalHeader} show={showModal} close={"Close"} onClose={self.doHideModal}>
-					
+
+				<ModalController
+					modalId={carouselId + "-" + "modal"}
+					header={modalHeader}
+					show={showModal}
+					close={"Close"}
+					onClose={this.doHideModal.bind(this)}>
+
 					{typeof video.iFrameSrc !== 'undefined' &&
 						<div className="embed-responsive embed-responsive-16by9 mb-2">
-							<iframe src={video.iFrameSrc} width={'100%'} height={'100px'} frameBorder={'0'} allow={"encrypted-media"} />
+							<iframe src={video.iFrameSrc}
+									width={'100%'}
+									height={'100px'}
+									frameBorder={'0'}
+									allow={"encrypted-media"} />
 						</div>
 					}
-					
+
 					{typeof image.src !== 'undefined' &&
 						<img src={image.srcLg} />
 					}
-					
+
 					{typeof image.media !== 'undefined' &&
 						<div className={"mt-3"}>
 							{image.media.overview}
 						</div>
 					}
-					
+
 				</ModalController>
-				
+
 			</div>
-			
-			
+
+
 		)
 	}
-});
+}
 
-module.exports = CarouselController;
+CarouselController.defaultProps = {
+	slides: [],
+}

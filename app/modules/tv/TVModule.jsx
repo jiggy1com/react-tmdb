@@ -1,30 +1,25 @@
-let React = require('react');
+import React from 'react';
 
 // TV Listings
-let TVController = require('./TVController');
-let TVList = require('./TVList');
+import {TVController} from "app/modules/tv/TVController";
+import {TVList} from "app/modules/tv/TVList";
 
 // TV Details
-let TVDetailController = require('./TVDetailController');
-let TVDetailHeroComponent = require('./TVDetailHeroComponent');
+import {TVDetailController} from "app/modules/tv/TVDetailController";
+import {TVDetailHeroComponent} from "app/modules/tv/TVDetailHeroComponent";
 
 // TV Seasons
-let TVSeasonController = require('../tvSeason/TVSeasonController');
+import {TVSeasonController} from "app/modules/tvSeason/TVSeasonController";
 
-module.exports = {
-	
+export {
 	// TV Listings
 	TVController,
 	TVList,
-	
-	
+
 	// TV Details
 	TVDetailController,
 	TVDetailHeroComponent,
-	
+
 	// TV Season
 	TVSeasonController
-	
-	
-	
-};
+}

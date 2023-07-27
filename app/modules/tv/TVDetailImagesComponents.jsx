@@ -1,44 +1,53 @@
-let React = require('react');
+import React from 'react';
 
 import { CarouselController } from 'CarouselModule';
 
-let TVDetailImagesComponents = React.createClass({
-	
-	generateCarousel: function(data, dataType){
-		
+export class TVDetailImagesComponents extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			postersSlides: [],
+			backdropsSlides: []
+		}
+	}
+
+
+	generateCarousel(data, dataType){
+
 		let arr = data.map(function(obj, idx){
-			
+
 			let folder = dataType === 'postersSlides' ? 'w185' : 'w300';
 			let folderLg = dataType === 'postersSlides' ? 'w780' : 'w1280';
-			
+
 			let src = 'https://image.tmdb.org/t/p/' + folder + obj.file_path;
 			let srcLg = 'https://image.tmdb.org/t/p/' + folderLg + obj.file_path;
-			
+
 			return {
 				id : obj.file_path,
 				src : src,
 				srcLg : srcLg
 			};
 		});
-		
+
 		let update = {};
-		
+
 		if(dataType === 'backdropsSlides'){
 			update.backdropsSlides =  arr;
 		}
-		
+
 		if(dataType === 'postersSlides'){
 			update.postersSlides = arr;
 		}
-		
+
 		this.setState(update);
-		
-	},
-	
-	renderPosters: function(){
+
+	}
+
+	renderPosters(){
 		let { images } = this.props;
 		let posters = images.posters;
-		
+
 		if(posters.length === 0){
 			return null
 		}else{
@@ -53,13 +62,13 @@ let TVDetailImagesComponents = React.createClass({
 				})
 			)
 		}
-	},
-	
-	renderBackdrops: function(){
-		
+	}
+
+	renderBackdrops(){
+
 		let { images } = this.props;
 		let backdrops = images.backdrops;
-		
+
 		if(backdrops.length === 0){
 			return null
 		}else{
@@ -74,44 +83,37 @@ let TVDetailImagesComponents = React.createClass({
 				})
 			)
 		}
-		
-	},
-	
-	componentWillReceiveProps: function(nextProps){
-		
+
+	}
+
+	componentWillReceiveProps(nextProps){
+
 		if(nextProps.images.posters.length > 0){
 			this.generateCarousel(nextProps.images.posters, 'postersSlides');
-			
+
 		}
-		
+
 		if(nextProps.images.backdrops.length > 0){
 			this.generateCarousel(nextProps.images.backdrops, 'backdropsSlides');
 		}
-		
-	},
-	
-	getInitialState: function(){
-		return {
-			postersSlides: [],
-			backdropsSlides: []
-		}
-	},
-	
-	render: function(){
-		
+
+	}
+
+	render(){
+
 		let { postersSlides, backdropsSlides } = this.state;
-		
+
 		console.log('postersSlides', postersSlides);
-		
+
 		return (
 			<div id={"tv-created-by"}>
-				
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Posters</h2>
 					</div>
 				</div>
-			
+
 				<div className={"row mb-5"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -122,13 +124,13 @@ let TVDetailImagesComponents = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-			
+
 				<div className={"row mb-3"}>
 					<div className={"col-12"}>
 						<h2 className={"card-header"}>Backdrops</h2>
 					</div>
 				</div>
-			
+
 				<div className={"row"}>
 					<div className={"col-12"}>
 						<CarouselController
@@ -139,11 +141,9 @@ let TVDetailImagesComponents = React.createClass({
 						</CarouselController>
 					</div>
 				</div>
-				
+
 			</div>
 		)
 	}
-	
-});
 
-module.exports = TVDetailImagesComponents;
+}
